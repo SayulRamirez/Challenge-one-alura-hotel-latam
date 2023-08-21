@@ -167,7 +167,7 @@ public class Login extends JFrame {
 		txtContrasena.setBounds(65, 353, 324, 32);
 		panel.add(txtContrasena);
 		
-		JLabel LabelUsuario = new JLabel("USUARI");
+		JLabel LabelUsuario = new JLabel("USUARIO");
 		LabelUsuario.setForeground(SystemColor.textInactiveText);
 		LabelUsuario.setFont(new Font("Roboto Black", Font.PLAIN, 20));
 		LabelUsuario.setBounds(65, 219, 107, 26);
