@@ -17,6 +17,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.Cursor;
 
 public class Login extends JFrame {
 
@@ -232,6 +233,24 @@ public class Login extends JFrame {
 		header.setBounds(0, 0, 784, 36);
 		panel.add(header);
 		header.setLayout(null);
+		
+		JPanel panelMenuP = new JPanel();
+		panelMenuP.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		panelMenuP.setBounds(370, 431, 48, 44);
+		panel.add(panelMenuP);
+		panelMenuP.addMouseListener(new MouseAdapter() {
+		
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				MenuPrincipal menuPrincipal = new MenuPrincipal();
+				menuPrincipal.setVisible(true);
+				dispose();
+			}
+		});
+		
+		JLabel lblRegreso = new JLabel("");
+		lblRegreso.setIcon(new ImageIcon(Login.class.getResource("/imagenes/cerrar-sesion 32-px.png")));
+		panelMenuP.add(lblRegreso);
 	}
 	
 	private void Login() {
