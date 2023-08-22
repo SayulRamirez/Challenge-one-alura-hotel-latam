@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.SystemColor;
 import javax.swing.JSeparator;
+import java.awt.Cursor;
 
 @SuppressWarnings("serial")
 public class MenuUsuario extends JFrame {
@@ -149,10 +150,28 @@ public class MenuUsuario extends JFrame {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(26, 219, 201, 2);
 		panelMenu.add(separator);
+		
+		JPanel panelRegresoLogin = new JPanel();
+		panelRegresoLogin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		panelRegresoLogin.setBounds(182, 517, 45, 40);
+		panelMenu.add(panelRegresoLogin);
+		
+		JLabel lblRegresoLogin = new JLabel("");
+		lblRegresoLogin.setIcon(new ImageIcon(MenuUsuario.class.getResource("/imagenes/cerrar-sesion 32-px.png")));
+		panelRegresoLogin.add(lblRegresoLogin);
 		header.setLayout(null);
 		header.setBackground(Color.WHITE);
 		header.setBounds(0, 0, 944, 36);
 		contentPane.add(header);
+		lblRegresoLogin.addMouseListener(new MouseAdapter() {
+		
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Login login = new Login();
+				login.setVisible(true);
+				dispose();
+			}
+		});
 		
 		JPanel btnexit = new JPanel();
 		btnexit.addMouseListener(new MouseAdapter() {
