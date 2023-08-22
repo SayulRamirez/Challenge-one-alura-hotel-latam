@@ -10,6 +10,7 @@ import java.awt.Panel;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -17,6 +18,7 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.awt.Cursor;
 
 @SuppressWarnings("serial")
 public class MenuPrincipal extends JFrame {
@@ -73,7 +75,7 @@ public class MenuPrincipal extends JFrame {
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblCopyR = new JLabel("Desarrollado por Fulanita de Tal © 2023");
+		JLabel lblCopyR = new JLabel("Desarrollado por Saúl Ramírez © 2023");
 		lblCopyR.setBounds(315, 11, 284, 19);
 		lblCopyR.setForeground(new Color(240, 248, 255));
 		lblCopyR.setFont(new Font("Roboto", Font.PLAIN, 16));
@@ -158,6 +160,24 @@ public class MenuPrincipal extends JFrame {
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setForeground(SystemColor.textHighlight);
 		lblTitulo.setFont(new Font("Roboto Light", Font.PLAIN, 20));
+		
+		JPanel btnSalir = new JPanel();
+		btnSalir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSalir.setBounds(836, 444, 55, 50);
+		panel.add(btnSalir);
+		btnSalir.setLayout(null);
+		btnSalir.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				salir();
+			}
+		});
+		
+		JLabel imagenSalir = new JLabel("");
+		imagenSalir.setBounds(5, 5, 45, 40);
+		imagenSalir.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/imagenes/cerrar-sesion 32-px.png")));
+		btnSalir.add(imagenSalir);
 	}
 	
 	//Código que permite movimentar a janela pela tela seguindo a posição de "x" e "y"	
@@ -170,4 +190,13 @@ public class MenuPrincipal extends JFrame {
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
 }
+    
+    //IMPLEMENTACION DEL METODO PARA PREGUNTAR SI DESEAN SALIR DE LA APLICACIÓN
+    private void salir() {
+		int opcion = JOptionPane.showConfirmDialog(this, "¿Realmente deseas salir de la aplicación?", "Salir", JOptionPane.YES_NO_OPTION);
+		
+		if(opcion == JOptionPane.YES_OPTION) {
+			System.exit(0);
+		}
+    }
 }
