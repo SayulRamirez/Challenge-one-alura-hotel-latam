@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.alura.hotel.controller.UsuarioController;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -254,12 +257,14 @@ public class Login extends JFrame {
 	}
 	
 	private void Login() {
-		 String Usuario= "admin";
-	     String Contraseña="admin";
 
+			String usuario = txtUsuario.getText();
 	        String contrase=new String (txtContrasena.getPassword());
-
-	        if(txtUsuario.getText().equals(Usuario) && contrase.equals(Contraseña)){
+	        
+	        UsuarioController usuarioController = new UsuarioController();
+	        
+	        if(usuarioController.autenticar(usuario, contrase)){
+	        	
 	            MenuUsuario menu = new MenuUsuario();
 	            menu.setVisible(true);
 	            dispose();	 
