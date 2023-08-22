@@ -196,7 +196,7 @@ public class Login extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Login();
+				entrarLogin();
 			}
 		});
 		btnLogin.setBackground(SystemColor.textHighlight);
@@ -256,10 +256,10 @@ public class Login extends JFrame {
 		panelMenuP.add(lblRegreso);
 	}
 	
-	private void Login() {
+	private void entrarLogin() {
 
 			String usuario = txtUsuario.getText();
-	        String contrase=new String (txtContrasena.getPassword());
+	        String contrase = new String (txtContrasena.getPassword());
 	        
 	        UsuarioController usuarioController = new UsuarioController();
 	        
@@ -268,6 +268,7 @@ public class Login extends JFrame {
 	            MenuUsuario menu = new MenuUsuario();
 	            menu.setVisible(true);
 	            dispose();	 
+	            
 	        }else {
 	            JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos");
 	        }
