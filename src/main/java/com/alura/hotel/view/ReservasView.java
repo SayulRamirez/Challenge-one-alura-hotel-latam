@@ -12,15 +12,18 @@ import java.awt.Color;
 import javax.swing.JTextField;
 
 import com.alura.hotel.controller.ReservacionController;
-import com.alura.hotel.dao.ReservaDao;
 import com.alura.hotel.modelo.Reservacion;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+
+import java.text.DateFormat;
 import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.SimpleFormatter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -285,7 +288,7 @@ public class ReservasView extends JFrame {
                     if(primeraFecha.before(segundaFecha)) {
                     	BigDecimal valorFinal = calcularCantidad(primeraFecha, segundaFecha);
                     	
-                    	txtValor.setText( "$ " + valorFinal);                    	
+                    	txtValor.setText(valorFinal.toString());                    	
                     } else {
                     	txtValor.setText("");
                     }
@@ -327,9 +330,14 @@ public class ReservasView extends JFrame {
 				obtenerDato();
 				
 				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {	
+					
+					ReservacionController reservaController = new ReservacionController();
+					
+					reservaController.registrarReservacion(reservacion);
 
 					RegistroHuesped registro = new RegistroHuesped();
 					registro.setVisible(true);
+					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
 				}
@@ -351,8 +359,7 @@ public class ReservasView extends JFrame {
 
 
 	}
-		
-	//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"	
+			//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"	
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
 	        xMouse = evt.getX();
 	        yMouse = evt.getY();
@@ -365,9 +372,14 @@ public class ReservasView extends JFrame {
 }
 
 	    private void obtenerDato() {
+	    	SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+	    	
+	    	String fFechaEntrada = formato.format(txtFechaEntrada.getDate());
+	    	String fFechaSalida = formato.format(txtFechaSalida.getDate());
+	    	
 			reservacion = new Reservacion(
-										txtFechaEntrada.getDateFormatString(),
-										txtFechaSalida.getDateFormatString(), 
+										fFechaEntrada,
+										fFechaSalida, 
 										txtValor.getText(), 
 										txtFormaPago.getSelectedItem().toString());
 	    }
