@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.alura.hotel.controller.UsuarioController;
+import com.alura.hotel.modelo.Usuario;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -33,6 +34,8 @@ public class Login extends JFrame {
 	private JPasswordField txtContrasena;
 	int xMouse, yMouse;
 	private JLabel labelExit;
+	
+	private Usuario usuario;
 
 	/**
 	 * Launch the application.
@@ -257,13 +260,15 @@ public class Login extends JFrame {
 	}
 	
 	private void entrarLogin() {
-
-			String usuario = txtUsuario.getText();
-	        String contrase = new String (txtContrasena.getPassword());
+//			String usuario = txtUsuario.getText();
+//	        String contrase = new String (txtContrasena.getPassword());
+	        
+	        usuario = new Usuario(txtUsuario.getText(),
+	        					new String (txtContrasena.getPassword()));
 	        
 	        UsuarioController usuarioController = new UsuarioController();
 	        
-	        if(usuarioController.autenticar(usuario, contrase)){
+	        if(usuarioController.autenticar(usuario)){
 	        	
 	            MenuUsuario menu = new MenuUsuario();
 	            menu.setVisible(true);
@@ -271,8 +276,8 @@ public class Login extends JFrame {
 	            
 	        }else {
 	            JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos");
-	        }
-	} 
+	            }
+	        } 
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
 	        xMouse = evt.getX();
 	        yMouse = evt.getY();
@@ -282,6 +287,12 @@ public class Login extends JFrame {
 	        int x = evt.getXOnScreen();
 	        int y = evt.getYOnScreen();
 	        this.setLocation(x - xMouse, y - yMouse);
-}
+
+	    }
+	    
+	    public Object getUsuario() {
+	    	return usuario;
+	    }
+
 }
 

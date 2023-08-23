@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.alura.hotel.modelo.Usuario;
+
 public class UsuarioDao {
 	
 	final private Connection con;
@@ -13,7 +15,7 @@ public class UsuarioDao {
 		this.con = con;
 	}
 	
-	public boolean autenticar(String usuario, String contrasena) {
+	public boolean autenticar(Usuario usuario) {
 		
 		try(con){
 			
@@ -21,12 +23,20 @@ public class UsuarioDao {
 			
 			try(statement){
 				
-				statement.setString(1, usuario);
-				statement.setString(2, contrasena);
+				statement.setString(1, usuario.getUsuario());
+				statement.setString(2, usuario.getPass());
 				
-				ResultSet resultset = statement.executeQuery();
-				
-				return resultset.next();
+				try(ResultSet resultset = statement.executeQuery();){
+					
+					if(resultset.next()) {
+						
+						usuario.setId(resultset.getInt("id"));
+						System.out.println(usuario.getId());
+						return true;
+					} else {
+						return false;
+					}
+				}
 			}
 			
 		} catch (SQLException e) {
