@@ -8,12 +8,12 @@ public class Reservacion {
 	
 	private String fechaEgreso;
 	
-	private double costo;
+	private String costo;
 	
 	private String formaPago;
 	
 	
-	public Reservacion(String fechaIngreso, String fechaEgreso, double costo, String formaPago ) {
+	public Reservacion(String fechaIngreso, String fechaEgreso, String costo, String formaPago ) {
 		
 		this.fechaIngreso = fechaIngreso;
 		this.fechaEgreso = fechaEgreso;
@@ -32,7 +32,7 @@ public class Reservacion {
 	}
 
 
-	public double getCosto() {
+	public String getCosto() {
 		return costo;
 	}
 

@@ -35,7 +35,7 @@ public class Login extends JFrame {
 	int xMouse, yMouse;
 	private JLabel labelExit;
 	
-	private Usuario usuario;
+	private static Usuario usuario;
 
 	/**
 	 * Launch the application.
@@ -56,6 +56,7 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public Login() {
 		setResizable(false);
 		setUndecorated(true);
@@ -260,8 +261,6 @@ public class Login extends JFrame {
 	}
 	
 	private void entrarLogin() {
-//			String usuario = txtUsuario.getText();
-//	        String contrase = new String (txtContrasena.getPassword());
 	        
 	        usuario = new Usuario(txtUsuario.getText(),
 	        					new String (txtContrasena.getPassword()));
@@ -290,7 +289,7 @@ public class Login extends JFrame {
 
 	    }
 	    
-	    public Object getUsuario() {
+	    public Object  getUsuario() {
 	    	return usuario;
 	    }
 

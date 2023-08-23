@@ -19,11 +19,14 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.text.Format;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Toolkit;
 import java.beans.PropertyChangeListener;
+import java.math.BigDecimal;
 import java.beans.PropertyChangeEvent;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
@@ -42,6 +45,9 @@ public class ReservasView extends JFrame {
 	int xMouse, yMouse;
 	private JLabel labelExit;
 	private JLabel labelAtras;
+	
+	private Reservacion reservacion;
+	private double valor = 300;
 	
 	/**
 	 * Launch the application.
@@ -78,7 +84,6 @@ public class ReservasView extends JFrame {
 		setUndecorated(true);
 		
 
-		
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
 		panel.setBackground(Color.WHITE);
@@ -271,6 +276,20 @@ public class ReservasView extends JFrame {
 		txtFechaSalida.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				//Activa el evento, después del usuario seleccionar las fechas se debe calcular el valor de la reserva
+				if (txtFechaEntrada.getDate() != null && txtFechaSalida.getDate() != null){
+                    java.util.Date primeraFecha = txtFechaEntrada.getDate();
+                    java.util.Date segundaFecha = txtFechaSalida.getDate();
+                    
+                    System.out.println(primeraFecha);
+                    
+                    if(primeraFecha.before(segundaFecha)) {
+                    	BigDecimal valorFinal = calcularCantidad(primeraFecha, segundaFecha);
+                    	
+                    	txtValor.setText( "$ " + valorFinal);                    	
+                    } else {
+                    	txtValor.setText("");
+                    }
+                }
 			}
 		});
 		txtFechaSalida.setDateFormatString("yyyy-MM-dd");
@@ -290,7 +309,7 @@ public class ReservasView extends JFrame {
 		txtValor.setColumns(10);
 
 
-		txtFormaPago = new JComboBox();
+		txtFormaPago = new JComboBox<>();
 		txtFormaPago.setBounds(68, 417, 289, 38);
 		txtFormaPago.setBackground(SystemColor.text);
 		txtFormaPago.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
@@ -298,25 +317,17 @@ public class ReservasView extends JFrame {
 		txtFormaPago.setModel(new DefaultComboBoxModel(new String[] {"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
 		panel.add(txtFormaPago);
 
+		
 		JPanel btnsiguiente = new JPanel();
 		btnsiguiente.addMouseListener(new MouseAdapter() {
 			
-			Reservacion reserva = new Reservacion(
-											txtFechaEntrada.getDateFormatString(),
-											txtFechaSalida.getDateFormatString(), 
-											Double.parseDouble(txtValor.getText()), 
-											txtFormaPago.getSelectedItem().toString());
-			
-			
-			
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				obtenerDato();
+				
 				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {	
-					
-					ReservacionController reservacontroller = new ReservacionController();
-					
-					reservacontroller.registrarReserva(reserva);
-					
+
 					RegistroHuesped registro = new RegistroHuesped();
 					registro.setVisible(true);
 				} else {
@@ -353,5 +364,22 @@ public class ReservasView extends JFrame {
 	        this.setLocation(x - xMouse, y - yMouse);
 }
 
+	    private void obtenerDato() {
+			reservacion = new Reservacion(
+										txtFechaEntrada.getDateFormatString(),
+										txtFechaSalida.getDateFormatString(), 
+										txtValor.getText(), 
+										txtFormaPago.getSelectedItem().toString());
+	    }
+	    
+	    private BigDecimal calcularCantidad(Date primera, Date segunda) {
+	    	long resultado = segunda.getTime() - primera.getTime();
+	        System.out.println(valor);
+	        TimeUnit time = TimeUnit.DAYS;
+
+	        long resto = time.convert(resultado, TimeUnit.MILLISECONDS);
+
+	        return new BigDecimal (resto * valor);
+	    }
 }
 
