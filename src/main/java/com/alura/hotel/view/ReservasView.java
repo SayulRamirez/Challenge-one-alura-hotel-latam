@@ -10,6 +10,10 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JTextField;
+
+import com.alura.hotel.controller.ReservacionController;
+import com.alura.hotel.dao.ReservaDao;
+import com.alura.hotel.modelo.Reservacion;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Font;
 import javax.swing.JComboBox;
@@ -38,7 +42,7 @@ public class ReservasView extends JFrame {
 	int xMouse, yMouse;
 	private JLabel labelExit;
 	private JLabel labelAtras;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -296,9 +300,23 @@ public class ReservasView extends JFrame {
 
 		JPanel btnsiguiente = new JPanel();
 		btnsiguiente.addMouseListener(new MouseAdapter() {
+			
+			Reservacion reserva = new Reservacion(
+											txtFechaEntrada.getDateFormatString(),
+											txtFechaSalida.getDateFormatString(), 
+											Double.parseDouble(txtValor.getText()), 
+											txtFormaPago.getSelectedItem().toString());
+			
+			
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {		
+				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {	
+					
+					ReservacionController reservacontroller = new ReservacionController();
+					
+					reservacontroller.registrarReserva(reserva);
+					
 					RegistroHuesped registro = new RegistroHuesped();
 					registro.setVisible(true);
 				} else {
@@ -334,5 +352,6 @@ public class ReservasView extends JFrame {
 	        int y = evt.getYOnScreen();
 	        this.setLocation(x - xMouse, y - yMouse);
 }
+
 }
 
