@@ -29,19 +29,15 @@ public class UsuarioDao {
 				try(ResultSet resultset = statement.executeQuery();){
 					
 					if(resultset.next()) {
-						
 						usuario.setId(resultset.getInt("id"));
-						System.out.println(usuario.getId());
 						return true;
 					} else {
 						return false;
 					}
 				}
 			}
-			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
- 
 }
