@@ -19,6 +19,16 @@ public class Huesped {
 		this.tel = tel;
 	}
 	
+	public Huesped(int id, String nombre, String apellido, String nacimiento, String nacion, String tel) {
+		
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.nacimiento = nacimiento;
+		this.nacion = nacion;
+		this.tel = tel;
+	}
+
 	public int getId() {
 		return this.id;
 	}

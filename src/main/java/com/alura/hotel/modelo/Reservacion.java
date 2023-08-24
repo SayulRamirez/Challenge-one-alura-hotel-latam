@@ -17,6 +17,17 @@ public class Reservacion {
 		this.costo = costo;
 		this.formaPago = formaPago;
 	}
+	
+	public Reservacion(int id, String fechaIngreso, String fechaEgreso, String costo, String formaPago, int id_huesped ) {
+		
+		this.id = id;
+		this.fechaIngreso = fechaIngreso;
+		this.fechaEgreso = fechaEgreso;
+		this.costo = costo;
+		this.formaPago = formaPago;
+		this.idHuesped = id_huesped;
+	}
+	
 
 	public int getId() {
 		return id;

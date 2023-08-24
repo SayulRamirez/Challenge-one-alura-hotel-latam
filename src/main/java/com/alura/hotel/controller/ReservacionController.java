@@ -1,5 +1,7 @@
 package com.alura.hotel.controller;
 
+import java.util.List;
+
 import com.alura.hotel.dao.ReservacionDao;
 import com.alura.hotel.factory.ConnectionFactory;
 import com.alura.hotel.modelo.Reservacion;
@@ -21,6 +23,10 @@ public class ReservacionController {
 	public void setIdHuesped(Reservacion reservacion, int idHuesped) {
 
 		reservacionDao.setIdHuesped(reservacion, idHuesped);
+	}
+
+	public List<Reservacion> cargarDatos(int parametro) {
+		return reservacionDao.cargarDatos(parametro);
 	}
 
 }

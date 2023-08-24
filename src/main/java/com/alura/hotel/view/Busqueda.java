@@ -6,6 +6,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import com.alura.hotel.controller.HuespedController;
+import com.alura.hotel.controller.ReservacionController;
+import com.alura.hotel.modelo.Huesped;
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -13,6 +18,8 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -101,6 +108,7 @@ public class Busqueda extends JFrame {
 		modelo.addColumn("Fecha Check Out");
 		modelo.addColumn("Valor");
 		modelo.addColumn("Forma de Pago");
+		modelo.addColumn("Número de huesped");
 		JScrollPane scroll_table = new JScrollPane(tbReservas);
 		panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), scroll_table, null);
 		scroll_table.setVisible(true);
@@ -116,7 +124,6 @@ public class Busqueda extends JFrame {
 		modeloHuesped.addColumn("Fecha de Nacimiento");
 		modeloHuesped.addColumn("Nacionalidad");
 		modeloHuesped.addColumn("Telefono");
-		modeloHuesped.addColumn("Número de Reserva");
 		JScrollPane scroll_tableHuespedes = new JScrollPane(tbHuespedes);
 		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")), scroll_tableHuespedes, null);
 		scroll_tableHuespedes.setVisible(true);
@@ -217,6 +224,40 @@ public class Busqueda extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
+				String parametro = txtBuscar.getText();
+				
+				if(!isInt(parametro) && !parametro.isBlank()) {
+						
+						HuespedController huespedC = new HuespedController();
+						var listaHuesped = huespedC.cargarDatos(parametro);
+						
+						listaHuesped.forEach(huesped -> modeloHuesped.addRow(
+								
+								new Object[] {
+										huesped.getId(),
+										huesped.getNombre(),
+										huesped.getApellido(),
+										huesped.getNacimiento(),
+										huesped.getNacion(),
+										huesped.getTel()
+								}));
+						} else {
+							int parametro2 = Integer.parseInt(parametro);
+							
+							ReservacionController reservaC = new ReservacionController();
+							var listaReservas = reservaC.cargarDatos(parametro2);
+							
+							listaReservas.forEach(reserva -> modelo.addRow(
+									
+									new Object[] {
+											reserva.getId(),
+											reserva.getFechaIngreso(),
+											reserva.getFechaEgreso(),
+											reserva.getCosto(),
+											reserva.getFormaPago(),
+											reserva.getidHuesped()
+									}));
+						}
 			}
 		});
 		btnbuscar.setLayout(null);
@@ -273,5 +314,15 @@ public class Busqueda extends JFrame {
 	        int y = evt.getYOnScreen();
 	        this.setLocation(x - xMouse, y - yMouse);
 }
+	    
+	    public boolean isInt(String s) {
+	    	
+	    	try {
+	    		int n = Integer.parseInt(s);
+	    		return true;
+	    	} catch (Exception e) {
+	    		return false;
+	    	}
+	    }
 }
 
