@@ -35,7 +35,7 @@ public class Login extends JFrame {
 	int xMouse, yMouse;
 	private JLabel labelExit;
 	
-	private static Usuario usuario;
+	public static Usuario usuario;
 
 	/**
 	 * Launch the application.
@@ -268,6 +268,11 @@ public class Login extends JFrame {
 	        UsuarioController usuarioController = new UsuarioController();
 	        
 	        if(usuarioController.autenticar(usuario)){
+	        	
+	        	System.out.println("LOGIN");
+	        	System.out.println(usuario.getId());
+	        	System.out.println(usuario.getUsuario());
+	        	System.out.println(usuario.getPass());
 	        	
 	            MenuUsuario menu = new MenuUsuario();
 	            menu.setVisible(true);
