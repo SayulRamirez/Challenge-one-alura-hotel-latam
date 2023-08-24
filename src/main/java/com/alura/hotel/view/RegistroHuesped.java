@@ -6,6 +6,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import java.awt.Color;
+
+import com.alura.hotel.controller.HuespedController;
+import com.alura.hotel.controller.ReservacionController;
+import com.alura.hotel.controller.UsuarioController;
+import com.alura.hotel.modelo.Huesped;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -20,6 +25,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
@@ -38,6 +44,8 @@ public class RegistroHuesped extends JFrame {
 	private JLabel labelExit;
 	private JLabel labelAtras;
 	int xMouse, yMouse;
+	
+	private Huesped huesped;
 
 	/**
 	 * Launch the application.
@@ -147,7 +155,7 @@ public class RegistroHuesped extends JFrame {
 		txtFechaN.setDateFormatString("yyyy-MM-dd");
 		contentPane.add(txtFechaN);
 		
-		txtNacionalidad = new JComboBox();
+		txtNacionalidad = new JComboBox<>();
 		txtNacionalidad.setBounds(560, 350, 289, 36);
 		txtNacionalidad.setBackground(SystemColor.text);
 		txtNacionalidad.setFont(new Font("Roboto", Font.PLAIN, 16));
@@ -204,12 +212,13 @@ public class RegistroHuesped extends JFrame {
 		lblNumeroReserva.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 		contentPane.add(lblNumeroReserva);
 		
-		txtNreserva = new JTextField();
+		txtNreserva = new JTextField(ReservasView.reservacion.getId());
 		txtNreserva.setFont(new Font("Roboto", Font.PLAIN, 16));
 		txtNreserva.setBounds(560, 495, 285, 33);
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtNreserva.setText(String.valueOf(ReservasView.reservacion.getId()));
 		contentPane.add(txtNreserva);
 		
 		JSeparator separator_1_2 = new JSeparator();
@@ -253,6 +262,53 @@ public class RegistroHuesped extends JFrame {
 		btnguardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+				
+				String nombre = txtNombre.getText();
+				String apellido = txtApellido.getText();
+				String nacimiento = formato.format(txtFechaN.getDate());
+				String tel = txtTelefono.getText();
+				
+				if(validarCampos(nombre, apellido, nacimiento, tel)) {
+					JOptionPane.showMessageDialog(null,  "Favor de llenar todos los campos");
+				} else {
+					
+					huesped = new Huesped(nombre,
+							apellido,
+							nacimiento,
+							txtNacionalidad.getSelectedItem().toString(),
+							tel
+							);
+					
+					HuespedController huespedController = new HuespedController();
+					huespedController.registrarHuesped(huesped);
+					
+					System.out.println("REGISTRO");
+					System.out.println(huesped.getId());
+					System.out.println(huesped.getNombre());
+					System.out.println(huesped.getApellido());
+					System.out.println(huesped.getNacimiento());
+					System.out.println(huesped.getNacion());
+					System.out.println(huesped.getTel());
+					
+					HuespedController u = new HuespedController();
+					u.setIdUsuario(huesped, Login.usuario.getId());
+					
+					ReservacionController r = new ReservacionController();
+					r.setIdHuesped(ReservasView.reservacion, huesped.getId());
+					
+					System.out.println("HUESPED");
+					System.out.println(huesped.getIdHuesped());
+					System.out.println(huesped.getNombre());
+					
+					System.out.println("RESERVACION");
+					System.out.println(ReservasView.reservacion.getidHuesped());
+					System.out.println(ReservasView.reservacion.getCosto());
+					
+					Exito exito = new Exito();
+					exito.setVisible(true);
+				}
 			}
 		});
 		btnguardar.setLayout(null);
@@ -327,5 +383,15 @@ public class RegistroHuesped extends JFrame {
 	        int y = evt.getYOnScreen();
 	        this.setLocation(x - xMouse, y - yMouse);
 }
+	    public boolean validarCampos(String nombre, String apellido, String fecha, String tel) {
+	    	if(nombre.isBlank() || apellido.isBlank() || fecha.isBlank() || tel.isBlank()) {
+	    		
+	    		return true;
+	    		
+	    	} else {
+	    		
+	    		return false;
+	    	}
+	    }
 											
 }

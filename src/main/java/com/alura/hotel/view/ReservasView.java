@@ -49,7 +49,7 @@ public class ReservasView extends JFrame {
 	private JLabel labelExit;
 	private JLabel labelAtras;
 	
-	private Reservacion reservacion;
+	public static Reservacion reservacion;
 	private double valor = 300;
 	
 	/**
@@ -317,7 +317,7 @@ public class ReservasView extends JFrame {
 		txtFormaPago.setBackground(SystemColor.text);
 		txtFormaPago.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
 		txtFormaPago.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtFormaPago.setModel(new DefaultComboBoxModel(new String[] {"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
+		txtFormaPago.setModel(new DefaultComboBoxModel<>(new String[] {"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
 		panel.add(txtFormaPago);
 
 		
@@ -334,6 +334,13 @@ public class ReservasView extends JFrame {
 					ReservacionController reservaController = new ReservacionController();
 					
 					reservaController.registrarReservacion(reservacion);
+					
+					System.out.println("RESERVASVIEW");
+					System.out.println(reservacion.getId());
+					System.out.println(reservacion.getFechaIngreso());
+					System.out.println(reservacion.getFechaEgreso());
+					System.out.println(reservacion.getCosto());
+					System.out.println(reservacion.getFormaPago());
 
 					RegistroHuesped registro = new RegistroHuesped();
 					registro.setVisible(true);

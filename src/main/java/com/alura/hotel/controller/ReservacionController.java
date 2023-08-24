@@ -18,4 +18,9 @@ public class ReservacionController {
 		reservacionDao.registrarReservacion(reserva);
 	}
 
+	public void setIdHuesped(Reservacion reservacion, int idHuesped) {
+
+		reservacionDao.setIdHuesped(reservacion, idHuesped);
+	}
+
 }
