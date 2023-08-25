@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.alura.hotel.modelo.Reservacion;
 
@@ -99,6 +101,45 @@ public class ReservacionDao {
 				
 				return resultado;
 			}
+			
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+public List<Reservacion> cargarDatos(List<Integer> ids) {
+		
+		List<Reservacion> resultado = new ArrayList<>();
+		
+		try(con){
+			
+			String inClause = String.join(",", Collections.nCopies(ids.size(), "?"));
+
+			PreparedStatement statement = con.prepareStatement("SELECT * FROM reservaciones WHERE id_huesped IN (" + inClause + ")");
+
+			for (int i = 0; i < ids.size(); i++) {
+			    statement.setInt(i + 1, ids.get(i));
+			}
+			
+			try(statement){
+				
+				ResultSet rs = statement.executeQuery();;
+				
+				while(rs.next()) {
+					
+					System.out.println(rs.getInt("id_huesped"));
+					
+					Reservacion reservacion = new Reservacion(rs.getInt("id"), 
+															  rs.getString("fecha_ingreso"), 
+															  rs.getString("fecha_egreso"), 
+															  rs.getString("valor"), 
+															  rs.getString("forma_pago"), 
+															  rs.getInt("id_huesped"));
+					
+					resultado.add(reservacion);
+				}
+			}
+				return resultado;
 			
 		} catch(SQLException e) {
 			throw new RuntimeException(e);

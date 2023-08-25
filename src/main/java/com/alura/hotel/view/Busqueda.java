@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import com.alura.hotel.controller.HuespedController;
 import com.alura.hotel.controller.ReservacionController;
 import com.alura.hotel.modelo.Huesped;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
@@ -45,6 +47,8 @@ public class Busqueda extends JFrame {
 	private JLabel labelAtras;
 	private JLabel labelExit;
 	int xMouse, yMouse;
+	
+	private List<Integer> ids;
 
 	/**
 	 * Launch the application.
@@ -228,38 +232,20 @@ public class Busqueda extends JFrame {
 				
 				if(!isInt(parametro) && !parametro.isBlank()) {
 						
-						HuespedController huespedC = new HuespedController();
-						var listaHuesped = huespedC.cargarDatos(parametro);
-						
-						listaHuesped.forEach(huesped -> modeloHuesped.addRow(
-								
-								new Object[] {
-										huesped.getId(),
-										huesped.getNombre(),
-										huesped.getApellido(),
-										huesped.getNacimiento(),
-										huesped.getNacion(),
-										huesped.getTel()
-								}));
-						} else {
-							int parametro2 = Integer.parseInt(parametro);
-							
-							ReservacionController reservaC = new ReservacionController();
-							var listaReservas = reservaC.cargarDatos(parametro2);
-							
-							listaReservas.forEach(reserva -> modelo.addRow(
-									
-									new Object[] {
-											reserva.getId(),
-											reserva.getFechaIngreso(),
-											reserva.getFechaEgreso(),
-											reserva.getCosto(),
-											reserva.getFormaPago(),
-											reserva.getidHuesped()
-									}));
-						}
+					limpiar();
+					cargarHuespedes(parametro);
+					
+					
+					cargarReservas(ids);
+					
+				} else {
+					limpiar();
+					cargarReservas(parametro);
+					//cargarHuespedes(ids);
+				}
 			}
 		});
+		
 		btnbuscar.setLayout(null);
 		btnbuscar.setBackground(new Color(12, 138, 199));
 		btnbuscar.setBounds(748, 125, 122, 35);
@@ -324,5 +310,71 @@ public class Busqueda extends JFrame {
 	    		return false;
 	    	}
 	    }
+	    
+	    public void limpiar() {
+	    	modelo.getDataVector().clear();
+	    	modeloHuesped.getDataVector().clear();
+	    }
+	    
+		private void cargarReservas(String parametro) {
+			int parametro2 = Integer.parseInt(parametro);
+			
+			 ReservacionController reservaC = new ReservacionController();
+			
+			var listaReservas = reservaC.cargarDatos(parametro2);
+			
+			ids = new ArrayList<>();
+			listaReservas.forEach(reserva -> ids.add(reserva.getidHuesped()));
+			
+			listaReservas.forEach(reserva -> modelo.addRow(
+					
+					new Object[] {
+							reserva.getId(),
+							reserva.getFechaIngreso(),
+							reserva.getFechaEgreso(),
+							reserva.getCosto(),
+							reserva.getFormaPago(),
+							reserva.getidHuesped()
+					}));
+		}
+		
+		private void cargarReservas(List<Integer> ids) {
+			
+			ReservacionController reservaC = new ReservacionController();
+			
+			
+			var listaReservas = reservaC.cargarDatos(ids);
+			
+			listaReservas.forEach(reserva -> modelo.addRow(
+					
+					new Object[] {
+							reserva.getId(),
+							reserva.getFechaIngreso(),
+							reserva.getFechaEgreso(),
+							reserva.getCosto(),
+							reserva.getFormaPago(),
+							reserva.getidHuesped()
+					}));
+		}
+
+		private void cargarHuespedes(String parametro) {
+			
+			HuespedController huespedC = new HuespedController();
+			ids = new ArrayList<>();
+			var listaHuesped = huespedC.cargarDatos(parametro);
+			
+			listaHuesped.forEach(huesped -> ids.add(huesped.getId()));
+			
+			listaHuesped.forEach(huesped -> modeloHuesped.addRow(
+					
+					new Object[] {
+							huesped.getId(),
+							huesped.getNombre(),
+							huesped.getApellido(),
+							huesped.getNacimiento(),
+							huesped.getNacion(),
+							huesped.getTel()
+					}));
+		}
 }
 

@@ -28,5 +28,9 @@ public class ReservacionController {
 	public List<Reservacion> cargarDatos(int parametro) {
 		return reservacionDao.cargarDatos(parametro);
 	}
+	
+	public List<Reservacion> cargarDatos(List<Integer> ids) {
+		return reservacionDao.cargarDatos(ids);
+	}
 
 }
