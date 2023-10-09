@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alura.hotel.modelo.Huesped;
+import com.alura.hotel.modelo.Reservacion;
 
 public class HuespedDao {
 	
@@ -105,6 +106,39 @@ public class HuespedDao {
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public Huesped cargarDatos(int idHuesped) {
+		
+		Huesped huesped= null;
+		
+		try(con){
+			
+			PreparedStatement statement = con.prepareStatement("SELECT * FROM huespedes WHERE id = ?");
+			
+			statement.setInt(1, idHuesped);
+			
+			try(statement){
+				
+				ResultSet rs = statement.executeQuery();
+				
+				while(rs.next()) {
+					
+					huesped = new Huesped(rs.getInt("id"),
+							  rs.getString("nombre"), 
+							  rs.getString("apellido"), 
+							  rs.getString("fecha_nacimiento"), 
+							  rs.getString("nacionalidad"), 
+							  rs.getString("telefono"));
+				}
+				
+				return huesped;
+			}
+			
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
 	}
 }
 

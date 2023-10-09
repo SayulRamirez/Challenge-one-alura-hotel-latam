@@ -27,4 +27,8 @@ public class HuespedController {
 		return huespedDao.cargarDatos(parametro);
 	}
 
+	public Huesped cargarDatos(int idHuesped) {
+		return huespedDao.cargarDatos(idHuesped);
+	}
+
 }

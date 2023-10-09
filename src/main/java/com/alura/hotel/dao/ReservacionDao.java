@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.alura.hotel.modelo.Reservacion;
 
@@ -71,9 +70,9 @@ public class ReservacionDao {
 		}
 	}
 
-	public List<Reservacion> cargarDatos(int parametro) {
+	public Reservacion cargarDatos(int parametro) {
 		
-		List<Reservacion> resultado = new ArrayList<>();
+		Reservacion reservacion = null;
 		
 		try(con){
 			
@@ -83,23 +82,19 @@ public class ReservacionDao {
 			
 			try(statement){
 				
-				statement.execute();
-				
-				ResultSet rs = statement.getResultSet();
+				ResultSet rs= statement.executeQuery();
 				
 				while(rs.next()) {
 					
-					Reservacion reservacion = new Reservacion(rs.getInt("id"), 
+					reservacion = new Reservacion(rs.getInt("id"), 
 															  rs.getString("fecha_ingreso"), 
 															  rs.getString("fecha_egreso"), 
 															  rs.getString("valor"), 
 															  rs.getString("forma_pago"), 
 															  rs.getInt("id_huesped"));
-					
-					resultado.add(reservacion);
 				}
 				
-				return resultado;
+				return reservacion;
 			}
 			
 		} catch(SQLException e) {

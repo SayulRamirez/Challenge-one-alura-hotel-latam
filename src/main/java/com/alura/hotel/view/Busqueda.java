@@ -49,6 +49,7 @@ public class Busqueda extends JFrame {
 	int xMouse, yMouse;
 	
 	private List<Integer> ids;
+	private int idHuesped;
 
 	/**
 	 * Launch the application.
@@ -233,16 +234,19 @@ public class Busqueda extends JFrame {
 				if(!isInt(parametro) && !parametro.isBlank()) {
 						
 					limpiar();
+					
 					cargarHuespedes(parametro);
-					
-					
 					cargarReservas(ids);
+				} 
+
+				if(isInt(parametro)) {
 					
-				} else {
 					limpiar();
-					cargarReservas(parametro);
-					//cargarHuespedes(ids);
+					
+					cargarReserva(parametro);
+					cargarHuesped(idHuesped);
 				}
+				
 			}
 		});
 		
@@ -265,6 +269,15 @@ public class Busqueda extends JFrame {
 		btnEditar.setBounds(635, 508, 122, 35);
 		btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		contentPane.add(btnEditar);
+		btnEditar.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				
+				
+			}
+		});
 		
 		JLabel lblEditar = new JLabel("EDITAR");
 		lblEditar.setHorizontalAlignment(SwingConstants.CENTER);
@@ -316,26 +329,40 @@ public class Busqueda extends JFrame {
 	    	modeloHuesped.getDataVector().clear();
 	    }
 	    
-		private void cargarReservas(String parametro) {
+		private void cargarReserva(String parametro) {
 			int parametro2 = Integer.parseInt(parametro);
 			
-			 ReservacionController reservaC = new ReservacionController();
+			ReservacionController reservaC = new ReservacionController();
 			
-			var listaReservas = reservaC.cargarDatos(parametro2);
+			var reserva = reservaC.cargarDatos(parametro2);
 			
-			ids = new ArrayList<>();
-			listaReservas.forEach(reserva -> ids.add(reserva.getidHuesped()));
+			idHuesped = reserva.getidHuesped();
 			
-			listaReservas.forEach(reserva -> modelo.addRow(
-					
-					new Object[] {
+			modelo.addRow(new Object[] {
 							reserva.getId(),
 							reserva.getFechaIngreso(),
 							reserva.getFechaEgreso(),
 							reserva.getCosto(),
 							reserva.getFormaPago(),
 							reserva.getidHuesped()
-					}));
+			});
+		}
+		
+		private void cargarHuesped(int idHuesped) {
+			
+			HuespedController huespedC = new HuespedController();
+			
+			var huesped = huespedC.cargarDatos(idHuesped);
+			
+			modeloHuesped.addRow(new Object[] {
+									huesped.getId(),
+									huesped.getNombre(),
+									huesped.getApellido(),
+									huesped.getNacimiento(),
+									huesped.getNacion(),
+									huesped.getTel()
+					});
+			
 		}
 		
 		private void cargarReservas(List<Integer> ids) {

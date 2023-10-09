@@ -25,7 +25,7 @@ public class ReservacionController {
 		reservacionDao.setIdHuesped(reservacion, idHuesped);
 	}
 
-	public List<Reservacion> cargarDatos(int parametro) {
+	public Reservacion cargarDatos(int parametro) {
 		return reservacionDao.cargarDatos(parametro);
 	}
 	
