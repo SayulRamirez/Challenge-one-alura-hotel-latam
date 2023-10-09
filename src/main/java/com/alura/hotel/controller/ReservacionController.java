@@ -38,4 +38,8 @@ public class ReservacionController {
 		return reservacionDao.modificar(reservacion);
 	}
 
+	public int eliminar(Integer idReserva) {
+		return reservacionDao.eliminar(idReserva);
+	}
+
 }

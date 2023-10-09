@@ -168,6 +168,27 @@ public class HuespedDao {
 		}
 		
 	}
+
+	public int eliminar(Integer idHuespedEliminar) {
+		try(con){
+			
+			final PreparedStatement statement = con.prepareStatement("DELETE FROM huespedes WHERE id = ?");
+			
+			try(statement){
+				
+				statement.setInt(1, idHuespedEliminar);
+				
+				statement.execute();
+				
+				int updateCount = statement.getUpdateCount();
+				
+				return updateCount;
+			}
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
 
 

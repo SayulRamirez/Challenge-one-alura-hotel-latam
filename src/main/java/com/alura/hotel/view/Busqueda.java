@@ -285,13 +285,7 @@ public class Busqueda extends JFrame {
 		        if (title.equals("Huéspedes")) {
 		            modificarHuespedes();
 		            limpiar();
-		        } else {
-		            // Manejar caso de error
-		            return;
 		        }
-				
-				
-				
 			}
 		});
 		
@@ -308,6 +302,27 @@ public class Busqueda extends JFrame {
 		btnEliminar.setBounds(767, 508, 122, 35);
 		btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		contentPane.add(btnEliminar);
+		btnEliminar.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				int index = panel.getSelectedIndex();
+				String title = panel.getTitleAt(index);
+
+				if (title.equals("Reservas")) {
+
+					eliminarReserva();
+					limpiar();
+				}
+
+				if (title.equals("Huéspedes")) {
+					modificarHuesped();
+					limpiar();
+
+				}
+			}
+		});
 		
 		JLabel lblEliminar = new JLabel("ELIMINAR");
 		lblEliminar.setHorizontalAlignment(SwingConstants.CENTER);
@@ -456,7 +471,7 @@ public class Busqueda extends JFrame {
 		
 		private void modificarReservas() {
 			
-			ReservacionController rs = new ReservacionController();
+			ReservacionController rc = new ReservacionController();
 			
 			if (tieneFilaElegida(tbReservas)) {
 	            JOptionPane.showMessageDialog(this, "Por favor, elije un item");
@@ -474,12 +489,57 @@ public class Busqueda extends JFrame {
 	                    Reservacion reservacion = new Reservacion(idReserva, fechaIngreso, fechaEgreso, valor, formaPago);
 	                    
 	                    int modificacion;
-	                    modificacion = rs.modificar(reservacion);
+	                    modificacion = rc.modificar(reservacion);
 	                    
 	                    JOptionPane.showMessageDialog(this, modificacion + "Item modificado con exito!");
 	                    
 	                }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
 			
+		}
+		
+		private void eliminarReserva() {
+			
+			ReservacionController rc = new ReservacionController();
+			
+			if (tieneFilaElegida(tbReservas)) {
+	            JOptionPane.showMessageDialog(this, "Por favor, elije un item");
+	            return;
+	        }
+			
+			Optional.ofNullable(modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
+					.ifPresentOrElse(fila -> {
+						
+						Integer idReserva = Integer.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString());
+						
+						int modificacion;
+						modificacion = rc.eliminar(idReserva);
+						
+						JOptionPane.showMessageDialog(this, modificacion + " item a sido eliminado");
+						
+					}, () -> JOptionPane.showMessageDialog(this, "Por favor elije un item"));
+			
+		}
+		
+		private void modificarHuesped() {
+			HuespedController hC = new HuespedController();
+			
+			if (tieneFilaElegida(tbHuespedes)) {
+	            JOptionPane.showMessageDialog(this, "Por favor, elije un item");
+	            return;
+	        }
+			
+			Optional.ofNullable(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), tbHuespedes.getSelectedColumn()))
+					.ifPresentOrElse(fila -> {
+						
+						Integer idHuespedEliminar = Integer.valueOf(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 0).toString());
+						
+						int modificacion;
+						modificacion = hC.eliminar(idHuespedEliminar);
+						
+						JOptionPane.showMessageDialog(this, modificacion + " item a sido eliminado");
+						
+					}, () -> JOptionPane.showMessageDialog(this, "Por favor elije un item"));
+		
 		}
 }
 

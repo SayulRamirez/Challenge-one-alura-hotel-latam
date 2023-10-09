@@ -166,6 +166,28 @@ public int modificar(Reservacion reservacion) {
 		throw new RuntimeException(e);
 	}
 }
+
+public int eliminar(Integer idReserva) {
+	
+	try(con){
+		
+		final PreparedStatement statement = con.prepareStatement("DELETE FROM reservaciones WHERE id = ?");
+		
+		try(statement){
+			
+			statement.setInt(1, idReserva);
+			
+			statement.execute();
+			
+			int updateCount = statement.getUpdateCount();
+			
+			return updateCount;
+		}
+		
+	} catch (SQLException e) {
+		throw new RuntimeException(e);
+	}
+}
 }
 
 
