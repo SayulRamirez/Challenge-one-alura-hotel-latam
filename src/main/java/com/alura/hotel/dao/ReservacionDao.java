@@ -23,7 +23,7 @@ public class ReservacionDao {
 
 		try (con) {
 
-			PreparedStatement statement = con
+			final PreparedStatement statement = con
 					.prepareStatement("INSERT INTO reservaciones (fecha_ingreso , fecha_egreso , "
 							+ "valor , forma_pago ) VALUE (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
@@ -53,7 +53,7 @@ public class ReservacionDao {
 
 		try (con) {
 
-			PreparedStatement statement = con.prepareStatement("UPDATE reservaciones SET id_huesped = ? WHERE id = ?");
+			final PreparedStatement statement = con.prepareStatement("UPDATE reservaciones SET id_huesped = ? WHERE id = ?");
 
 			try (statement) {
 
@@ -76,7 +76,7 @@ public class ReservacionDao {
 		
 		try(con){
 			
-			PreparedStatement statement = con.prepareStatement("SELECT * FROM reservaciones WHERE id = ?");
+			final PreparedStatement statement = con.prepareStatement("SELECT * FROM reservaciones WHERE id = ?");
 			
 			statement.setInt(1, parametro);
 			
@@ -110,7 +110,7 @@ public List<Reservacion> cargarDatos(List<Integer> ids) {
 			
 			String inClause = String.join(",", Collections.nCopies(ids.size(), "?"));
 
-			PreparedStatement statement = con.prepareStatement("SELECT * FROM reservaciones WHERE id_huesped IN (" + inClause + ")");
+			final PreparedStatement statement = con.prepareStatement("SELECT * FROM reservaciones WHERE id_huesped IN (" + inClause + ")");
 
 			for (int i = 0; i < ids.size(); i++) {
 			    statement.setInt(i + 1, ids.get(i));
@@ -140,6 +140,32 @@ public List<Reservacion> cargarDatos(List<Integer> ids) {
 			throw new RuntimeException(e);
 		}
 	}
+
+public int modificar(Reservacion reservacion) {
+	
+	try(con){
+		
+		final PreparedStatement statement = con.prepareStatement("UPDATE reservaciones SET fecha_ingreso = ?, "
+				+ " fecha_egreso = ?, valor = ?, forma_pago = ? WHERE id = ?");
+		
+		try(statement){
+			
+			statement.setString(1, reservacion.getFechaIngreso());
+			statement.setString(2, reservacion.getFechaEgreso());
+			statement.setString(3, reservacion.getCosto());
+			statement.setString(4, reservacion.getFormaPago());
+			statement.setInt(5, reservacion.getId());
+			
+			statement.execute();
+			
+			int updateCount = statement.getUpdateCount();
+			
+			return updateCount;
+		}
+	} catch (SQLException e) {
+		throw new RuntimeException(e);
+	}
+}
 }
 
 

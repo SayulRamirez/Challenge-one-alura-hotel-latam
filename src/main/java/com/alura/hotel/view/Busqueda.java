@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import com.alura.hotel.controller.HuespedController;
 import com.alura.hotel.controller.ReservacionController;
 import com.alura.hotel.modelo.Huesped;
+import com.alura.hotel.modelo.Reservacion;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import javax.swing.JTable;
@@ -101,9 +102,6 @@ public class Busqueda extends JFrame {
 		panel.setFont(new Font("Roboto", Font.PLAIN, 16));
 		panel.setBounds(20, 169, 865, 328);
 		contentPane.add(panel);
-
-		
-		
 		
 		tbReservas = new JTable();
 		tbReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -271,12 +269,27 @@ public class Busqueda extends JFrame {
 		btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		contentPane.add(btnEditar);
 		btnEditar.addMouseListener(new MouseAdapter() {
-			
+			//K
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				modificar();
-				limpiar();
+				int index = panel.getSelectedIndex();
+		        String title = panel.getTitleAt(index);
+
+		        if (title.equals("Reservas")) {
+		        	
+		        	modificarReservas();
+		        	limpiar();
+		        } 
+		        
+		        if (title.equals("Huéspedes")) {
+		            modificarHuespedes();
+		            limpiar();
+		        } else {
+		            // Manejar caso de error
+		            return;
+		        }
+				
 				
 				
 			}
@@ -407,15 +420,15 @@ public class Busqueda extends JFrame {
 					}));
 		}
 		
-		private boolean tieneFilaElegida() {
-	        return tbHuespedes.getSelectedRowCount() == 0 || tbHuespedes.getSelectedColumnCount() == 0;
+		private boolean tieneFilaElegida(JTable table) {
+	        return table.getSelectedRowCount() == 0 || table.getSelectedColumnCount() == 0;
 	    }
 		
-		private void modificar() {
+		private void modificarHuespedes() {
 			
 			HuespedController huespedC = new HuespedController();
 			
-	        if (tieneFilaElegida()) {
+	        if (tieneFilaElegida(tbHuespedes)) {
 	            JOptionPane.showMessageDialog(this, "Por favor, elije un item");
 	            return;
 	        }
@@ -440,5 +453,33 @@ public class Busqueda extends JFrame {
 	                    
 	                }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
 	    }
+		
+		private void modificarReservas() {
+			
+			ReservacionController rs = new ReservacionController();
+			
+			if (tieneFilaElegida(tbReservas)) {
+	            JOptionPane.showMessageDialog(this, "Por favor, elije un item");
+	            return;
+	        }
+
+	        Optional.ofNullable(modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
+	                .ifPresentOrElse(fila -> {
+	                    Integer idReserva = Integer.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString());
+	                    String fechaIngreso = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 1);
+	                    String fechaEgreso = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 2);
+	                    String valor = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 3);
+	                    String formaPago = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 4);
+	                    
+	                    Reservacion reservacion = new Reservacion(idReserva, fechaIngreso, fechaEgreso, valor, formaPago);
+	                    
+	                    int modificacion;
+	                    modificacion = rs.modificar(reservacion);
+	                    
+	                    JOptionPane.showMessageDialog(this, modificacion + "Item modificado con exito!");
+	                    
+	                }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
+			
+		}
 }
 

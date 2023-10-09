@@ -33,4 +33,9 @@ public class ReservacionController {
 		return reservacionDao.cargarDatos(ids);
 	}
 
+	public int modificar(Reservacion reservacion) {
+		// TODO Auto-generated method stub
+		return reservacionDao.modificar(reservacion);
+	}
+
 }
