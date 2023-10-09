@@ -25,6 +25,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Toolkit;
@@ -274,6 +275,8 @@ public class Busqueda extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
+				modificar();
+				limpiar();
 				
 				
 			}
@@ -403,5 +406,39 @@ public class Busqueda extends JFrame {
 							huesped.getTel()
 					}));
 		}
+		
+		private boolean tieneFilaElegida() {
+	        return tbHuespedes.getSelectedRowCount() == 0 || tbHuespedes.getSelectedColumnCount() == 0;
+	    }
+		
+		private void modificar() {
+			
+			HuespedController huespedC = new HuespedController();
+			
+	        if (tieneFilaElegida()) {
+	            JOptionPane.showMessageDialog(this, "Por favor, elije un item");
+	            return;
+	        }
+
+	        Optional.ofNullable(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), tbHuespedes.getSelectedColumn()))
+	                .ifPresentOrElse(fila -> {
+	                    Integer idHuesped = Integer.valueOf(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 0).toString());
+	                    String nombre = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 1);
+	                    String apellido = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 2);
+	                    String nacimiento = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 3);
+	                    String nacionalidad = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 4);
+						String telefono = modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 5).toString();
+						
+						System.out.println(nacimiento);
+						
+						Huesped huesped = new Huesped(idHuesped, nombre, apellido, nacimiento, nacionalidad, telefono);
+
+	                    int modificacion;
+	                    modificacion = huespedC.modificar(huesped);
+	                    
+	                    JOptionPane.showMessageDialog(this, modificacion + "Item modificado con exito!");
+	                    
+	                }, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
+	    }
 }
 

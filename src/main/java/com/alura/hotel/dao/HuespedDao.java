@@ -23,7 +23,7 @@ public class HuespedDao {
 		
 		try(con){
 			
-			PreparedStatement statement = con.prepareStatement("INSERT INTO huespedes(nombre, apellido, fecha_nacimiento, "
+			final PreparedStatement statement = con.prepareStatement("INSERT INTO huespedes(nombre, apellido, fecha_nacimiento, "
 															 + "nacionalidad, telefono) VALUE (?, ?, ?, ?, ?) ", Statement.RETURN_GENERATED_KEYS);
 			
 			try(statement){
@@ -54,7 +54,7 @@ public class HuespedDao {
 
 		try (con) {
 
-			PreparedStatement statement = con.prepareStatement("UPDATE huespedes SET id_usuario = ? WHERE id = ?");
+			final PreparedStatement statement = con.prepareStatement("UPDATE huespedes SET id_usuario = ? WHERE id = ?");
 
 			try (statement) {
 
@@ -114,7 +114,7 @@ public class HuespedDao {
 		
 		try(con){
 			
-			PreparedStatement statement = con.prepareStatement("SELECT * FROM huespedes WHERE id = ?");
+			final PreparedStatement statement = con.prepareStatement("SELECT * FROM huespedes WHERE id = ?");
 			
 			statement.setInt(1, idHuesped);
 			
@@ -136,6 +136,34 @@ public class HuespedDao {
 			}
 			
 		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+
+	public int modificar(Huesped huesped) {
+		
+		try(con){
+			
+			final PreparedStatement statement = con.prepareStatement(
+					"UPDATE huespedes SET nombre = ?, apellido = ?, fecha_nacimiento =  ?, "
+		   		  + "nacionalidad = ?, telefono = ? WHERE ID = ?");
+			
+			try(statement){
+				statement.setString(1, huesped.getNombre());
+				statement.setString(2, huesped.getApellido());
+				statement.setString(3, huesped.getNacimiento());
+				statement.setString(4, huesped.getNacion());
+				statement.setString(5, huesped.getTel());
+				statement.setInt(6, huesped.getId());
+				
+				statement.execute();
+				
+				int updateCount = statement.getUpdateCount(); 
+				
+				return updateCount;
+			}
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 		

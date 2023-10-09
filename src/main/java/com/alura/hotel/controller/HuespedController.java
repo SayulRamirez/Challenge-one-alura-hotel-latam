@@ -31,4 +31,8 @@ public class HuespedController {
 		return huespedDao.cargarDatos(idHuesped);
 	}
 
+	public int modificar(Huesped huesped) {
+		return huespedDao.modificar(huesped);
+	}
+
 }
