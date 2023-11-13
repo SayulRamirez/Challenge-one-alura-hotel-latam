@@ -105,7 +105,7 @@ public class Login extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// CAMBIAR A VENTANA DE REGISTRO
+				registrarNuevoUsuario();
 			}
 		});
 
@@ -295,7 +295,13 @@ public class Login extends JFrame {
 		lblRegreso.setIcon(new ImageIcon(Login.class.getResource("/imagenes/cerrar-sesion 32-px.png")));
 		panelMenuP.add(lblRegreso);
 	}
-	
+
+	private void registrarNuevoUsuario() {
+		MenuRegistroNuevoUsuario registroUsuario = new MenuRegistroNuevoUsuario();
+		registroUsuario.setVisible(true);
+		dispose();
+	}
+
 	private void entrarLogin() {
 	        
 	        usuario = new Usuario(txtUsuario.getText(),
