@@ -34,7 +34,6 @@ public class Login extends JFrame {
 	private JPasswordField txtContrasena;
 	int xMouse, yMouse;
 	private JLabel labelExit;
-	
 	public static Usuario usuario;
 
 	/**
@@ -85,7 +84,44 @@ public class Login extends JFrame {
 		imgHotel.setBounds(0, 0, 304, 538);
 		panel_1.add(imgHotel);
 		imgHotel.setIcon(new ImageIcon(Login.class.getResource("/imagenes/img-hotel-login-.png")));
-		
+
+		JLabel labelNuevo = new JLabel("¿AUN NO TE HAZ REGISTRADO?");
+		labelNuevo.setForeground(SystemColor.controlLtHighlight);
+		labelNuevo.setFont(new Font("Roboto Black", Font.PLAIN, 17));
+		labelNuevo.setBounds(25, 50, 280, 26);
+		panel_1.add(labelNuevo);
+
+		JPanel panelNuevo = new JPanel();
+
+		panelNuevo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				panelNuevo.setBackground(new Color(0, 156, 223));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				panelNuevo.setBackground(SystemColor.textHighlight);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// CAMBIAR A VENTANA DE REGISTRO
+			}
+		});
+
+		panelNuevo.setBackground(SystemColor.textHighlight);
+		panelNuevo.setBounds(50, 90, 200, 44);
+		panel_1.add(panelNuevo);
+		panelNuevo.setLayout(null);
+		panelNuevo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+		JLabel lblpanelNuevo = new JLabel("NUEVO USUARIO");
+		lblpanelNuevo.setBounds(0, 0, 200, 44);
+		panelNuevo.add(lblpanelNuevo);
+		lblpanelNuevo.setForeground(SystemColor.controlLtHighlight);
+		lblpanelNuevo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblpanelNuevo.setFont(new Font("Roboto", Font.PLAIN, 18));
+
 		JPanel btnexit = new JPanel();
 		btnexit.setBounds(251, 0, 53, 36);
 		panel_1.add(btnexit);
