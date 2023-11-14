@@ -10,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
-import java.text.SimpleDateFormat;
 
 public class MenuRegistroNuevoUsuario extends JFrame{
 
@@ -22,9 +21,7 @@ public class MenuRegistroNuevoUsuario extends JFrame{
     private JComboBox<Format> txtNacionalidad;
     private JLabel labelExit;
     private JLabel labelAtras;
-    int xMouse, yMouse;
-
-    private Huesped huesped;
+    private int xMouse, yMouse;
 
     /**
      * Launch the application.
@@ -110,13 +107,12 @@ public class MenuRegistroNuevoUsuario extends JFrame{
         labelAtras.setBounds(0, 0, 53, 36);
         btnAtras.add(labelAtras);
 
-
         txtNombre = new JTextField();
         txtNombre.setFont(new Font("Roboto", Font.PLAIN, 16));
         txtNombre.setBounds(560, 135, 285, 33);
         txtNombre.setBackground(Color.WHITE);
         txtNombre.setColumns(10);
-        txtNombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        txtNombre.setBorder(BorderFactory.createEmptyBorder());
         contentPane.add(txtNombre);
 
         txtApellido = new JTextField();
@@ -124,18 +120,18 @@ public class MenuRegistroNuevoUsuario extends JFrame{
         txtApellido.setBounds(560, 204, 285, 33);
         txtApellido.setColumns(10);
         txtApellido.setBackground(Color.WHITE);
-        txtApellido.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        txtApellido.setBorder(BorderFactory.createEmptyBorder());
         contentPane.add(txtApellido);
 
         txtFechaN = new JDateChooser();
-        txtFechaN.setBounds(560, 278, 285, 36);
+        txtFechaN.setBounds(560, 298, 285, 36);
         txtFechaN.getCalendarButton().setIcon(new ImageIcon(RegistroHuesped.class.getResource("/imagenes/icon-reservas.png")));
         txtFechaN.getCalendarButton().setBackground(SystemColor.textHighlight);
         txtFechaN.setDateFormatString("yyyy-MM-dd");
         contentPane.add(txtFechaN);
 
         txtNacionalidad = new JComboBox<>();
-        txtNacionalidad.setBounds(560, 350, 289, 36);
+        txtNacionalidad.setBounds(560, 385, 289, 36);
         txtNacionalidad.setBackground(SystemColor.text);
         txtNacionalidad.setFont(new Font("Roboto", Font.PLAIN, 16));
         txtNacionalidad.setModel(new DefaultComboBoxModel(new String[] {"afgano-afgana", "alemán-", "alemana", "árabe-árabe", "argentino-argentina", "australiano-australiana", "belga-belga", "boliviano-boliviana", "brasileño-brasileña", "camboyano-camboyana", "canadiense-canadiense", "chileno-chilena", "chino-china", "colombiano-colombiana", "coreano-coreana", "costarricense-costarricense", "cubano-cubana", "danés-danesa", "ecuatoriano-ecuatoriana", "egipcio-egipcia", "salvadoreño-salvadoreña", "escocés-escocesa", "español-española", "estadounidense-estadounidense", "estonio-estonia", "etiope-etiope", "filipino-filipina", "finlandés-finlandesa", "francés-francesa", "galés-galesa", "griego-griega", "guatemalteco-guatemalteca", "haitiano-haitiana", "holandés-holandesa", "hondureño-hondureña", "indonés-indonesa", "inglés-inglesa", "iraquí-iraquí", "iraní-iraní", "irlandés-irlandesa", "israelí-israelí", "italiano-italiana", "japonés-japonesa", "jordano-jordana", "laosiano-laosiana", "letón-letona", "letonés-letonesa", "malayo-malaya", "marroquí-marroquí", "mexicano-mexicana", "nicaragüense-nicaragüense", "noruego-noruega", "neozelandés-neozelandesa", "panameño-panameña", "paraguayo-paraguaya", "peruano-peruana", "polaco-polaca", "portugués-portuguesa", "puertorriqueño-puertorriqueño", "dominicano-dominicana", "rumano-rumana", "ruso-rusa", "sueco-sueca", "suizo-suiza", "tailandés-tailandesa", "taiwanes-taiwanesa", "turco-turca", "ucraniano-ucraniana", "uruguayo-uruguaya", "venezolano-venezolana", "vietnamita-vietnamita"}));
@@ -154,29 +150,29 @@ public class MenuRegistroNuevoUsuario extends JFrame{
         contentPane.add(lblApellido);
 
         JLabel lblFechaN = new JLabel("FECHA DE NACIMIENTO");
-        lblFechaN.setBounds(560, 256, 255, 14);
+        lblFechaN.setBounds(560, 266, 255, 14);
         lblFechaN.setForeground(SystemColor.textInactiveText);
         lblFechaN.setFont(new Font("Roboto Black", Font.PLAIN, 18));
         contentPane.add(lblFechaN);
 
         JLabel lblNacionalidad = new JLabel("NACIONALIDAD");
-        lblNacionalidad.setBounds(560, 326, 255, 14);
+        lblNacionalidad.setBounds(560, 356, 255, 14);
         lblNacionalidad.setForeground(SystemColor.textInactiveText);
         lblNacionalidad.setFont(new Font("Roboto Black", Font.PLAIN, 18));
         contentPane.add(lblNacionalidad);
 
         JLabel lblTelefono = new JLabel("TELÉFONO");
-        lblTelefono.setBounds(562, 406, 253, 14);
+        lblTelefono.setBounds(562, 441, 253, 14);
         lblTelefono.setForeground(SystemColor.textInactiveText);
         lblTelefono.setFont(new Font("Roboto Black", Font.PLAIN, 18));
         contentPane.add(lblTelefono);
 
         txtTelefono = new JTextField();
         txtTelefono.setFont(new Font("Roboto", Font.PLAIN, 16));
-        txtTelefono.setBounds(560, 424, 285, 33);
+        txtTelefono.setBounds(560, 459, 285, 33);
         txtTelefono.setColumns(10);
         txtTelefono.setBackground(Color.WHITE);
-        txtTelefono.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        txtTelefono.setBorder(BorderFactory.createEmptyBorder());
         contentPane.add(txtTelefono);
 
         JLabel lblTitulo = new JLabel("REGISTRO USUARIO");
@@ -185,41 +181,40 @@ public class MenuRegistroNuevoUsuario extends JFrame{
         lblTitulo.setFont(new Font("Roboto Black", Font.PLAIN, 23));
         contentPane.add(lblTitulo);
 
+        //NOMBRE
         JSeparator separator_1_2 = new JSeparator();
         separator_1_2.setBounds(560, 170, 289, 2);
         separator_1_2.setForeground(new Color(12, 138, 199));
         separator_1_2.setBackground(new Color(12, 138, 199));
         contentPane.add(separator_1_2);
 
+        //APELLIDO
         JSeparator separator_1_2_1 = new JSeparator();
         separator_1_2_1.setBounds(560, 240, 289, 2);
         separator_1_2_1.setForeground(new Color(12, 138, 199));
         separator_1_2_1.setBackground(new Color(12, 138, 199));
         contentPane.add(separator_1_2_1);
 
+        //FECHA
         JSeparator separator_1_2_2 = new JSeparator();
-        separator_1_2_2.setBounds(560, 314, 289, 2);
+        separator_1_2_2.setBounds(560, 334, 289, 2);
         separator_1_2_2.setForeground(new Color(12, 138, 199));
         separator_1_2_2.setBackground(new Color(12, 138, 199));
         contentPane.add(separator_1_2_2);
 
+        //NACIONALIDAD
         JSeparator separator_1_2_3 = new JSeparator();
-        separator_1_2_3.setBounds(560, 386, 289, 2);
+        separator_1_2_3.setBounds(560, 421, 289, 2);
         separator_1_2_3.setForeground(new Color(12, 138, 199));
         separator_1_2_3.setBackground(new Color(12, 138, 199));
         contentPane.add(separator_1_2_3);
 
+        //TELEFONO
         JSeparator separator_1_2_4 = new JSeparator();
-        separator_1_2_4.setBounds(560, 457, 289, 2);
+        separator_1_2_4.setBounds(560, 492, 289, 2);
         separator_1_2_4.setForeground(new Color(12, 138, 199));
         separator_1_2_4.setBackground(new Color(12, 138, 199));
         contentPane.add(separator_1_2_4);
-
-        JSeparator separator_1_2_5 = new JSeparator();
-        separator_1_2_5.setBounds(560, 529, 289, 2);
-        separator_1_2_5.setForeground(new Color(12, 138, 199));
-        separator_1_2_5.setBackground(new Color(12, 138, 199));
-        contentPane.add(separator_1_2_5);
 
         JPanel btnguardar = new JPanel();
         btnguardar.setBounds(723, 560, 122, 35);
@@ -227,7 +222,7 @@ public class MenuRegistroNuevoUsuario extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                /*SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
                 String nombre = txtNombre.getText();
                 String apellido = txtApellido.getText();
@@ -245,15 +240,20 @@ public class MenuRegistroNuevoUsuario extends JFrame{
                     // MOSTRAR MENSAJE DE ESTADO DEL REGISTRO DEL NUEVO USUARIO
 
                     // REGRESAR AL LOGIN PARA INICIO DE SESIÓN
-                }
+                }*/
+
+                CrearUsuario cUsuario = new CrearUsuario();
+                cUsuario.setVisible(true);
+                dispose();
             }
         });
+
         btnguardar.setLayout(null);
         btnguardar.setBackground(new Color(12, 138, 199));
         contentPane.add(btnguardar);
-        btnguardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnguardar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        JLabel labelGuardar = new JLabel("GUARDAR");
+        JLabel labelGuardar = new JLabel("SIGUIENTE");
         labelGuardar.setHorizontalAlignment(SwingConstants.CENTER);
         labelGuardar.setForeground(Color.WHITE);
         labelGuardar.setFont(new Font("Roboto", Font.PLAIN, 18));
