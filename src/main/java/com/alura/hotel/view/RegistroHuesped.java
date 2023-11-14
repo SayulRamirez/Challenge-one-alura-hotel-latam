@@ -201,7 +201,7 @@ public class RegistroHuesped extends JFrame {
 		contentPane.add(txtTelefono);
 		
 		JLabel lblTitulo = new JLabel("REGISTRO HUÉSPED");
-		lblTitulo.setBounds(606, 55, 234, 42);
+		lblTitulo.setBounds(591, 55, 244, 42);
 		lblTitulo.setForeground(new Color(12, 138, 199));
 		lblTitulo.setFont(new Font("Roboto Black", Font.PLAIN, 23));
 		contentPane.add(lblTitulo);
@@ -219,6 +219,7 @@ public class RegistroHuesped extends JFrame {
 		txtNreserva.setBackground(Color.WHITE);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		txtNreserva.setText(String.valueOf(ReservasView.reservacion.getId()));
+		txtNreserva.setEditable(false);
 		contentPane.add(txtNreserva);
 		
 		JSeparator separator_1_2 = new JSeparator();
@@ -283,31 +284,18 @@ public class RegistroHuesped extends JFrame {
 					
 					HuespedController huespedController = new HuespedController();
 					huespedController.registrarHuesped(huesped);
-					
-					System.out.println("REGISTRO");
-					System.out.println(huesped.getId());
-					System.out.println(huesped.getNombre());
-					System.out.println(huesped.getApellido());
-					System.out.println(huesped.getNacimiento());
-					System.out.println(huesped.getNacion());
-					System.out.println(huesped.getTel());
-					
+
 					HuespedController u = new HuespedController();
 					u.setIdUsuario(huesped, Login.usuario.getId());
 					
 					ReservacionController r = new ReservacionController();
 					r.setIdHuesped(ReservasView.reservacion, huesped.getId());
-					
-					System.out.println("HUESPED");
-					System.out.println(huesped.getIdHuesped());
-					System.out.println(huesped.getNombre());
-					
-					System.out.println("RESERVACION");
-					System.out.println(ReservasView.reservacion.getidHuesped());
-					System.out.println(ReservasView.reservacion.getCosto());
-					
+
+					//CERRAR LA VENTANA ACTUAL
+
 					Exito exito = new Exito();
 					exito.setVisible(true);
+					dispose();
 				}
 			}
 		});

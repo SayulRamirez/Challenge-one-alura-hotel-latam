@@ -48,7 +48,6 @@ public class ReservasView extends JFrame {
 	int xMouse, yMouse;
 	private JLabel labelExit;
 	private JLabel labelAtras;
-	
 	public static Reservacion reservacion;
 	private double valor = 300;
 	
@@ -320,27 +319,22 @@ public class ReservasView extends JFrame {
 		txtFormaPago.setModel(new DefaultComboBoxModel<>(new String[] {"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
 		panel.add(txtFormaPago);
 
-		
+
 		JPanel btnsiguiente = new JPanel();
+		btnsiguiente.setBounds(238, 493, 122, 35);
 		btnsiguiente.addMouseListener(new MouseAdapter() {
-			
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				System.out.println("Presionado");
+
 				obtenerDato();
-				
-				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {	
-					
+
+				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {
+
 					ReservacionController reservaController = new ReservacionController();
-					
+
 					reservaController.registrarReservacion(reservacion);
-					
-					System.out.println("RESERVASVIEW");
-					System.out.println(reservacion.getId());
-					System.out.println(reservacion.getFechaIngreso());
-					System.out.println(reservacion.getFechaEgreso());
-					System.out.println(reservacion.getCosto());
-					System.out.println(reservacion.getFormaPago());
 
 					RegistroHuesped registro = new RegistroHuesped();
 					registro.setVisible(true);
@@ -348,21 +342,19 @@ public class ReservasView extends JFrame {
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
 				}
-			}						
+			}
 		});
 		btnsiguiente.setLayout(null);
 		btnsiguiente.setBackground(SystemColor.textHighlight);
-		btnsiguiente.setBounds(238, 493, 122, 35);
 		panel.add(btnsiguiente);
 		btnsiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		
 		JLabel lblNewLabel = new JLabel("SIGUIENTE");
+		lblNewLabel.setBounds(0, 0, 122, 35);
+		btnsiguiente.add(lblNewLabel);
 		lblNewLabel.setForeground(new Color(250, 250, 250));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setToolTipText("");
 		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblNewLabel.setBounds(10, 10, 100, 14);
-		btnsiguiente.add(lblNewLabel);
 
 
 	}

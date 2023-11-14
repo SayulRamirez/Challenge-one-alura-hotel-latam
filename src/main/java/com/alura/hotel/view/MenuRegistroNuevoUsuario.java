@@ -19,7 +19,6 @@ public class MenuRegistroNuevoUsuario extends JFrame{
     private JTextField txtTelefono;
     private JDateChooser txtFechaN;
     private JComboBox<Format> txtNacionalidad;
-    private JLabel labelExit;
     private JLabel labelAtras;
     private int xMouse, yMouse;
 
@@ -275,37 +274,6 @@ public class MenuRegistroNuevoUsuario extends JFrame{
         logo.setBounds(194, 39, 104, 107);
         panel.add(logo);
         logo.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/imagenes/Ha-100px.png")));
-
-        JPanel btnexit = new JPanel();
-        btnexit.setBounds(857, 0, 53, 36);
-        contentPane.add(btnexit);
-        btnexit.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                MenuPrincipal principal = new MenuPrincipal();
-                principal.setVisible(true);
-                dispose();
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                btnexit.setBackground(Color.red);
-                labelExit.setForeground(Color.white);
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                btnexit.setBackground(Color.white);
-                labelExit.setForeground(Color.black);
-            }
-        });
-        btnexit.setLayout(null);
-        btnexit.setBackground(Color.white);
-
-        labelExit = new JLabel("X");
-        labelExit.setBounds(0, 0, 53, 36);
-        btnexit.add(labelExit);
-        labelExit.setHorizontalAlignment(SwingConstants.CENTER);
-        labelExit.setForeground(SystemColor.black);
-        labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
     }
 
 
