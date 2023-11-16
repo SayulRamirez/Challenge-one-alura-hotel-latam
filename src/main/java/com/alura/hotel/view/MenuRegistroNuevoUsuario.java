@@ -1,5 +1,6 @@
 package com.alura.hotel.view;
 
+import com.alura.hotel.enums.CountryEnum;
 import com.alura.hotel.modelo.Huesped;
 import com.toedter.calendar.JDateChooser;
 
@@ -10,6 +11,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MenuRegistroNuevoUsuario extends JFrame{
 
@@ -129,11 +133,13 @@ public class MenuRegistroNuevoUsuario extends JFrame{
         txtFechaN.setDateFormatString("yyyy-MM-dd");
         contentPane.add(txtFechaN);
 
+        var nacionalidades = naciones();
+
         txtNacionalidad = new JComboBox<>();
         txtNacionalidad.setBounds(560, 385, 289, 36);
         txtNacionalidad.setBackground(SystemColor.text);
         txtNacionalidad.setFont(new Font("Roboto", Font.PLAIN, 16));
-        txtNacionalidad.setModel(new DefaultComboBoxModel(new String[] {"afgano-afgana", "alemán-", "alemana", "árabe-árabe", "argentino-argentina", "australiano-australiana", "belga-belga", "boliviano-boliviana", "brasileño-brasileña", "camboyano-camboyana", "canadiense-canadiense", "chileno-chilena", "chino-china", "colombiano-colombiana", "coreano-coreana", "costarricense-costarricense", "cubano-cubana", "danés-danesa", "ecuatoriano-ecuatoriana", "egipcio-egipcia", "salvadoreño-salvadoreña", "escocés-escocesa", "español-española", "estadounidense-estadounidense", "estonio-estonia", "etiope-etiope", "filipino-filipina", "finlandés-finlandesa", "francés-francesa", "galés-galesa", "griego-griega", "guatemalteco-guatemalteca", "haitiano-haitiana", "holandés-holandesa", "hondureño-hondureña", "indonés-indonesa", "inglés-inglesa", "iraquí-iraquí", "iraní-iraní", "irlandés-irlandesa", "israelí-israelí", "italiano-italiana", "japonés-japonesa", "jordano-jordana", "laosiano-laosiana", "letón-letona", "letonés-letonesa", "malayo-malaya", "marroquí-marroquí", "mexicano-mexicana", "nicaragüense-nicaragüense", "noruego-noruega", "neozelandés-neozelandesa", "panameño-panameña", "paraguayo-paraguaya", "peruano-peruana", "polaco-polaca", "portugués-portuguesa", "puertorriqueño-puertorriqueño", "dominicano-dominicana", "rumano-rumana", "ruso-rusa", "sueco-sueca", "suizo-suiza", "tailandés-tailandesa", "taiwanes-taiwanesa", "turco-turca", "ucraniano-ucraniana", "uruguayo-uruguaya", "venezolano-venezolana", "vietnamita-vietnamita"}));
+        txtNacionalidad.setModel(new DefaultComboBoxModel(nacionalidades));
         contentPane.add(txtNacionalidad);
 
         JLabel lblNombre = new JLabel("NOMBRE");
@@ -294,5 +300,14 @@ public class MenuRegistroNuevoUsuario extends JFrame{
         } else {
             return false;
         }
+    }
+    public String[] naciones(){
+        String[] listaNaciones = new String[194];
+
+        for(CountryEnum items: CountryEnum.values()){
+
+            listaNaciones[items.ordinal()] = items.getNacion();
+        }
+        return listaNaciones;
     }
 }
