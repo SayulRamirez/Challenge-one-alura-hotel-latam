@@ -19,7 +19,7 @@ public class UsuarioDao {
 		
 		try(con){
 			
-			final PreparedStatement statement = con.prepareStatement("SELECT * FROM usuarios WHERE nombre_usuario = ? AND contraseña = ? ;");
+			final PreparedStatement statement = con.prepareStatement("SELECT id FROM usuarios WHERE nombre_usuario = ? AND contrasena = ? ;");
 			
 			try(statement){
 				
