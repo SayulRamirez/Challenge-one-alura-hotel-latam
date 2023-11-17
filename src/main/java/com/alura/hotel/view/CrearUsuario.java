@@ -1,6 +1,8 @@
 package com.alura.hotel.view;
 
+import com.alura.hotel.controller.NewUsuarioController;
 import com.alura.hotel.controller.UsuarioController;
+import com.alura.hotel.modelo.Huesped;
 import com.alura.hotel.modelo.Usuario;
 
 import javax.swing.*;
@@ -17,12 +19,13 @@ public class CrearUsuario extends JFrame{
     private JPasswordField txtContrasena;
     private int xMouse, yMouse;
     private JLabel labelExit;
-    public static Usuario usuario;
+    private Huesped dataNewHuesped;
+    private Usuario usuarioNew;
 
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -33,13 +36,14 @@ public class CrearUsuario extends JFrame{
                 }
             }
         });
-    }
+    }*/
 
     /**
      * Create the frame.
      */
 
-    public CrearUsuario() {
+    public CrearUsuario(Huesped dataNewHuesped) {
+        this.dataNewHuesped = dataNewHuesped;
         setResizable(false);
         setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -244,25 +248,17 @@ public class CrearUsuario extends JFrame{
 
     private void crearUsuario() {
 
-        usuario = new Usuario(txtUsuario.getText(),
-                new String (txtContrasena.getPassword()));
+        usuarioNew = new Usuario(txtUsuario.getText(),
+                                 new String (txtContrasena.getPassword()));
 
-        UsuarioController usuarioController = new UsuarioController();
+        NewUsuarioController nUsuarioC = new NewUsuarioController();
 
-        if(usuarioController.autenticar(usuario)){
+        nUsuarioC.createNewUser(usuarioNew, dataNewHuesped);
 
-            System.out.println("LOGIN");
-            System.out.println(usuario.getId());
-            System.out.println(usuario.getUsuario());
-            System.out.println(usuario.getPass());
-
-            Login login = new Login();
-            login.setVisible(true);
-            dispose();
-
-        }else {
-            JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos");
-        }
+        JOptionPane.showMessageDialog(null, "Usuario creado con éxito.");
+        Login login = new Login();
+        login.setVisible(true);
+        dispose();
     }
     private void headerMousePressed(java.awt.event.MouseEvent evt) {
         xMouse = evt.getX();
@@ -276,8 +272,5 @@ public class CrearUsuario extends JFrame{
 
     }
 
-    public Object  getUsuario() {
-        return usuario;
-    }
 
 }

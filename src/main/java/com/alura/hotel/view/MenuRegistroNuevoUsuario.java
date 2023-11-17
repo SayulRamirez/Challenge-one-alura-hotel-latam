@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -133,13 +134,11 @@ public class MenuRegistroNuevoUsuario extends JFrame{
         txtFechaN.setDateFormatString("yyyy-MM-dd");
         contentPane.add(txtFechaN);
 
-        var nacionalidades = naciones();
-
         txtNacionalidad = new JComboBox<>();
         txtNacionalidad.setBounds(560, 385, 289, 36);
         txtNacionalidad.setBackground(SystemColor.text);
         txtNacionalidad.setFont(new Font("Roboto", Font.PLAIN, 16));
-        txtNacionalidad.setModel(new DefaultComboBoxModel(nacionalidades));
+        txtNacionalidad.setModel(new DefaultComboBoxModel(naciones()));
         contentPane.add(txtNacionalidad);
 
         JLabel lblNombre = new JLabel("NOMBRE");
@@ -227,29 +226,25 @@ public class MenuRegistroNuevoUsuario extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                /*SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
                 String nombre = txtNombre.getText();
                 String apellido = txtApellido.getText();
                 String nacimiento = formato.format(txtFechaN.getDate());
+                String nacion = txtNacionalidad.getSelectedItem().toString();
                 String tel = txtTelefono.getText();
 
                 if(validarCampos(nombre, apellido, nacimiento, tel)) {
                     JOptionPane.showMessageDialog(null,  "Favor de llenar todos los campos");
                 } else {
 
-                    // CREACION DEL NUEVO USUARIO
+                    //CREAMOS UN OBJETO CON LOS DATOS DEL USUARIO.
+                    Huesped dataNuevoUsuario = new Huesped(nombre, apellido, nacimiento, nacion, tel);
 
-                    // MANDAR DATOS DEL NUEVO USUARIO A LA BASE DE DATOS
-
-                    // MOSTRAR MENSAJE DE ESTADO DEL REGISTRO DEL NUEVO USUARIO
-
-                    // REGRESAR AL LOGIN PARA INICIO DE SESIÓN
-                }*/
-
-                CrearUsuario cUsuario = new CrearUsuario();
-                cUsuario.setVisible(true);
-                dispose();
+                    CrearUsuario cUsuario = new CrearUsuario(dataNuevoUsuario);
+                    cUsuario.setVisible(true);
+                    dispose();
+                }
             }
         });
 
