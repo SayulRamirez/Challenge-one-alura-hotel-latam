@@ -21,11 +21,12 @@ import javax.swing.SwingConstants;
 public class Exito extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private int idReservacion;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			Exito dialog = new Exito();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -35,10 +36,12 @@ public class Exito extends JDialog {
 		}
 	}
 
+	 */
+
 	/**
 	 * Create the dialog.
 	 */
-	public Exito() {
+	public Exito(int idReservacion) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/aH-40px.png")));
 		setBounds(100, 100, 394, 226);
 		getContentPane().setLayout(new BorderLayout());
@@ -48,13 +51,14 @@ public class Exito extends JDialog {
 		setLocationRelativeTo(null);
 		contentPanel.setLayout(null);
 
+		this.idReservacion = idReservacion;
+
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Exito.class.getResource("/imagenes/Ha-100px.png")));
 		lblNewLabel.setBounds(25, 26, 100, 100);
 		contentPanel.add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel(
-				"Datos guardados  " );
+		JLabel lblNewLabel_1 = new JLabel("Datos guardados  " );
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setForeground(new Color(12, 138, 199));
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 18));
@@ -75,11 +79,11 @@ public class Exito extends JDialog {
 		lblNewLabel_3.setBounds(152, 76, 199, 22);
 		contentPanel.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel("");
+		JLabel lblNewLabel_4 = new JLabel(Integer.toString(idReservacion));
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 22));
 		lblNewLabel_4.setBounds(152, 101, 199, 42);
-		lblNewLabel_4.setText(String.valueOf(ReservasView.reservacion.getId()));
+		//lblNewLabel_4.setText(String.valueOf(ReservasView.reservacion.getId()));
 		contentPanel.add(lblNewLabel_4);
 
 		JPanel buttonPane = new JPanel();

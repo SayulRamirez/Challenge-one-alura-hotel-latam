@@ -6,13 +6,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseMotionAdapter;
@@ -24,9 +21,8 @@ import java.awt.Cursor;
 
 @SuppressWarnings("serial")
 public class MenuUsuario extends JFrame {
-
 	private JPanel contentPane;
-	int xMouse, yMouse;
+	private int xMouse, yMouse;
 	private JLabel labelExit;
 	private JLabel labelRegistro;
 
@@ -99,9 +95,11 @@ public class MenuUsuario extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ReservasView reservas = new ReservasView();
-				reservas.setVisible(true);
+
+				RegistroHuesped registro = new RegistroHuesped();
+				registro.setVisible(true);
 				dispose();
+
 			}
 		});
 		btnRegistro.setBounds(0, 255, 257, 56);

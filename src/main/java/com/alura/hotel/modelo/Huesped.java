@@ -8,15 +8,24 @@ public class Huesped {
 	private String nacimiento;
 	private String nacion;
 	private String tel;
-	private int idHuesped;
-	
+	private int idUsuario;
+
 	public Huesped(String nombre, String apellido, String nacimiento, String nacion, String tel) {
+
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.nacimiento = nacimiento;
+		this.nacion = nacion;
+		this.tel = tel;
+	}
+	public Huesped(String nombre, String apellido, String nacimiento, String nacion, String tel, int idUsuario) {
 		
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.nacimiento = nacimiento;
 		this.nacion = nacion;
 		this.tel = tel;
+		this.idUsuario = idUsuario;
 	}
 	
 	public Huesped(int id, String nombre, String apellido, String nacimiento, String nacion, String tel) {
@@ -53,8 +62,8 @@ public class Huesped {
 		return tel;
 	}
 
-	public int getIdHuesped() {
-		return idHuesped;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
 	public void setId(int id) {
@@ -62,7 +71,7 @@ public class Huesped {
 	}
 
 	public void setIdHuesped(int idHuesped) {
-		this.idHuesped = idHuesped;
+		this.idUsuario = idHuesped;
 	}
 
 	

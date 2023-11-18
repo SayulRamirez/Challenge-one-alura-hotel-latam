@@ -7,20 +7,14 @@ import com.alura.hotel.factory.ConnectionFactory;
 import com.alura.hotel.modelo.Huesped;
 
 public class HuespedController {
-	
 	private HuespedDao huespedDao;
 	
 	public HuespedController() {
-		
 		this.huespedDao = new HuespedDao(new ConnectionFactory().conectar());
 	}
 	
-	public void registrarHuesped(Huesped huesped) {
-		huespedDao.registrarHuesped(huesped);
-	}
-	
-	public void setIdUsuario(Huesped huesped, int idUsuario) {
-		huespedDao.setIdUsuario(huesped, idUsuario);
+	public int registrarHuesped(Huesped huesped) {
+		return huespedDao.registrarHuesped(huesped);
 	}
 
 	public List<Huesped> cargarDatos(String parametro) {

@@ -10,12 +10,13 @@ public class Reservacion {
 	private int idHuesped;
 	
 	
-	public Reservacion(String fechaIngreso, String fechaEgreso, String costo, String formaPago ) {
+	public Reservacion(String fechaIngreso, String fechaEgreso, String costo, String formaPago, int idHuesped ) {
 		
 		this.fechaIngreso = fechaIngreso;
 		this.fechaEgreso = fechaEgreso;
 		this.costo = costo;
 		this.formaPago = formaPago;
+		this.idHuesped = idHuesped;
 	}
 	
 	public Reservacion(int id, String fechaIngreso, String fechaEgreso, String costo, String formaPago, int id_huesped ) {

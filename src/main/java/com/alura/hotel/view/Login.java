@@ -24,10 +24,6 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.Cursor;
 
 public class Login extends JFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtUsuario;
@@ -67,7 +63,6 @@ public class Login extends JFrame {
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		
-		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 788, 527);
 		panel.setBackground(Color.WHITE);
@@ -92,7 +87,6 @@ public class Login extends JFrame {
 		panel_1.add(labelNuevo);
 
 		JPanel panelNuevo = new JPanel();
-
 		panelNuevo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -229,7 +223,6 @@ public class Login extends JFrame {
 			public void mouseEntered(MouseEvent e) {
 				btnLogin.setBackground(new Color(0, 156, 223));
 			}
-		
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnLogin.setBackground(SystemColor.textHighlight);
@@ -310,12 +303,7 @@ public class Login extends JFrame {
 	        UsuarioController usuarioController = new UsuarioController();
 	        
 	        if(usuarioController.autenticar(usuario)){
-	        	
-	        	System.out.println("LOGIN");
-	        	System.out.println(usuario.getId());
-	        	System.out.println(usuario.getUsuario());
-	        	System.out.println(usuario.getPass());
-	        	
+
 	            MenuUsuario menu = new MenuUsuario();
 	            menu.setVisible(true);
 	            dispose();	 
@@ -324,21 +312,16 @@ public class Login extends JFrame {
 	            JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos");
 	            }
 	        } 
+
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
 	        xMouse = evt.getX();
 	        yMouse = evt.getY();
 	    }//GEN-LAST:event_headerMousePressed
 
-	    private void headerMouseDragged(java.awt.event.MouseEvent evt) {
+    private void headerMouseDragged(java.awt.event.MouseEvent evt) {
 	        int x = evt.getXOnScreen();
 	        int y = evt.getYOnScreen();
 	        this.setLocation(x - xMouse, y - yMouse);
-
-	    }
-	    
-	    public Object  getUsuario() {
-	    	return usuario;
-	    }
-
+    }
 }
 

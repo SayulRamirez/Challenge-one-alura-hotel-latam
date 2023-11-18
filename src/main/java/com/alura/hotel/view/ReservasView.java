@@ -1,6 +1,5 @@
 package com.alura.hotel.view;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -18,12 +17,9 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
-import java.text.DateFormat;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.SimpleFormatter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -36,25 +32,24 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import java.awt.Cursor;
 
-
 @SuppressWarnings("serial")
 public class ReservasView extends JFrame {
-
 	private JPanel contentPane;
 	public static JTextField txtValor;
 	public static JDateChooser txtFechaEntrada;
 	public static JDateChooser txtFechaSalida;
 	public static JComboBox<String> txtFormaPago;
-	int xMouse, yMouse;
+	private int xMouse, yMouse;
 	private JLabel labelExit;
 	private JLabel labelAtras;
 	public static Reservacion reservacion;
 	private double valor = 300;
+	private int idHuesped;
 	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -67,10 +62,12 @@ public class ReservasView extends JFrame {
 		});
 	}
 
+	 */
+
 	/**
 	 * Create the frame.
 	 */
-	public ReservasView() {
+	public ReservasView(int idHuesped) {
 		super("Reserva");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,8 +81,9 @@ public class ReservasView extends JFrame {
 		setResizable(false);
 		setLocationRelativeTo(null);
 		setUndecorated(true);
-		
 
+		this.idHuesped = idHuesped;
+		
 		JPanel panel = new JPanel();
 		panel.setBorder(null);
 		panel.setBackground(Color.WHITE);
@@ -94,7 +92,6 @@ public class ReservasView extends JFrame {
 		panel.setLayout(null);
 		
 		// Código que crea los elementos de la interfáz gráfica
-		
 		JSeparator separator_1_2 = new JSeparator();
 		separator_1_2.setForeground(SystemColor.textHighlight);
 		separator_1_2.setBounds(68, 195, 289, 2);
@@ -222,9 +219,10 @@ public class ReservasView extends JFrame {
 		btnAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuUsuario usuario = new MenuUsuario();
-				usuario.setVisible(true);
-				dispose();				
+
+				RegistroHuesped registroHuesped = new RegistroHuesped();
+				registroHuesped.setVisible(true);
+				dispose();
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -248,12 +246,11 @@ public class ReservasView extends JFrame {
 		labelAtras.setHorizontalAlignment(SwingConstants.CENTER);
 		labelAtras.setFont(new Font("Roboto", Font.PLAIN, 23));
 		
-		JLabel lblSiguiente = new JLabel("SIGUIENTE");
-		lblSiguiente.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSiguiente.setForeground(Color.WHITE);
-		lblSiguiente.setFont(new Font("Roboto", Font.PLAIN, 18));
-		lblSiguiente.setBounds(0, 0, 122, 35);
-		
+		JLabel lblGuardar = new JLabel("SIGUIENTE");
+		lblGuardar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGuardar.setForeground(Color.WHITE);
+		lblGuardar.setFont(new Font("Roboto", Font.PLAIN, 18));
+		lblGuardar.setBounds(0, 0, 122, 35);
 		
 		//Campos que guardaremos en la base de datos
 		txtFechaEntrada = new JDateChooser();
@@ -282,12 +279,9 @@ public class ReservasView extends JFrame {
                     java.util.Date primeraFecha = txtFechaEntrada.getDate();
                     java.util.Date segundaFecha = txtFechaSalida.getDate();
                     
-                    System.out.println(primeraFecha);
-                    
                     if(primeraFecha.before(segundaFecha)) {
                     	BigDecimal valorFinal = calcularCantidad(primeraFecha, segundaFecha);
-                    	
-                    	txtValor.setText(valorFinal.toString());                    	
+                    	txtValor.setText(valorFinal.toString());
                     } else {
                     	txtValor.setText("");
                     }
@@ -310,7 +304,6 @@ public class ReservasView extends JFrame {
 		panel.add(txtValor);
 		txtValor.setColumns(10);
 
-
 		txtFormaPago = new JComboBox<>();
 		txtFormaPago.setBounds(68, 417, 289, 38);
 		txtFormaPago.setBackground(SystemColor.text);
@@ -319,14 +312,12 @@ public class ReservasView extends JFrame {
 		txtFormaPago.setModel(new DefaultComboBoxModel<>(new String[] {"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
 		panel.add(txtFormaPago);
 
-
-		JPanel btnsiguiente = new JPanel();
-		btnsiguiente.setBounds(238, 493, 122, 35);
-		btnsiguiente.addMouseListener(new MouseAdapter() {
+		JPanel btnGuardar = new JPanel();
+		btnGuardar.setBounds(238, 493, 122, 35);
+		btnGuardar.addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Presionado");
 
 				obtenerDato();
 
@@ -334,63 +325,58 @@ public class ReservasView extends JFrame {
 
 					ReservacionController reservaController = new ReservacionController();
 
-					reservaController.registrarReservacion(reservacion);
+					int idReservacion = reservaController.registrarReservacion(reservacion);
 
-					RegistroHuesped registro = new RegistroHuesped();
-					registro.setVisible(true);
+					Exito exito = new Exito(idReservacion);
+					exito.setVisible(true);
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
 				}
 			}
 		});
-		btnsiguiente.setLayout(null);
-		btnsiguiente.setBackground(SystemColor.textHighlight);
-		panel.add(btnsiguiente);
-		btnsiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		btnGuardar.setLayout(null);
+		btnGuardar.setBackground(SystemColor.textHighlight);
+		panel.add(btnGuardar);
+		btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		
 		JLabel lblNewLabel = new JLabel("SIGUIENTE");
 		lblNewLabel.setBounds(0, 0, 122, 35);
-		btnsiguiente.add(lblNewLabel);
+		btnGuardar.add(lblNewLabel);
 		lblNewLabel.setForeground(new Color(250, 250, 250));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Dialog", Font.PLAIN, 18));
-
-
 	}
-			//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"	
-	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
+			//Código que permite mover la ventana por la pantalla según la posición de "x" y "y"
+	private void headerMousePressed(java.awt.event.MouseEvent evt) {
 	        xMouse = evt.getX();
 	        yMouse = evt.getY();
-	    }
+	}
 
-	    private void headerMouseDragged(java.awt.event.MouseEvent evt) {
-	        int x = evt.getXOnScreen();
-	        int y = evt.getYOnScreen();
-	        this.setLocation(x - xMouse, y - yMouse);
-}
+	private void headerMouseDragged(java.awt.event.MouseEvent evt) {
+		int x = evt.getXOnScreen();
+		int y = evt.getYOnScreen();
+		this.setLocation(x - xMouse, y - yMouse);
+	}
+	private void obtenerDato() {
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
-	    private void obtenerDato() {
-	    	SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		String fFechaEntrada = formato.format(txtFechaEntrada.getDate());
+		String fFechaSalida = formato.format(txtFechaSalida.getDate());
 	    	
-	    	String fFechaEntrada = formato.format(txtFechaEntrada.getDate());
-	    	String fFechaSalida = formato.format(txtFechaSalida.getDate());
-	    	
-			reservacion = new Reservacion(
-										fFechaEntrada,
-										fFechaSalida, 
-										txtValor.getText(), 
-										txtFormaPago.getSelectedItem().toString());
-	    }
-	    
-	    private BigDecimal calcularCantidad(Date primera, Date segunda) {
-	    	long resultado = segunda.getTime() - primera.getTime();
-	        System.out.println(valor);
-	        TimeUnit time = TimeUnit.DAYS;
+		reservacion = new Reservacion(
+					fFechaEntrada,
+					fFechaSalida,
+					txtValor.getText(),
+					txtFormaPago.getSelectedItem().toString(),
+					idHuesped);
+	}
+	private BigDecimal calcularCantidad(Date primera, Date segunda) {
+		long resultado = segunda.getTime() - primera.getTime();
+		TimeUnit time = TimeUnit.DAYS;
 
-	        long resto = time.convert(resultado, TimeUnit.MILLISECONDS);
+		long resto = time.convert(resultado, TimeUnit.MILLISECONDS);
 
-	        return new BigDecimal (resto * valor);
-	    }
+		return new BigDecimal (resto * valor);
+	}
 }
-

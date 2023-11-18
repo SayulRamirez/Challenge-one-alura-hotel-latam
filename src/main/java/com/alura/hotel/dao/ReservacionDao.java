@@ -12,20 +12,18 @@ import java.util.List;
 import com.alura.hotel.modelo.Reservacion;
 
 public class ReservacionDao {
-
 	final private Connection con;
 
 	public ReservacionDao(Connection con) {
 		this.con = con;
 	}
-
-	public void registrarReservacion(Reservacion reservacion) {
+	public int registrarReservacion(Reservacion reservacion) {
+		int idReservacion = 0;
 
 		try (con) {
-
 			final PreparedStatement statement = con
 					.prepareStatement("INSERT INTO reservaciones (fecha_ingreso , fecha_egreso , "
-							+ "valor , forma_pago ) VALUE (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+							+ "valor , forma_pago, id_huesped ) VALUE (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
 			try (statement) {
 
@@ -33,55 +31,30 @@ public class ReservacionDao {
 				statement.setString(2, reservacion.getFechaEgreso());
 				statement.setString(3, reservacion.getCosto());
 				statement.setString(4, reservacion.getFormaPago());
+				statement.setInt(5, reservacion.getidHuesped());
 
 				statement.executeUpdate();
 
 				try (ResultSet resultset = statement.getGeneratedKeys();) {
 
 					if (resultset.next()) {
-						int id = resultset.getInt(1);
-						reservacion.setId(id);
+						idReservacion = resultset.getInt(1);
 					}
 				}
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+		return idReservacion;
 	}
-
-	public void setIdHuesped(Reservacion reservacion, int idHuesped) {
-
-		try (con) {
-
-			final PreparedStatement statement = con.prepareStatement("UPDATE reservaciones SET id_huesped = ? WHERE id = ?");
-
-			try (statement) {
-
-				statement.setInt(1, idHuesped);
-				statement.setInt(2, reservacion.getId());
-			
-					if(statement.executeUpdate() > 0) {
-						reservacion.setIdHuesped(idHuesped);
-				}
-			} 
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 	public Reservacion cargarDatos(int parametro) {
-		
 		Reservacion reservacion = null;
 		
 		try(con){
-			
 			final PreparedStatement statement = con.prepareStatement("SELECT * FROM reservaciones WHERE id = ?");
-			
 			statement.setInt(1, parametro);
 			
 			try(statement){
-				
 				ResultSet rs= statement.executeQuery();
 				
 				while(rs.next()) {
@@ -91,23 +64,18 @@ public class ReservacionDao {
 															  rs.getString("fecha_egreso"), 
 															  rs.getString("valor"), 
 															  rs.getString("forma_pago"), 
-															  rs.getInt("id_huesped"));
+																  rs.getInt("id_huesped"));
+					}
+					return reservacion;
 				}
-				
-				return reservacion;
+			} catch(SQLException e) {
+				throw new RuntimeException(e);
 			}
-			
-		} catch(SQLException e) {
-			throw new RuntimeException(e);
-		}
 	}
-	
-public List<Reservacion> cargarDatos(List<Integer> ids) {
-		
+	public List<Reservacion> cargarDatos(List<Integer> ids) {
 		List<Reservacion> resultado = new ArrayList<>();
 		
 		try(con){
-			
 			String inClause = String.join(",", Collections.nCopies(ids.size(), "?"));
 
 			final PreparedStatement statement = con.prepareStatement("SELECT * FROM reservaciones WHERE id_huesped IN (" + inClause + ")");
@@ -117,14 +85,11 @@ public List<Reservacion> cargarDatos(List<Integer> ids) {
 			}
 			
 			try(statement){
-				
 				ResultSet rs = statement.executeQuery();;
 				
 				while(rs.next()) {
 					
-					System.out.println(rs.getInt("id_huesped"));
-					
-					Reservacion reservacion = new Reservacion(rs.getInt("id"), 
+					Reservacion reservacion = new Reservacion(rs.getInt("id"),
 															  rs.getString("fecha_ingreso"), 
 															  rs.getString("fecha_egreso"), 
 															  rs.getString("valor"), 
@@ -135,66 +100,49 @@ public List<Reservacion> cargarDatos(List<Integer> ids) {
 				}
 			}
 				return resultado;
-			
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
+	public int modificar(Reservacion reservacion) {
+		try(con){
+			final PreparedStatement statement = con.prepareStatement("UPDATE reservaciones SET fecha_ingreso = ?, "
+					+ " fecha_egreso = ?, valor = ?, forma_pago = ? WHERE id = ?");
+			try(statement){
 
-public int modificar(Reservacion reservacion) {
-	
-	try(con){
-		
-		final PreparedStatement statement = con.prepareStatement("UPDATE reservaciones SET fecha_ingreso = ?, "
-				+ " fecha_egreso = ?, valor = ?, forma_pago = ? WHERE id = ?");
-		
-		try(statement){
-			
-			statement.setString(1, reservacion.getFechaIngreso());
-			statement.setString(2, reservacion.getFechaEgreso());
-			statement.setString(3, reservacion.getCosto());
-			statement.setString(4, reservacion.getFormaPago());
-			statement.setInt(5, reservacion.getId());
-			
-			statement.execute();
-			
-			int updateCount = statement.getUpdateCount();
-			
-			return updateCount;
+				statement.setString(1, reservacion.getFechaIngreso());
+				statement.setString(2, reservacion.getFechaEgreso());
+				statement.setString(3, reservacion.getCosto());
+				statement.setString(4, reservacion.getFormaPago());
+				statement.setInt(5, reservacion.getId());
+
+				statement.execute();
+
+				int updateCount = statement.getUpdateCount();
+
+				return updateCount;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		}
-	} catch (SQLException e) {
-		throw new RuntimeException(e);
+	}
+
+	public int eliminar(Integer idReserva) {
+
+		try(con){
+			final PreparedStatement statement = con.prepareStatement("DELETE FROM reservaciones WHERE id = ?");
+
+			try(statement){
+
+				statement.setInt(1, idReserva);
+				statement.execute();
+
+				int updateCount = statement.getUpdateCount();
+
+				return updateCount;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
-
-public int eliminar(Integer idReserva) {
-	
-	try(con){
-		
-		final PreparedStatement statement = con.prepareStatement("DELETE FROM reservaciones WHERE id = ?");
-		
-		try(statement){
-			
-			statement.setInt(1, idReserva);
-			
-			statement.execute();
-			
-			int updateCount = statement.getUpdateCount();
-			
-			return updateCount;
-		}
-		
-	} catch (SQLException e) {
-		throw new RuntimeException(e);
-	}
-}
-}
-
-
-
-
-
-
-
-
-
