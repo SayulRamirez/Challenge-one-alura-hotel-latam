@@ -38,7 +38,17 @@ public class Huesped {
 		this.tel = tel;
 	}
 
-	public int getId() {
+	public Huesped(int id, String nombre, String apellido, String fechaNacimiento, String nacionalidad, String telefono, int idUsuario) {
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.nacimiento = fechaNacimiento;
+		this.nacion = nacionalidad;
+		this.tel = telefono;
+		this.idUsuario = idUsuario;
+	}
+
+    public int getId() {
 		return this.id;
 	}
 	
@@ -66,13 +76,4 @@ public class Huesped {
 		return idUsuario;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setIdHuesped(int idHuesped) {
-		this.idUsuario = idHuesped;
-	}
-
-	
 }

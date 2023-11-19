@@ -17,14 +17,6 @@ public class HuespedController {
 		return huespedDao.registrarHuesped(huesped);
 	}
 
-	public List<Huesped> cargarDatos(String parametro) {
-		return huespedDao.cargarDatos(parametro);
-	}
-
-	public Huesped cargarDatos(int idHuesped) {
-		return huespedDao.cargarDatos(idHuesped);
-	}
-
 	public int modificar(Huesped huesped) {
 		return huespedDao.modificar(huesped);
 	}

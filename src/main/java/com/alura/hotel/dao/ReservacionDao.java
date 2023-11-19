@@ -47,63 +47,7 @@ public class ReservacionDao {
 		}
 		return idReservacion;
 	}
-	public Reservacion cargarDatos(int parametro) {
-		Reservacion reservacion = null;
-		
-		try(con){
-			final PreparedStatement statement = con.prepareStatement("SELECT * FROM reservaciones WHERE id = ?");
-			statement.setInt(1, parametro);
-			
-			try(statement){
-				ResultSet rs= statement.executeQuery();
-				
-				while(rs.next()) {
-					
-					reservacion = new Reservacion(rs.getInt("id"), 
-															  rs.getString("fecha_ingreso"), 
-															  rs.getString("fecha_egreso"), 
-															  rs.getString("valor"), 
-															  rs.getString("forma_pago"), 
-																  rs.getInt("id_huesped"));
-					}
-					return reservacion;
-				}
-			} catch(SQLException e) {
-				throw new RuntimeException(e);
-			}
-	}
-	public List<Reservacion> cargarDatos(List<Integer> ids) {
-		List<Reservacion> resultado = new ArrayList<>();
-		
-		try(con){
-			String inClause = String.join(",", Collections.nCopies(ids.size(), "?"));
 
-			final PreparedStatement statement = con.prepareStatement("SELECT * FROM reservaciones WHERE id_huesped IN (" + inClause + ")");
-
-			for (int i = 0; i < ids.size(); i++) {
-			    statement.setInt(i + 1, ids.get(i));
-			}
-			
-			try(statement){
-				ResultSet rs = statement.executeQuery();;
-				
-				while(rs.next()) {
-					
-					Reservacion reservacion = new Reservacion(rs.getInt("id"),
-															  rs.getString("fecha_ingreso"), 
-															  rs.getString("fecha_egreso"), 
-															  rs.getString("valor"), 
-															  rs.getString("forma_pago"), 
-															  rs.getInt("id_huesped"));
-					
-					resultado.add(reservacion);
-				}
-			}
-				return resultado;
-		} catch(SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
 	public int modificar(Reservacion reservacion) {
 		try(con){
 			final PreparedStatement statement = con.prepareStatement("UPDATE reservaciones SET fecha_ingreso = ?, "

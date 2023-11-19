@@ -15,12 +15,6 @@ public class ReservacionController {
 	public int registrarReservacion(Reservacion reserva) {
 		return reservacionDao.registrarReservacion(reserva);
 	}
-	public Reservacion cargarDatos(int parametro) {
-		return reservacionDao.cargarDatos(parametro);
-	}
-	public List<Reservacion> cargarDatos(List<Integer> ids) {
-		return reservacionDao.cargarDatos(ids);
-	}
 	public int modificar(Reservacion reservacion) {
 		return reservacionDao.modificar(reservacion);
 	}

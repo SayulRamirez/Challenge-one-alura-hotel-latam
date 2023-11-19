@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.alura.hotel.modelo.Huesped;
+import com.alura.hotel.modelo.Reservacion;
 
 public class HuespedDao {
 	final private Connection con;
@@ -47,62 +48,6 @@ public class HuespedDao {
 		}
         return idHuesped;
     }
-
-	public List<Huesped> cargarDatos(String parametro) {
-		List<Huesped> resultado = new ArrayList<>();
-
-		try(con){
-			final PreparedStatement statement = con.prepareStatement("SELECT * FROM huespedes WHERE apellido = ?");
-			statement.setString(1, parametro);
-
-			try(statement){
-			
-				statement.execute();
-				final ResultSet rls = statement.getResultSet();
-				
-				while(rls.next()) {
-					
-					Huesped huesped = new Huesped(rls.getInt("id"),
-												  rls.getString("nombre"), 
-												  rls.getString("apellido"), 
-												  rls.getString("fecha_nacimiento"), 
-												  rls.getString("nacionalidad"), 
-												  rls.getString("telefono"));
-					
-					resultado.add(huesped);
-				}
-				return resultado;
-			}
-		} catch(SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	public Huesped cargarDatos(int idHuesped) {
-		Huesped huesped= null;
-		
-		try(con){
-			final PreparedStatement statement = con.prepareStatement("SELECT * FROM huespedes WHERE id = ?");
-			statement.setInt(1, idHuesped);
-			
-			try(statement){
-				final ResultSet rs = statement.executeQuery();
-				
-				while(rs.next()) {
-					
-					huesped = new Huesped(rs.getInt("id"),
-							  rs.getString("nombre"), 
-							  rs.getString("apellido"), 
-							  rs.getString("fecha_nacimiento"), 
-							  rs.getString("nacionalidad"), 
-							  rs.getString("telefono"));
-				}
-				return huesped;
-			}
-		} catch(SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
 
 	public int modificar(Huesped huesped) {
 		

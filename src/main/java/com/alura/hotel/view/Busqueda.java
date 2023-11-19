@@ -7,6 +7,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.alura.hotel.controller.BusquedaController;
 import com.alura.hotel.controller.HuespedController;
 import com.alura.hotel.controller.ReservacionController;
 import com.alura.hotel.modelo.Huesped;
@@ -245,19 +246,14 @@ public class Busqueda extends JFrame {
 				if(!isInt(parametro) && !parametro.isBlank()) {
 						
 					limpiar();
-					
-					cargarHuespedes(parametro);
-					cargarReservas(ids);
-				} 
+					cargarDatosPorHuesped(parametro);
+				}
 
 				if(isInt(parametro)) {
 					
 					limpiar();
-					
-					cargarReserva(parametro);
-					cargarHuesped(idHuesped);
+					cargarDatosPorReserva(parametro);
 				}
-				
 			}
 		});
 		
@@ -372,15 +368,21 @@ public class Busqueda extends JFrame {
 	    	modeloHuesped.getDataVector().clear();
 	    }
 	    
-		private void cargarReserva(String parametro) {
-			int parametro2 = Integer.parseInt(parametro);
+		private void cargarDatosPorReserva(String numero) {
+			int numeroReserva = Integer.parseInt(numero);
 			
-			ReservacionController reservaC = new ReservacionController();
+			BusquedaController busqueda = new BusquedaController();
 			
-			var reserva = reservaC.cargarDatos(parametro2);
-			
-			idHuesped = reserva.getidHuesped();
-			
+			var datos = busqueda.cargarDatosPorNumero(numeroReserva);
+
+			Reservacion reserva = (Reservacion) datos.get(0);
+			Huesped huesped = (Huesped) datos.get(1);
+
+			if (reserva == null) {
+				JOptionPane.showMessageDialog(null, "No se encontro reservacion");
+				throw new RuntimeException();
+			}
+
 			modelo.addRow(new Object[] {
 							reserva.getId(),
 							reserva.getFechaIngreso(),
@@ -389,52 +391,40 @@ public class Busqueda extends JFrame {
 							reserva.getFormaPago(),
 							reserva.getidHuesped()
 			});
-		}
-		
-		private void cargarHuesped(int idHuesped) {
-			
-			HuespedController huespedC = new HuespedController();
-			
-			var huesped = huespedC.cargarDatos(idHuesped);
-			
+
+			if(huesped == null) {
+				JOptionPane.showMessageDialog(null, "No se encontro huesped asociado a la reservación");
+				throw new RuntimeException();
+			}
+
 			modeloHuesped.addRow(new Object[] {
-									huesped.getId(),
-									huesped.getNombre(),
-									huesped.getApellido(),
-									huesped.getNacimiento(),
-									huesped.getNacion(),
-									huesped.getTel()
-					});
-			
-		}
-		
-		private void cargarReservas(List<Integer> ids) {
-			
-			ReservacionController reservaC = new ReservacionController();
-			
-			
-			var listaReservas = reservaC.cargarDatos(ids);
-			
-			listaReservas.forEach(reserva -> modelo.addRow(
-					
-					new Object[] {
-							reserva.getId(),
-							reserva.getFechaIngreso(),
-							reserva.getFechaEgreso(),
-							reserva.getCosto(),
-							reserva.getFormaPago(),
-							reserva.getidHuesped()
-					}));
+					huesped.getId(),
+					huesped.getNombre(),
+					huesped.getApellido(),
+					huesped.getNacimiento(),
+					huesped.getNacion(),
+					huesped.getTel()
+			});
 		}
 
-		private void cargarHuespedes(String parametro) {
+		private void cargarDatosPorHuesped(String apellido) {
 			
-			HuespedController huespedC = new HuespedController();
-			ids = new ArrayList<>();
-			var listaHuesped = huespedC.cargarDatos(parametro);
-			
-			listaHuesped.forEach(huesped -> ids.add(huesped.getId()));
-			
+			BusquedaController busqueda = new BusquedaController();
+
+			//EL METODO DEVUELDE UNA LA LISTA DE HUESPEDES Y RESERVAS ASOCIADOS AL APELLIDO Y NÚMERO DE HUESPED
+			var datos = busqueda.cargarDatosPorApellido(apellido);
+
+			//DESEMPAQUETAMOS LA LISTA.
+			List<Huesped> listaHuesped = (List<Huesped>) datos.get(0);
+			List<Reservacion> listaReservas = (List<Reservacion>) datos.get(1);
+
+			if(listaHuesped == null) {
+				JOptionPane.showMessageDialog(null, "No se encontaron huespedes con ese apellido");
+				throw new RuntimeException();
+			}
+
+			//CON LOS LOOPING AGREGAMOS LA INFORMACIÓN A LA TABLA PARA VISUALIZARLA.
+			//HUESPEDES.
 			listaHuesped.forEach(huesped -> modeloHuesped.addRow(
 					
 					new Object[] {
@@ -445,6 +435,24 @@ public class Busqueda extends JFrame {
 							huesped.getNacion(),
 							huesped.getTel()
 					}));
+
+			if(listaReservas == null) {
+				JOptionPane.showMessageDialog(null, "No se encontraron reservaciones asociadas a ese apellido");
+				throw  new RuntimeException();
+			}
+
+			//RESERVACIÓNES
+			listaReservas.forEach(reserva -> modelo.addRow(
+
+					new Object[] {
+							reserva.getId(),
+							reserva.getFechaIngreso(),
+							reserva.getFechaEgreso(),
+							reserva.getCosto(),
+							reserva.getFormaPago(),
+							reserva.getidHuesped()
+					}
+			));
 		}
 		
 		private boolean tieneFilaElegida(JTable table) {
