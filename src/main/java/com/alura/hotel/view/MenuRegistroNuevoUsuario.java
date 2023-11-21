@@ -1,7 +1,8 @@
 package com.alura.hotel.view;
 
-import com.alura.hotel.enums.CountryEnum;
+import com.alura.hotel.enums.IteradoCountry;
 import com.alura.hotel.modelo.Huesped;
+import com.alura.hotel.validaciones.VRegistroHueUser;
 import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
@@ -12,9 +13,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class MenuRegistroNuevoUsuario extends JFrame{
 
@@ -138,7 +136,7 @@ public class MenuRegistroNuevoUsuario extends JFrame{
         txtNacionalidad.setBounds(560, 385, 289, 36);
         txtNacionalidad.setBackground(SystemColor.text);
         txtNacionalidad.setFont(new Font("Roboto", Font.PLAIN, 16));
-        txtNacionalidad.setModel(new DefaultComboBoxModel(naciones()));
+        txtNacionalidad.setModel(new DefaultComboBoxModel(IteradoCountry.naciones()));
         contentPane.add(txtNacionalidad);
 
         JLabel lblNombre = new JLabel("NOMBRE");
@@ -234,7 +232,7 @@ public class MenuRegistroNuevoUsuario extends JFrame{
                 String nacion = txtNacionalidad.getSelectedItem().toString();
                 String tel = txtTelefono.getText();
 
-                if(validarCampos(nombre, apellido, nacimiento, tel)) {
+                if(VRegistroHueUser.validarCampos(nombre, apellido, nacimiento, tel)) {
                     JOptionPane.showMessageDialog(null,  "Favor de llenar todos los campos");
                 } else {
 
@@ -288,21 +286,5 @@ public class MenuRegistroNuevoUsuario extends JFrame{
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
-    }
-    public boolean validarCampos(String nombre, String apellido, String fecha, String tel) {
-        if(nombre.isBlank() || apellido.isBlank() || fecha.isBlank() || tel.isBlank()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public String[] naciones(){
-        String[] listaNaciones = new String[194];
-
-        for(CountryEnum items: CountryEnum.values()){
-
-            listaNaciones[items.ordinal()] = items.getNacion();
-        }
-        return listaNaciones;
     }
 }

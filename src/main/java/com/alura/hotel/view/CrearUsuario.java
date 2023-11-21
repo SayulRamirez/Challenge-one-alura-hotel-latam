@@ -1,7 +1,6 @@
 package com.alura.hotel.view;
 
 import com.alura.hotel.controller.NewUsuarioController;
-import com.alura.hotel.controller.UsuarioController;
 import com.alura.hotel.modelo.Huesped;
 import com.alura.hotel.modelo.Usuario;
 
@@ -21,22 +20,6 @@ public class CrearUsuario extends JFrame{
     private JLabel labelExit;
     private Huesped dataNewHuesped;
     private Usuario usuarioNew;
-
-    /**
-     * Launch the application.
-     */
-/*    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    CrearUsuario frame = new CrearUsuario();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }*/
 
     /**
      * Create the frame.
@@ -240,12 +223,6 @@ public class CrearUsuario extends JFrame{
         panelMenuRegistro.add(lblRegreso);
     }
 
-    private void registrarNuevoUsuario() {
-        MenuRegistroNuevoUsuario registroUsuario = new MenuRegistroNuevoUsuario();
-        registroUsuario.setVisible(true);
-        dispose();
-    }
-
     private void crearUsuario() {
 
         usuarioNew = new Usuario(txtUsuario.getText(),
@@ -271,6 +248,4 @@ public class CrearUsuario extends JFrame{
         this.setLocation(x - xMouse, y - yMouse);
 
     }
-
-
 }

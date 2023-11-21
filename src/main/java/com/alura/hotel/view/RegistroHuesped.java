@@ -9,7 +9,10 @@ import java.awt.Color;
 
 import com.alura.hotel.controller.HuespedController;
 import com.alura.hotel.enums.CountryEnum;
+import com.alura.hotel.enums.IteradoCountry;
 import com.alura.hotel.modelo.Huesped;
+import com.alura.hotel.validaciones.VRegistroHueUser;
+import com.mchange.v2.codegen.bean.BeanExtractingGeneratorExtension;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -34,7 +37,7 @@ public class RegistroHuesped extends JFrame {
 	private JTextField txtApellido;
 	private JTextField txtTelefono;
 	private JDateChooser txtFechaN;
-	private JComboBox<Format> txtNacionalidad;
+	private JComboBox<String> txtNacionalidad;
 	private JLabel labelExit;
 	private JLabel labelAtras;
 	private int xMouse, yMouse;
@@ -151,7 +154,7 @@ public class RegistroHuesped extends JFrame {
 		txtNacionalidad.setBounds(560, 350, 289, 36);
 		txtNacionalidad.setBackground(SystemColor.text);
 		txtNacionalidad.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtNacionalidad.setModel(new DefaultComboBoxModel(naciones()));
+		txtNacionalidad.setModel(new DefaultComboBoxModel(IteradoCountry.naciones()));
 		contentPane.add(txtNacionalidad);
 		
 		JLabel lblNombre = new JLabel("NOMBRE");
@@ -197,31 +200,36 @@ public class RegistroHuesped extends JFrame {
 		lblTitulo.setForeground(new Color(12, 138, 199));
 		lblTitulo.setFont(new Font("Roboto Black", Font.PLAIN, 23));
 		contentPane.add(lblTitulo);
-		
+
+		//NOMBRE
 		JSeparator separator_1_2 = new JSeparator();
 		separator_1_2.setBounds(560, 170, 289, 2);
 		separator_1_2.setForeground(new Color(12, 138, 199));
 		separator_1_2.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2);
-		
+
+		//APELLIDO
 		JSeparator separator_1_2_1 = new JSeparator();
 		separator_1_2_1.setBounds(560, 240, 289, 2);
 		separator_1_2_1.setForeground(new Color(12, 138, 199));
 		separator_1_2_1.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2_1);
-		
+
+		//FECHA DE NACIMIENTO
 		JSeparator separator_1_2_2 = new JSeparator();
 		separator_1_2_2.setBounds(560, 314, 289, 2);
 		separator_1_2_2.setForeground(new Color(12, 138, 199));
 		separator_1_2_2.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2_2);
-		
+
+		//NACIONALIDAD
 		JSeparator separator_1_2_3 = new JSeparator();
 		separator_1_2_3.setBounds(560, 386, 289, 2);
 		separator_1_2_3.setForeground(new Color(12, 138, 199));
 		separator_1_2_3.setBackground(new Color(12, 138, 199));
 		contentPane.add(separator_1_2_3);
-		
+
+		//TELEFONO
 		JSeparator separator_1_2_4 = new JSeparator();
 		separator_1_2_4.setBounds(560, 457, 289, 2);
 		separator_1_2_4.setForeground(new Color(12, 138, 199));
@@ -241,7 +249,7 @@ public class RegistroHuesped extends JFrame {
 				String nacimiento = formato.format(txtFechaN.getDate());
 				String tel = txtTelefono.getText();
 				
-				if(validarCampos(nombre, apellido, nacimiento, tel)) {
+				if(VRegistroHueUser.validarCampos(nombre, apellido, nacimiento, tel)) {
 					JOptionPane.showMessageDialog(null,  "Favor de llenar todos los campos");
 				} else {
 					

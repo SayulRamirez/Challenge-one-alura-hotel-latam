@@ -5,11 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.alura.hotel.modelo.Huesped;
-import com.alura.hotel.modelo.Reservacion;
 
 public class HuespedDao {
 	final private Connection con;
@@ -66,9 +63,8 @@ public class HuespedDao {
 				
 				statement.execute();
 				
-				int updateCount = statement.getUpdateCount(); 
+				return statement.getUpdateCount();
 				
-				return updateCount;
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -85,9 +81,7 @@ public class HuespedDao {
 				statement.setInt(1, idHuespedEliminar);
 				statement.execute();
 				
-				int updateCount = statement.getUpdateCount();
-				
-				return updateCount;
+				return statement.getUpdateCount();
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

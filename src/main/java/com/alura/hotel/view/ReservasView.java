@@ -45,24 +45,6 @@ public class ReservasView extends JFrame {
 	public static Reservacion reservacion;
 	private double valor = 300;
 	private int idHuesped;
-	
-	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ReservasView frame = new ReservasView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	 */
 
 	/**
 	 * Create the frame.
@@ -92,18 +74,22 @@ public class ReservasView extends JFrame {
 		panel.setLayout(null);
 		
 		// Código que crea los elementos de la interfáz gráfica
+
+		// FECHA DE CHECK IN
 		JSeparator separator_1_2 = new JSeparator();
 		separator_1_2.setForeground(SystemColor.textHighlight);
 		separator_1_2.setBounds(68, 195, 289, 2);
 		separator_1_2.setBackground(SystemColor.textHighlight);
 		panel.add(separator_1_2);
-		
+
+		// FECHA DE CHECK OUT
 		JSeparator separator_1_3 = new JSeparator();
 		separator_1_3.setForeground(SystemColor.textHighlight);
 		separator_1_3.setBackground(SystemColor.textHighlight);
 		separator_1_3.setBounds(68, 453, 289, 2);
 		panel.add(separator_1_3);
-		
+
+		// FORMA DE PAGO
 		JSeparator separator_1_1 = new JSeparator();
 		separator_1_1.setForeground(SystemColor.textHighlight);
 		separator_1_1.setBounds(68, 281, 289, 11);

@@ -310,8 +310,8 @@ public class Login extends JFrame {
 	            
 	        }else {
 	            JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos");
-	            }
-	        } 
+			}
+	}
 
 	 private void headerMousePressed(java.awt.event.MouseEvent evt) {
 	        xMouse = evt.getX();
