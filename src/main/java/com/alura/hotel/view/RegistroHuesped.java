@@ -23,6 +23,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.SimpleDateFormat;
 import java.awt.Toolkit;
+import java.util.Calendar;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 
@@ -221,9 +222,18 @@ public class RegistroHuesped extends JFrame {
 		btnSiguiente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+
+				Calendar fechaActual = Calendar.getInstance();
+				Calendar fechaIngresada = Calendar.getInstance();
+				fechaIngresada.setTime(txtFechaN.getDate());
+
+				if(fechaIngresada.after(fechaActual)){
+					JOptionPane.showMessageDialog(null, "La fecha ingresada no debe de ser mayor a la fecha actual.");
+					throw new RuntimeException();
+				}
 				
 				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-				
+
 				String nombre = txtNombre.getText();
 				String apellido = txtApellido.getText();
 				String nacimiento = formato.format(txtFechaN.getDate());
