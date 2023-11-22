@@ -1,6 +1,5 @@
 package com.alura.hotel.view;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -8,11 +7,9 @@ import javax.swing.JTextField;
 import java.awt.Color;
 
 import com.alura.hotel.controller.HuespedController;
-import com.alura.hotel.enums.CountryEnum;
 import com.alura.hotel.enums.IteradoCountry;
 import com.alura.hotel.modelo.Huesped;
 import com.alura.hotel.validaciones.VRegistroHueUser;
-import com.mchange.v2.codegen.bean.BeanExtractingGeneratorExtension;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -24,7 +21,6 @@ import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
@@ -42,22 +38,6 @@ public class RegistroHuesped extends JFrame {
 	private JLabel labelAtras;
 	private int xMouse, yMouse;
 	private Huesped huesped;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegistroHuesped frame = new RegistroHuesped();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -339,20 +319,5 @@ public class RegistroHuesped extends JFrame {
 		int x = evt.getXOnScreen();
 		int y = evt.getYOnScreen();
 		this.setLocation(x - xMouse, y - yMouse);
-	}
-	public boolean validarCampos(String nombre, String apellido, String fecha, String tel) {
-		if(nombre.isBlank() || apellido.isBlank() || fecha.isBlank() || tel.isBlank()) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	public String[] naciones(){
-		String[] listaNaciones = new String[194];
-
-		for(CountryEnum items: CountryEnum.values()){
-			listaNaciones[items.ordinal()] = items.getNacion();
-		}
-		return listaNaciones;
 	}
 }

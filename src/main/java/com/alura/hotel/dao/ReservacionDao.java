@@ -5,9 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import com.alura.hotel.modelo.Reservacion;
 
@@ -62,9 +59,7 @@ public class ReservacionDao {
 
 				statement.execute();
 
-				int updateCount = statement.getUpdateCount();
-
-				return updateCount;
+                return statement.getUpdateCount();
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -81,9 +76,7 @@ public class ReservacionDao {
 				statement.setInt(1, idReserva);
 				statement.execute();
 
-				int updateCount = statement.getUpdateCount();
-
-				return updateCount;
+                return statement.getUpdateCount();
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

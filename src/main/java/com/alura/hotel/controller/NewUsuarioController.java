@@ -1,6 +1,5 @@
 package com.alura.hotel.controller;
 
-import com.alura.hotel.dao.HuespedDao;
 import com.alura.hotel.dao.NewUsuarioDao;
 import com.alura.hotel.factory.ConnectionFactory;
 import com.alura.hotel.modelo.Huesped;

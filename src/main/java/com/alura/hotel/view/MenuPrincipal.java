@@ -1,7 +1,5 @@
 package com.alura.hotel.view;
 
-
-
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -25,21 +23,7 @@ public class MenuPrincipal extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel labelExit;
-	int xMouse, yMouse;
-	
-	public static void main(String[] args) {
-	EventQueue.invokeLater(new Runnable() {
-		public void run() {
-			try {
-				MenuPrincipal frame = new MenuPrincipal();
-				frame.setVisible(true);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	});
-}
-
+	private int xMouse, yMouse;
 
 	public MenuPrincipal() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/imagenes/aH-40px.png")));
@@ -189,7 +173,7 @@ public class MenuPrincipal extends JFrame {
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
-}
+	}
     
     //IMPLEMENTACION DEL METODO PARA PREGUNTAR SI DESEAN SALIR DE LA APLICACIÓN
     private void salir() {

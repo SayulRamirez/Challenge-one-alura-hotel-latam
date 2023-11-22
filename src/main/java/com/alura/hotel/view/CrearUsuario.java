@@ -246,6 +246,5 @@ public class CrearUsuario extends JFrame{
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
         this.setLocation(x - xMouse, y - yMouse);
-
     }
 }

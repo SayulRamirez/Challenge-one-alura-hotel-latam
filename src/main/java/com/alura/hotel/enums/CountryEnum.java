@@ -205,15 +205,5 @@ public enum CountryEnum {
     public String getNacion() {
         return nacion;
     }
-
-    public static CountryEnum getNacion(String nacion){
-        for (CountryEnum country: values()){
-            if (country.getNacion().equals(nacion)){
-                return country;
-            }
-        }
-        return NO_DEFINIDO;
-    }
-
 }
 

@@ -24,21 +24,6 @@ public class Exito extends JDialog {
 	private int idReservacion;
 
 	/**
-	 * Launch the application.
-	 */
-	/*public static void main(String[] args) {
-		try {
-			Exito dialog = new Exito();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	 */
-
-	/**
 	 * Create the dialog.
 	 */
 	public Exito(int idReservacion) {
@@ -83,7 +68,6 @@ public class Exito extends JDialog {
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 22));
 		lblNewLabel_4.setBounds(152, 101, 199, 42);
-		//lblNewLabel_4.setText(String.valueOf(ReservasView.reservacion.getId()));
 		contentPanel.add(lblNewLabel_4);
 
 		JPanel buttonPane = new JPanel();

@@ -61,12 +61,4 @@ public class Reservacion {
 	public int getidHuesped() {
 		return idHuesped;
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public void setIdHuesped(int id) {
-		this.idHuesped = id;
-	}
 }

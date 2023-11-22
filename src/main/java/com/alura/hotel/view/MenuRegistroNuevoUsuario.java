@@ -26,22 +26,6 @@ public class MenuRegistroNuevoUsuario extends JFrame{
     private int xMouse, yMouse;
 
     /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    MenuRegistroNuevoUsuario frame = new MenuRegistroNuevoUsuario();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    /**
      * Create the frame.
      */
     public MenuRegistroNuevoUsuario() {
@@ -274,7 +258,6 @@ public class MenuRegistroNuevoUsuario extends JFrame{
         panel.add(logo);
         logo.setIcon(new ImageIcon(RegistroHuesped.class.getResource("/imagenes/Ha-100px.png")));
     }
-
 
     //Código que permite mover la ventana por la pantalla según la posición de "x" y "y"
     private void headerMousePressed(java.awt.event.MouseEvent evt) {

@@ -1,7 +1,5 @@
 package com.alura.hotel.controller;
 
-import java.util.List;
-
 import com.alura.hotel.dao.ReservacionDao;
 import com.alura.hotel.factory.ConnectionFactory;
 import com.alura.hotel.modelo.Reservacion;
