@@ -13,6 +13,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class MenuRegistroNuevoUsuario extends JFrame{
 
@@ -216,17 +218,18 @@ public class MenuRegistroNuevoUsuario extends JFrame{
                 String nacion = txtNacionalidad.getSelectedItem().toString();
                 String tel = txtTelefono.getText();
 
-                if(VRegistroHueUser.validarCampos(nombre, apellido, nacimiento, tel)) {
-                    JOptionPane.showMessageDialog(null,  "Favor de llenar todos los campos");
-                } else {
+                VRegistroHueUser.validarCampos(nombre, apellido, nacimiento, tel);
 
-                    //CREAMOS UN OBJETO CON LOS DATOS DEL USUARIO.
-                    Huesped dataNuevoUsuario = new Huesped(nombre, apellido, nacimiento, nacion, tel);
+                VRegistroHueUser.isMayorDeEdad(nacimiento);
 
-                    CrearUsuario cUsuario = new CrearUsuario(dataNuevoUsuario);
-                    cUsuario.setVisible(true);
-                    dispose();
-                }
+                VRegistroHueUser.esNumero(tel);
+
+                //CREAMOS UN OBJETO CON LOS DATOS DEL USUARIO.
+                Huesped dataNuevoUsuario = new Huesped(nombre, apellido, nacimiento, nacion, tel);
+
+                CrearUsuario cUsuario = new CrearUsuario(dataNuevoUsuario);
+                cUsuario.setVisible(true);
+                dispose();
             }
         });
 

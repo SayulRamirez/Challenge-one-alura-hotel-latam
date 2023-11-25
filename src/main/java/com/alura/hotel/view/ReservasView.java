@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 
 import com.alura.hotel.controller.ReservacionController;
 import com.alura.hotel.modelo.Reservacion;
+import com.alura.hotel.validaciones.VFechaReservacion;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Font;
 import javax.swing.JComboBox;
@@ -42,7 +43,6 @@ public class ReservasView extends JFrame {
 	private int xMouse, yMouse;
 	private JLabel labelExit;
 	private JLabel labelAtras;
-	public static Reservacion reservacion;
 	private double valor = 300;
 	private int idHuesped;
 
@@ -305,20 +305,29 @@ public class ReservasView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				obtenerDato();
+				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
-				if (ReservasView.txtFechaEntrada.getDate() != null && ReservasView.txtFechaSalida.getDate() != null) {
+				String fFechaEntrada = formato.format(txtFechaEntrada.getDate());
+				String fFechaSalida = formato.format(txtFechaSalida.getDate());
 
-					ReservacionController reservaController = new ReservacionController();
+				VFechaReservacion.isNull(fFechaEntrada, fFechaSalida);
 
-					int idReservacion = reservaController.registrarReservacion(reservacion);
+				VFechaReservacion.validarFechas(fFechaEntrada, fFechaSalida);
 
-					Exito exito = new Exito(idReservacion);
-					exito.setVisible(true);
-					dispose();
-				} else {
-					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
-				}
+				Reservacion reservacion = new Reservacion(
+						fFechaEntrada,
+						fFechaSalida,
+						txtValor.getText(),
+						txtFormaPago.getSelectedItem().toString(),
+						idHuesped);
+
+				ReservacionController reservaController = new ReservacionController();
+
+				int idReservacion = reservaController.registrarReservacion(reservacion);
+
+				Exito exito = new Exito(idReservacion);
+				exito.setVisible(true);
+				dispose();
 			}
 		});
 		btnGuardar.setLayout(null);
@@ -344,19 +353,7 @@ public class ReservasView extends JFrame {
 		int y = evt.getYOnScreen();
 		this.setLocation(x - xMouse, y - yMouse);
 	}
-	private void obtenerDato() {
-		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
-		String fFechaEntrada = formato.format(txtFechaEntrada.getDate());
-		String fFechaSalida = formato.format(txtFechaSalida.getDate());
-	    	
-		reservacion = new Reservacion(
-					fFechaEntrada,
-					fFechaSalida,
-					txtValor.getText(),
-					txtFormaPago.getSelectedItem().toString(),
-					idHuesped);
-	}
 	private BigDecimal calcularCantidad(Date primera, Date segunda) {
 		long resultado = segunda.getTime() - primera.getTime();
 		TimeUnit time = TimeUnit.DAYS;

@@ -222,15 +222,6 @@ public class RegistroHuesped extends JFrame {
 		btnSiguiente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
-				Calendar fechaActual = Calendar.getInstance();
-				Calendar fechaIngresada = Calendar.getInstance();
-				fechaIngresada.setTime(txtFechaN.getDate());
-
-				if(fechaIngresada.after(fechaActual)){
-					JOptionPane.showMessageDialog(null, "La fecha ingresada no debe de ser mayor a la fecha actual.");
-					throw new RuntimeException();
-				}
 				
 				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -238,26 +229,27 @@ public class RegistroHuesped extends JFrame {
 				String apellido = txtApellido.getText();
 				String nacimiento = formato.format(txtFechaN.getDate());
 				String tel = txtTelefono.getText();
-				
-				if(VRegistroHueUser.validarCampos(nombre, apellido, nacimiento, tel)) {
-					JOptionPane.showMessageDialog(null,  "Favor de llenar todos los campos");
-				} else {
-					
-					huesped = new Huesped(nombre,
-							apellido,
-							nacimiento,
-							txtNacionalidad.getSelectedItem().toString(),
-							tel,
-							Login.usuario.getId()
-							);
-					
-					HuespedController huespedController = new HuespedController();
-					int idHuesped = huespedController.registrarHuesped(huesped);
 
-					ReservasView reservas = new ReservasView(idHuesped);
-					reservas.setVisible(true);
-					dispose();
-				}
+				VRegistroHueUser.validarCampos(nombre, apellido, nacimiento, tel);
+
+				VRegistroHueUser.isMayorDeEdad(nacimiento);
+
+				VRegistroHueUser.esNumero(tel);
+
+				huesped = new Huesped(nombre,
+						apellido,
+						nacimiento,
+						txtNacionalidad.getSelectedItem().toString(),
+						tel,
+						Login.usuario.getId()
+				);
+					
+				HuespedController huespedController = new HuespedController();
+				int idHuesped = huespedController.registrarHuesped(huesped);
+
+				ReservasView reservas = new ReservasView(idHuesped);
+				reservas.setVisible(true);
+				dispose();
 			}
 		});
 		btnSiguiente.setLayout(null);
