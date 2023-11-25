@@ -11,10 +11,19 @@ public class NewUsuarioDao {
 
     final private Connection con;
 
+    /**
+     * {@link java.lang.reflect.Constructor} crea la conexión.
+     * @param con {@link Connection}
+     */
     public NewUsuarioDao(Connection con){
         this.con = con;
     }
 
+    /**
+     * Crea un nuevo {@link Usuario} con la información recibida.
+     * @param usuarioNew {@link Usuario}
+     * @param dataNewHuesped {@link Huesped}
+     */
     public void createNewUser(Usuario usuarioNew, Huesped dataNewHuesped) {
 
         try(con){

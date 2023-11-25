@@ -11,6 +11,7 @@ import com.alura.hotel.controller.HuespedController;
 import com.alura.hotel.controller.ReservacionController;
 import com.alura.hotel.modelo.Huesped;
 import com.alura.hotel.modelo.Reservacion;
+import com.alura.hotel.validaciones.VBusqueda;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -295,7 +296,7 @@ public class Busqueda extends JFrame {
 				}
 
 				if (title.equals("Huéspedes")) {
-					modificarHuesped();
+					eliminarHuesped();
 					limpiar();
 				}
 			}
@@ -321,7 +322,12 @@ public class Busqueda extends JFrame {
 		int y = evt.getYOnScreen();
 		this.setLocation(x - xMouse, y - yMouse);
 	}
-	    
+
+	/**
+	 * Valida que el {@link String} ingresado san números.
+	 * @param s {@link String} para validar.
+	 * @return true si son solo números y false si no lo son
+	 */
 	public boolean isInt(String s) {
 		try {
 			int n = Integer.parseInt(s);
@@ -330,12 +336,19 @@ public class Busqueda extends JFrame {
 			return false;
 		}
 	}
-	    
+
+	/**
+	 * Limpia las casillas de las tablas.
+	 */
 	public void limpiar() {
 		modelo.getDataVector().clear();
 		modeloHuesped.getDataVector().clear();
 	}
-	    
+
+	/**
+	 * Carga los datos buscados por el id de la reserva.
+	 * @param numero int id de la reservación.
+	 */
 	private void cargarDatosPorReserva(String numero) {
 		int numeroReserva = Integer.parseInt(numero);
 			
@@ -375,6 +388,10 @@ public class Busqueda extends JFrame {
 		});
 	}
 
+	/**
+	 * Carga los datos buscados por el apellido del huesped.
+	 * @param apellido {@link String}
+	 */
 	private void cargarDatosPorHuesped(String apellido) {
 			
 		BusquedaController busqueda = new BusquedaController();
@@ -421,19 +438,15 @@ public class Busqueda extends JFrame {
 						reserva.getidHuesped()
 				}));
 	}
-		
-	private boolean tieneFilaElegida(JTable table) {
-		return table.getSelectedRowCount() == 0 || table.getSelectedColumnCount() == 0;
-	}
-		
+
+	/**
+	 * Modifica los datos del huesped.
+	 */
 	private void modificarHuespedes() {
 			
 		HuespedController huespedC = new HuespedController();
 
-		if (tieneFilaElegida(tbHuespedes)) {
-			JOptionPane.showMessageDialog(this, "Por favor, elije un item");
-			return;
-		}
+		VBusqueda.tieneFilaElegida(tbHuespedes);
 
 		Optional.ofNullable(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), tbHuespedes.getSelectedColumn()))
 				.ifPresentOrElse(fila -> {
@@ -452,15 +465,15 @@ public class Busqueda extends JFrame {
 					JOptionPane.showMessageDialog(this, modificacion + "Item modificado con exito!");
 					}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
 	}
-		
+
+	/**
+	 * Modifica los datos de la reservación.
+	 */
 	private void modificarReservas() {
 			
 		ReservacionController rc = new ReservacionController();
-			
-		if (tieneFilaElegida(tbReservas)) {
-			JOptionPane.showMessageDialog(this, "Por favor, elije un item");
-			return;
-		}
+
+		VBusqueda.tieneFilaElegida(tbReservas);
 
 		Optional.ofNullable(modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
 				.ifPresentOrElse(fila -> {
@@ -478,16 +491,16 @@ public class Busqueda extends JFrame {
 					JOptionPane.showMessageDialog(this, modificacion + "Item modificado con exito!");
 					}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
 	}
-		
+
+	/**
+	 * Elimina la reservación.
+	 */
 	private void eliminarReserva() {
 			
 		ReservacionController rc = new ReservacionController();
-			
-		if (tieneFilaElegida(tbReservas)) {
-			JOptionPane.showMessageDialog(this, "Por favor, elije un item");
-			return;
-		}
-			
+
+		VBusqueda.tieneFilaElegida(tbReservas);
+
 		Optional.ofNullable(modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
 				.ifPresentOrElse(fila -> {
 						
@@ -499,15 +512,15 @@ public class Busqueda extends JFrame {
 					JOptionPane.showMessageDialog(this, modificacion + " item a sido eliminado");
 					}, () -> JOptionPane.showMessageDialog(this, "Por favor elije un item"));
 	}
-		
-	private void modificarHuesped() {
+
+	/**
+	 * Elimina el huesped.
+	 */
+	private void eliminarHuesped() {
 		HuespedController hC = new HuespedController();
-			
-		if (tieneFilaElegida(tbHuespedes)) {
-			JOptionPane.showMessageDialog(this, "Por favor, elije un item");
-			return;
-		}
-			
+
+		VBusqueda.tieneFilaElegida(tbHuespedes);
+
 		Optional.ofNullable(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), tbHuespedes.getSelectedColumn()))
 				.ifPresentOrElse(fila -> {
 						

@@ -223,6 +223,9 @@ public class CrearUsuario extends JFrame{
         panelMenuRegistro.add(lblRegreso);
     }
 
+    /**
+     * Crea un nuevo usuario.
+     */
     private void crearUsuario() {
 
         usuarioNew = new Usuario(txtUsuario.getText(),

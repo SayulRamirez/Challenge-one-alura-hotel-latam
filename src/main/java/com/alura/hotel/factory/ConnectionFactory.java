@@ -7,10 +7,17 @@ import javax.sql.DataSource;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
+/**
+ * {@link Class} Para crear la conexión.
+ */
 public class ConnectionFactory {
 
 	private DataSource dataSource;
-	
+
+	/**
+	 * {@link java.lang.reflect.Constructor} asigna los parametros al {@link DataSource}
+	 * como la URL, las licencias y el número de conexiónes activas.
+	 */
 	public ConnectionFactory() {
 		
 		var pooledDataSource = new ComboPooledDataSource();
@@ -21,7 +28,13 @@ public class ConnectionFactory {
 		
 		this.dataSource = pooledDataSource;
 	}
-	
+
+	/**
+	 * Método que intenta realizar la conexión establecida en el {@link DataSource} connfigurada
+	 * en el constructor.
+	 * @return Connection si se establecio la conexión correctamente de lo contrario
+	 * lanza un {@link RuntimeException}.
+	 */
 	public Connection conectar() {
 		try {
 			return this.dataSource.getConnection();

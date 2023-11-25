@@ -279,6 +279,9 @@ public class Login extends JFrame {
 		dispose();
 	}
 
+	/**
+	 * Entra al menu principal autenticando al usuario.
+	 */
 	private void entrarLogin() {
 	        
 	        usuario = new Usuario(txtUsuario.getText(),

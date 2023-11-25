@@ -10,11 +10,20 @@ import com.alura.hotel.modelo.Huesped;
 
 public class HuespedDao {
 	final private Connection con;
-	
+
+	/**
+	 * {@link java.lang.reflect.Constructor} que crea la conexión.
+	 * @param con
+	 */
 	public HuespedDao(Connection con){
 		this.con = con;
 	}
-	
+
+	/**
+	 * Registra en la base de datos el {@link Huesped}
+	 * @param huesped {@link Huesped} con sus datos.
+	 * @return int Id del Huesped.
+	 */
 	public int registrarHuesped(Huesped huesped) {
 		int idHuesped = 0;
 		
@@ -46,6 +55,11 @@ public class HuespedDao {
         return idHuesped;
     }
 
+	/**
+	 * Modifica la información del huesped.
+	 * @param huesped {@link Huesped}
+	 * @return int 1 si se modifico correctamente.
+	 */
 	public int modificar(Huesped huesped) {
 		
 		try(con){
@@ -64,13 +78,17 @@ public class HuespedDao {
 				statement.execute();
 				
 				return statement.getUpdateCount();
-				
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
+	/**
+	 * Elimina los datos del huesped.
+	 * @param idHuespedEliminar int Id del huesped
+	 * @return
+	 */
 	public int eliminar(Integer idHuespedEliminar) {
 
 		try(con){

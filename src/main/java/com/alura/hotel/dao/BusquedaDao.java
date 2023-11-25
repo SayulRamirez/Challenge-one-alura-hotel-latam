@@ -14,10 +14,20 @@ public class BusquedaDao {
 
     final private Connection con;
 
+    /**
+     * {@link java.lang.reflect.Constructor} Crea la conexion.
+     * @param con {@link Connection}
+     */
     public BusquedaDao(Connection con){
         this.con = con;
     }
 
+    /**
+     * Crea una lista de {@link Huesped} y {@link Reservacion} de los datos encontrados
+     * con el parametro.
+     * @param apellido {@link String}
+     * @return Lista de {@link Huesped} y {@link Reservacion}
+     */
     public List<Object> cargarDatosPorApellido(String apellido) {
         List<Huesped> resultadoHu = new ArrayList<>();
         List<Reservacion> resultadoRe = new ArrayList<>();
@@ -73,6 +83,11 @@ public class BusquedaDao {
         }
     }
 
+    /**
+     * Busca la reservación por su identificador y el huesped asociado a ella.
+     * @param numeroReserva int Id de la reservación.
+     * @return Lista de la reservación encontrada y el huesped al que pertenece.
+     */
     public List<Object> cargarDatosPorNumero(int numeroReserva) {
         Reservacion reservacion = null;
         Huesped huesped = null;

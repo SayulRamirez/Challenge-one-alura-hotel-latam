@@ -1,3 +1,4 @@
+
 package com.alura.hotel.view;
 
 import javax.swing.JFrame;
@@ -5,7 +6,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -354,6 +354,12 @@ public class ReservasView extends JFrame {
 		this.setLocation(x - xMouse, y - yMouse);
 	}
 
+	/**
+	 * Calcula el costo de la reservación mediante un valor estatico.
+	 * @param primera {@link Date} de la primer fecha.
+	 * @param segunda {@link Date} de la segunda fecha.
+	 * @return BigDecimal del costo de la reservación.
+	 */
 	private BigDecimal calcularCantidad(Date primera, Date segunda) {
 		long resultado = segunda.getTime() - primera.getTime();
 		TimeUnit time = TimeUnit.DAYS;

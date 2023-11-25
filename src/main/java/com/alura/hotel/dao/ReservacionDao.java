@@ -11,9 +11,19 @@ import com.alura.hotel.modelo.Reservacion;
 public class ReservacionDao {
 	final private Connection con;
 
+	/**
+	 * {@link java.lang.reflect.Constructor} crea la conexión.
+	 * @param con {@link Connection}
+	 */
 	public ReservacionDao(Connection con) {
 		this.con = con;
 	}
+
+	/**
+	 * Registra una nueva reservación.
+	 * @param reservacion {@link Reservacion}
+	 * @return int Id de la Reservación.
+	 */
 	public int registrarReservacion(Reservacion reservacion) {
 		int idReservacion = 0;
 
@@ -45,6 +55,11 @@ public class ReservacionDao {
 		return idReservacion;
 	}
 
+	/**
+	 * Modifica los datos dela reservación.
+	 * @param reservacion {@link Reservacion}
+	 * @return int 1 si la reservación se modifico correctamente.
+	 */
 	public int modificar(Reservacion reservacion) {
 		try(con){
 			final PreparedStatement statement = con.prepareStatement("UPDATE reservaciones SET fecha_ingreso = ?, "
@@ -66,6 +81,11 @@ public class ReservacionDao {
 		}
 	}
 
+	/**
+	 * Elimina la reservación.
+	 * @param idReserva int id de la reservación.
+	 * @return int 1 si se modifico correctamente.
+	 */
 	public int eliminar(Integer idReserva) {
 
 		try(con){

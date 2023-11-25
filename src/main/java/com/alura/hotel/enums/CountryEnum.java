@@ -1,7 +1,6 @@
 package com.alura.hotel.enums;
 
 public enum CountryEnum {
-    NO_DEFINIDO(""),
     AFGANISTAN("AFGANISTÁN"),
     ALBANIA("ALBANIA"),
     ALEMANIA("ALEMANIA"),
