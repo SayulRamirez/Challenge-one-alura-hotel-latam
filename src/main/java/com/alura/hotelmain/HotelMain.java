@@ -4,6 +4,9 @@ import javax.swing.JFrame;
 
 import com.alura.hotel.view.MenuPrincipal;
 
+/**
+ * @author Saul Ramirez (Sayul Ramirez)
+ */
 public class HotelMain {
 	public static void main(String[] args) {
 
