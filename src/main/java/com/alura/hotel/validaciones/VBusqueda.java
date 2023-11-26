@@ -15,4 +15,15 @@ public class VBusqueda {
             throw new RuntimeException("No hay item elejido");
         }
     }
+
+    /**
+     * Si no se lleno el campo manda un mensaje de error y lanza un {@link RuntimeException}.
+     * @param parametro {@link String} parametro de la busqueda.
+     */
+    public static void isVacio(String parametro) {
+        if (parametro.isBlank()){
+            JOptionPane.showMessageDialog(null, "Debes de llenar el campo");
+            throw new RuntimeException("Campo vacío");
+        }
+    }
 }

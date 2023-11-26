@@ -217,16 +217,16 @@ public class Busqueda extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 
 				String parametro = txtBuscar.getText();
-				
-				if(!isInt(parametro) && !parametro.isBlank()) {
-					limpiar();
-					cargarDatosPorHuesped(parametro);
-				}
 
-				if(isInt(parametro)) {
+				VBusqueda.isVacio(parametro);
+
+				if(isInt(parametro)){
 					limpiar();
 					cargarDatosPorReserva(parametro);
 				}
+
+				limpiar();
+				cargarDatosPorHuesped(parametro);
 			}
 		});
 		
@@ -260,8 +260,8 @@ public class Busqueda extends JFrame {
 		        if (title.equals("Reservas")) {
 		        	modificarReservas();
 		        	limpiar();
-		        } 
-		        
+		        }
+
 		        if (title.equals("Huéspedes")) {
 		            modificarHuespedes();
 		            limpiar();
@@ -450,18 +450,17 @@ public class Busqueda extends JFrame {
 
 		Optional.ofNullable(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), tbHuespedes.getSelectedColumn()))
 				.ifPresentOrElse(fila -> {
-					Integer idHuesped = Integer.valueOf(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 0).toString());
-					String nombre = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 1);
-					String apellido = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 2);
-					String nacimiento = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 3);
-					String nacionalidad = (String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 4);
-					String telefono = modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 5).toString();
 
-					Huesped huesped = new Huesped(idHuesped, nombre, apellido, nacimiento, nacionalidad, telefono);
+					Huesped huesped = new Huesped(
+							Integer.parseInt((modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 0).toString())),
+							(String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 1),
+							(String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 2),
+							(String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 3),
+							(String) modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 4),
+							modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 5).toString());
 
-					int modificacion;
-					modificacion = huespedC.modificar(huesped);
-	                    
+					int modificacion = huespedC.modificar(huesped);
+
 					JOptionPane.showMessageDialog(this, modificacion + "Item modificado con exito!");
 					}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
 	}
@@ -477,16 +476,15 @@ public class Busqueda extends JFrame {
 
 		Optional.ofNullable(modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
 				.ifPresentOrElse(fila -> {
-					Integer idReserva = Integer.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString());
-					String fechaIngreso = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 1);
-					String fechaEgreso = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 2);
-					String valor = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 3);
-					String formaPago = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 4);
-	                    
-					Reservacion reservacion = new Reservacion(idReserva, fechaIngreso, fechaEgreso, valor, formaPago);
-	                    
-					int modificacion;
-					modificacion = rc.modificar(reservacion);
+
+					Reservacion reservacion = new Reservacion(
+							Integer.parseInt(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString()),
+							(String) modelo.getValueAt(tbReservas.getSelectedRow(), 1),
+							(String) modelo.getValueAt(tbReservas.getSelectedRow(), 2),
+							(String) modelo.getValueAt(tbReservas.getSelectedRow(), 3),
+							(String) modelo.getValueAt(tbReservas.getSelectedRow(), 3));
+
+					int modificacion = rc.modificar(reservacion);
 	                    
 					JOptionPane.showMessageDialog(this, modificacion + "Item modificado con exito!");
 					}, () -> JOptionPane.showMessageDialog(this, "Por favor, elije un item"));
@@ -504,10 +502,9 @@ public class Busqueda extends JFrame {
 		Optional.ofNullable(modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn()))
 				.ifPresentOrElse(fila -> {
 						
-					Integer idReserva = Integer.valueOf(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString());
+					int idReserva = Integer.parseInt(modelo.getValueAt(tbReservas.getSelectedRow(), 0).toString());
 						
-					int modificacion;
-					modificacion = rc.eliminar(idReserva);
+					int modificacion = rc.eliminar(idReserva);
 						
 					JOptionPane.showMessageDialog(this, modificacion + " item a sido eliminado");
 					}, () -> JOptionPane.showMessageDialog(this, "Por favor elije un item"));
@@ -524,10 +521,9 @@ public class Busqueda extends JFrame {
 		Optional.ofNullable(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), tbHuespedes.getSelectedColumn()))
 				.ifPresentOrElse(fila -> {
 						
-					Integer idHuespedEliminar = Integer.valueOf(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 0).toString());
+					int idHuespedEliminar = Integer.parseInt(modeloHuesped.getValueAt(tbHuespedes.getSelectedRow(), 0).toString());
 						
-					int modificacion;
-					modificacion = hC.eliminar(idHuespedEliminar);
+					int modificacion = hC.eliminar(idHuespedEliminar);
 						
 					JOptionPane.showMessageDialog(this, modificacion + " item a sido eliminado");
 					}, () -> JOptionPane.showMessageDialog(this, "Por favor elije un item"));
