@@ -13,10 +13,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
 
-public class MenuRegistroNuevoUsuario extends JFrame{
+public class RegisterUser extends JFrame{
 
     private JPanel contentPane;
     private JTextField txtNombre;
@@ -30,7 +28,7 @@ public class MenuRegistroNuevoUsuario extends JFrame{
     /**
      * Create the frame.
      */
-    public MenuRegistroNuevoUsuario() {
+    public RegisterUser() {
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/imagenes/lOGO-50PX.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
