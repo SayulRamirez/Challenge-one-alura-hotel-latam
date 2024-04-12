@@ -24,7 +24,7 @@ import java.awt.Cursor;
 
 public class Login extends JFrame {
 
-	private final JTextField txtUsuario;
+	private final JTextField txtUser;
 
 	private final JPasswordField txtPassword;
 
@@ -122,13 +122,13 @@ public class Login extends JFrame {
 		btnClose.setLayout(null);
 		btnClose.add(labelExit);
 
-		txtUsuario = new JTextField();
-		txtUsuario.addMouseListener(new MouseAdapter() {
+		txtUser = new JTextField();
+		txtUser.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				 if (txtUsuario.getText().equals("Ingrese su nombre de usuario")) {
-					 txtUsuario.setText("");
-					 txtUsuario.setForeground(Color.black);
+				 if (txtUser.getText().equals("Ingrese su nombre de usuario")) {
+					 txtUser.setText("");
+					 txtUser.setForeground(Color.black);
 			        }
 			        if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
 			        	txtPassword.setText("********");
@@ -136,13 +136,13 @@ public class Login extends JFrame {
 			        }
 			}
 		});
-		txtUsuario.setFont(new Font("Roboto", Font.PLAIN, 16));
-		txtUsuario.setText("Ingrese su nombre de usuario");
-		txtUsuario.setBorder(BorderFactory.createEmptyBorder());
-		txtUsuario.setForeground(SystemColor.activeCaptionBorder);
-		txtUsuario.setBounds(65, 256, 324, 32);
-		panelBottom.add(txtUsuario);
-		txtUsuario.setColumns(10);
+		txtUser.setFont(new Font("Roboto", Font.PLAIN, 16));
+		txtUser.setText("Ingrese su nombre de usuario");
+		txtUser.setBorder(BorderFactory.createEmptyBorder());
+		txtUser.setForeground(SystemColor.activeCaptionBorder);
+		txtUser.setBounds(65, 256, 324, 32);
+		panelBottom.add(txtUser);
+		txtUser.setColumns(10);
 
 		addSeparator(panelBottom, 45, 292);
 
@@ -164,9 +164,9 @@ public class Login extends JFrame {
 					txtPassword.setForeground(Color.black);
 		        }
 
-		        if (txtUsuario.getText().isEmpty()) {
-		        	txtUsuario.setText("Ingrese su nombre de usuario");
-		        	txtUsuario.setForeground(Color.gray);
+		        if (txtUser.getText().isEmpty()) {
+		        	txtUser.setText("Ingrese su nombre de usuario");
+		        	txtUser.setForeground(Color.gray);
 		        }
 			}
 		});
@@ -238,9 +238,9 @@ public class Login extends JFrame {
 		});
 		header.setBackground(SystemColor.window);
 		header.setBounds(0, 0, 784, 36);
-		panelBottom.add(header);
 		header.setLayout(null);
-		
+		panelBottom.add(header);
+
 		JPanel btnReturnMain = new JPanel();
 		btnReturnMain.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnReturnMain.setBounds(370, 431, 48, 44);
@@ -277,7 +277,7 @@ public class Login extends JFrame {
 	 */
 	private void login() {
 	        
-	        usuario = new Usuario(txtUsuario.getText(), new String (txtPassword.getPassword()));
+	        usuario = new Usuario(txtUser.getText(), new String (txtPassword.getPassword()));
 	        
 	        UserController userController = new UserController();
 	        
@@ -291,12 +291,12 @@ public class Login extends JFrame {
 	            JOptionPane.showMessageDialog(this, "Usuario o Contraseña no válidos");
 			}
 	}
-	private void headerMousePressed(java.awt.event.MouseEvent evt) {
+	private void headerMousePressed(MouseEvent evt) {
 	        xMouse = evt.getX();
 	        yMouse = evt.getY();
 	}
 
-    private void headerMouseDragged(java.awt.event.MouseEvent evt) {
+    private void headerMouseDragged(MouseEvent evt) {
 	        int x = evt.getXOnScreen();
 	        int y = evt.getYOnScreen();
 	        this.setLocation(x - xMouse, y - yMouse);
