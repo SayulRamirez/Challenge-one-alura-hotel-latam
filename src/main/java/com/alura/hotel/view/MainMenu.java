@@ -1,5 +1,7 @@
 package com.alura.hotel.view;
 
+import com.alura.hotel.utils.Load;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -8,7 +10,6 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
@@ -16,7 +17,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Cursor;
-import java.util.Objects;
 
 public class MainMenu extends JFrame {
 
@@ -45,12 +45,12 @@ public class MainMenu extends JFrame {
 		
 		JLabel backgroundImage = new JLabel();
 		backgroundImage.setBounds(-50, 0, 732, 501);
-		loadImage(backgroundImage, "/imagenes/menu-img.png");
+		Load.image(backgroundImage, "/imagenes/menu-img.png");
 		panelBottom.add(backgroundImage);
 		
 		JLabel logo = new JLabel();
 		logo.setBounds(722, 80, 150, 156);
-		loadImage(logo, "/imagenes/aH-150px.png");
+		Load.image(logo, "/imagenes/aH-150px.png");
 		panelBottom.add(logo);
 		
 		JPanel panelFoot = new JPanel();
@@ -112,7 +112,7 @@ public class MainMenu extends JFrame {
 		lblLoginImage.setBounds(0, 0, 80, 70);
 		btnLogin.add(lblLoginImage);
 		lblLoginImage.setHorizontalAlignment(SwingConstants.CENTER);
-		loadImage(lblLoginImage, "/imagenes/login.png");
+		Load.image(lblLoginImage, "/imagenes/login.png");
 
 		JLabel lblTitle = new JLabel("LOGIN");
 		lblTitle.setBounds(754, 265, 83, 24);
@@ -130,13 +130,13 @@ public class MainMenu extends JFrame {
 		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				salir();
+				exit();
 			}
 		});
 		
 		JLabel lblExit = new JLabel();
 		lblExit.setBounds(5, 5, 45, 40);
-		loadImage(lblExit, "/imagenes/cerrar-sesion 32-px.png");
+		Load.image(lblExit, "/imagenes/cerrar-sesion 32-px.png");
 		btnExit.add(lblExit);
 	}
 
@@ -176,21 +176,11 @@ public class MainMenu extends JFrame {
         this.setLocation(x - xMouse, y - yMouse);
 	}
     
-    private void salir() {
-		int opcion = JOptionPane.showConfirmDialog(this, "¿Realmente deseas salir de la aplicación?", "Salir", JOptionPane.YES_NO_OPTION);
+    private void exit() {
+		int option = JOptionPane.showConfirmDialog(this, "¿Realmente deseas salir de la aplicación?", "Salir", JOptionPane.YES_NO_OPTION);
 		
-		if(opcion == JOptionPane.YES_OPTION) {
+		if(option == JOptionPane.YES_OPTION) {
 			System.exit(0);
 		}
     }
-
-	public void loadImage(JLabel label, String location) {
-		try {
-			label.setIcon(new ImageIcon(Objects.requireNonNull(MainMenu.class.getResource(location))));
-		} catch (NullPointerException e) {
-
-			JOptionPane.showMessageDialog(null,"No se pudo encontrar la imagen en la ruta: " + "/imagenes/menu-img.png");
-			throw new RuntimeException(e.getMessage());
-		}
-	}
 }

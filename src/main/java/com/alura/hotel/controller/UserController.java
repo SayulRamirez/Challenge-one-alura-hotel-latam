@@ -4,11 +4,11 @@ import com.alura.hotel.dao.UsuarioDao;
 import com.alura.hotel.factory.ConnectionFactory;
 import com.alura.hotel.modelo.Usuario;
 
-public class UsuarioController {
+public class UserController {
 
 	private UsuarioDao usuarioDao;
 	
-	public UsuarioController() {
+	public UserController() {
 		this.usuarioDao =  new UsuarioDao(new ConnectionFactory().conectar());
 	}
 	

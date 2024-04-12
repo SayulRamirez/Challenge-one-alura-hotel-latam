@@ -204,7 +204,7 @@ public class CrearUsuario extends JFrame{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                MenuRegistroNuevoUsuario registroUsuario = new MenuRegistroNuevoUsuario();
+                RegisterUser registroUsuario = new RegisterUser();
                 registroUsuario.setVisible(true);
                 dispose();
             }
