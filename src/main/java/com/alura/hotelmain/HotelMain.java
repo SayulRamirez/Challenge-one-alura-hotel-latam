@@ -2,7 +2,7 @@ package com.alura.hotelmain;
 
 import javax.swing.JFrame;
 
-import com.alura.hotel.view.MenuPrincipal;
+import com.alura.hotel.view.MainMenu;
 
 /**
  * @author Saul Ramirez (Sayul Ramirez)
@@ -10,7 +10,7 @@ import com.alura.hotel.view.MenuPrincipal;
 public class HotelMain {
 	public static void main(String[] args) {
 
-		MenuPrincipal inicioAplicacion = new MenuPrincipal();
+		MainMenu inicioAplicacion = new MainMenu();
 		inicioAplicacion.setVisible(true);
 		inicioAplicacion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

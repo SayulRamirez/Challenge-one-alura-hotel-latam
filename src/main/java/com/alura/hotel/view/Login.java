@@ -262,8 +262,8 @@ public class Login extends JFrame {
 		
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuPrincipal menuPrincipal = new MenuPrincipal();
-				menuPrincipal.setVisible(true);
+				MainMenu mainMenu = new MainMenu();
+				mainMenu.setVisible(true);
 				dispose();
 			}
 		});
