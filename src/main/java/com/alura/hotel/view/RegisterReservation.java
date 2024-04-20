@@ -32,15 +32,15 @@ import java.math.BigDecimal;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-public class ReservasView extends JFrame {
+public class RegisterReservation extends JFrame {
 	private final JTextField txtAmount;
 	private final JDateChooser chooserCheckIn;
 	private final JDateChooser chooserCheckOut;
 	private final JComboBox<String> comboPaymentMethod;
 	private int xMouse, yMouse;
 
-	public ReservasView(int idHuesped) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ReservasView.class.getResource("/imagenes/aH-40px.png")));
+	public RegisterReservation(int idHuesped) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(RegisterReservation.class.getResource("/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 560);
 		setResizable(false);

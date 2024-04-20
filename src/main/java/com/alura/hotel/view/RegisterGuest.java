@@ -179,7 +179,7 @@ public class RegisterGuest extends JFrame {
 				HuespedController huespedController = new HuespedController();
 				int idHuesped = huespedController.registrarHuesped(huesped);
 
-				ReservasView reservas = new ReservasView(idHuesped);
+				RegisterReservation reservas = new RegisterReservation(idHuesped);
 				reservas.setVisible(true);
 				dispose();
 			}
