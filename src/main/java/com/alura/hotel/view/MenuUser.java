@@ -80,7 +80,7 @@ public class MenuUser extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				RegistroHuesped registro = new RegistroHuesped();
+				RegisterGuest registro = new RegisterGuest();
 				registro.setVisible(true);
 				dispose();
 			}

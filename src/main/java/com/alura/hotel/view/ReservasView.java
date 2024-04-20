@@ -206,8 +206,8 @@ public class ReservasView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				RegistroHuesped registroHuesped = new RegistroHuesped();
-				registroHuesped.setVisible(true);
+				RegisterGuest registerGuest = new RegisterGuest();
+				registerGuest.setVisible(true);
 				dispose();
 			}
 			@Override

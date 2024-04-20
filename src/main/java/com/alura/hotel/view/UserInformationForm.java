@@ -1,6 +1,5 @@
 package com.alura.hotel.view;
 
-import com.alura.hotel.enums.CountryEnum;
 import com.alura.hotel.modelo.Huesped;
 import com.alura.hotel.utils.Load;
 import com.alura.hotel.validaciones.VRegistroHueUser;
@@ -29,7 +28,7 @@ public class UserInformationForm extends JFrame{
      */
     public UserInformationForm() {
 
-        setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/imagenes/lOGO-50PX.png")));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(RegisterGuest.class.getResource("/imagenes/lOGO-50PX.png")));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 910, 634);
 
@@ -106,7 +105,7 @@ public class UserInformationForm extends JFrame{
         comboCountries.setBounds(560, 385, 289, 36);
         comboCountries.setBackground(SystemColor.text);
         comboCountries.setFont(new Font("Roboto", Font.PLAIN, 16));
-        loadCountry();
+        Load.countries(comboCountries);
         contentPane.add(comboCountries);
 
         contentPane.add(addLabel("NOMBRE", 119));
@@ -220,10 +219,6 @@ public class UserInformationForm extends JFrame{
         label.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 
         return label;
-    }
-
-    private void loadCountry() {
-        for (CountryEnum country: CountryEnum.values()) comboCountries.addItem(country.getNacion());
     }
 
     private JTextField addTextField(int positionY) {
