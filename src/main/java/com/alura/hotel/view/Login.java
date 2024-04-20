@@ -267,7 +267,7 @@ public class Login extends JFrame {
 	}
 
 	private void registerUser() {
-		RegisterUser register = new RegisterUser();
+		UserInformationForm register = new UserInformationForm();
 		register.setVisible(true);
 		dispose();
 	}

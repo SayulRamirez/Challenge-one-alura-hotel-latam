@@ -1,48 +1,159 @@
 package com.alura.hotel.view;
 
-import com.alura.hotel.enums.CountryEnum;
+import com.alura.hotel.controller.NewUsuarioController;
 import com.alura.hotel.modelo.Huesped;
+import com.alura.hotel.modelo.Usuario;
 import com.alura.hotel.utils.Load;
-import com.alura.hotel.validaciones.VRegistroHueUser;
-import com.toedter.calendar.JDateChooser;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.text.SimpleDateFormat;
 
-@SuppressWarnings("all")
 public class RegisterUser extends JFrame{
 
-    private final JTextField txtName;
-    private final JTextField txtLastname;
-    private final JTextField txtPhone;
-    private final JDateChooser chooserDate;
-    private final JComboBox<String> comboCountries;
+    private final JTextField txtUser;
+    private final JPasswordField txtPassword;
     private int xMouse, yMouse;
+    private final JLabel labelExit;
 
-    /**
-     * Create the frame.
-     */
-    public RegisterUser() {
-
-        setIconImage(Toolkit.getDefaultToolkit().getImage(RegistroHuesped.class.getResource("/imagenes/lOGO-50PX.png")));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 910, 634);
-
-        JPanel contentPane = new JPanel();
-        contentPane.setBackground(SystemColor.text);
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(contentPane);
-        setLocationRelativeTo(null);
+    public RegisterUser(Huesped huesped) {
+        setResizable(false);
         setUndecorated(true);
-        contentPane.setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setBounds(100, 100, 484, 527);
+        setLocationRelativeTo(null);
+
+        JPanel panelBottom = new JPanel();
+        panelBottom.setBounds(0, 0, 484, 527);
+        panelBottom.setBackground(Color.WHITE);
+        setContentPane(panelBottom);
+        panelBottom.setLayout(null);
+
+        JPanel btnExit = new JPanel();
+        btnExit.setBounds(431, 0, 53, 36);
+        panelBottom.add(btnExit);
+        btnExit.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.exit(0);
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnExit.setBackground(Color.red);
+                labelExit.setForeground(Color.white);
+            }
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnExit.setBackground(new Color(240, 240, 240));
+                labelExit.setForeground(Color.black);
+            }
+        });
+        btnExit.setBackground(new Color(240, 240, 240));
+        btnExit.setLayout(null);
+        btnExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        labelExit = new JLabel("X");
+        labelExit.setBounds(0, 0, 53, 36);
+        btnExit.add(labelExit);
+        labelExit.setForeground(SystemColor.black);
+        labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
+        labelExit.setHorizontalAlignment(SwingConstants.CENTER);
+
+        txtUser = new JTextField();
+        txtUser.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (txtUser.getText().equals("Ingrese su nombre de usuario")) {
+                    txtUser.setText("");
+                    txtUser.setForeground(Color.black);
+                }
+                if (String.valueOf(txtPassword.getPassword()).isEmpty()) {
+                    txtPassword.setText("********");
+                    txtPassword.setForeground(Color.gray);
+                }
+            }
+        });
+        txtUser.setFont(new Font("Roboto", Font.PLAIN, 16));
+        txtUser.setText("Ingrese su nombre de usuario");
+        txtUser.setBorder(BorderFactory.createEmptyBorder());
+        txtUser.setForeground(SystemColor.activeCaptionBorder);
+        txtUser.setBounds(65, 256, 324, 32);
+        panelBottom.add(txtUser);
+        txtUser.setColumns(10);
+
+        panelBottom.add(addSeparator(65, 292, 324, 2)); //User
+
+        JLabel labelTitulo = new JLabel("CREAR USUARIO");
+        labelTitulo.setForeground(SystemColor.textHighlight);
+        labelTitulo.setFont(new Font("Roboto Black", Font.PLAIN, 26));
+        labelTitulo.setBounds(65, 149, 222, 26);
+        panelBottom.add(labelTitulo);
+
+        panelBottom.add(addSeparator(65, 393, 324, 2)); //Password
+
+        txtPassword = new JPasswordField();
+        txtPassword.setText("********");
+        txtPassword.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (String.valueOf(txtPassword.getPassword()).equals("********")) {
+                    txtPassword.setText("");
+                    txtPassword.setForeground(Color.black);
+                }
+                if (txtUser.getText().isEmpty()) {
+                    txtUser.setText("Ingrese su nombre de usuario");
+                    txtUser.setForeground(Color.gray);
+                }
+            }
+        });
+        txtPassword.setForeground(SystemColor.activeCaptionBorder);
+        txtPassword.setFont(new Font("Roboto", Font.PLAIN, 16));
+        txtPassword.setBorder(BorderFactory.createEmptyBorder());
+        txtPassword.setBounds(65, 353, 324, 32);
+        panelBottom.add(txtPassword);
+
+        panelBottom.add(addLabel("USUARIO", 65, 219, 107, 26));
+
+        panelBottom.add(addLabel("CONTRASEÑA", 65, 316, 140, 26));
+
+        JPanel btnRegisterUser = new JPanel();
+        btnRegisterUser.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnRegisterUser.setBackground(new Color(0, 156, 223));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnRegisterUser.setBackground(SystemColor.textHighlight);
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                crearUsuario(huesped);
+            }
+        });
+        btnRegisterUser.setBackground(SystemColor.textHighlight);
+        btnRegisterUser.setBounds(65, 431, 122, 44);
+        panelBottom.add(btnRegisterUser);
+        btnRegisterUser.setLayout(null);
+        btnRegisterUser.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        JLabel lblRegisterUser = new JLabel("CREAR");
+        lblRegisterUser.setBounds(0, 0, 122, 44);
+        lblRegisterUser.setForeground(SystemColor.controlLtHighlight);
+        lblRegisterUser.setHorizontalAlignment(SwingConstants.CENTER);
+        lblRegisterUser.setFont(new Font("Roboto", Font.PLAIN, 18));
+        btnRegisterUser.add(lblRegisterUser);
+
+        JLabel lblLogo = new JLabel();
+        lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
+        lblLogo.setBounds(65, 65, 48, 59);
+        Load.image(lblLogo, "/imagenes/lOGO-50PX.png");
+        panelBottom.add(lblLogo);
 
         JPanel header = new JPanel();
-        header.setBounds(0, 0, 910, 36);
         header.addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
@@ -56,196 +167,68 @@ public class RegisterUser extends JFrame{
                 headerMousePressed(e);
             }
         });
+        header.setBackground(SystemColor.window);
+        header.setBounds(0, 0, 784, 36);
+        panelBottom.add(header);
         header.setLayout(null);
-        header.setBackground(SystemColor.text);
-        header.setOpaque(false);
-        header.setBounds(0, 0, 910, 36);
-        contentPane.add(header);
 
-        JLabel lblBack = addLabelBack();
+        JPanel panelCanceled = new JPanel();
+        panelBottom.add(panelCanceled);
+        panelCanceled.addMouseListener(new MouseAdapter() {
 
-        JPanel btnBack = new JPanel();
-        btnBack.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Login login = new Login();
-                login.setVisible(true);
-                dispose();
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                btnBack.setBackground(Color.white);
-                lblBack.setForeground(Color.black);
-            }
-            @Override
-            public void mouseExited(MouseEvent e) {
-                btnBack.setBackground(new Color(12, 138, 199));
-                lblBack.setForeground(Color.white);
-            }
-        });
-        btnBack.setLayout(null);
-        btnBack.setBackground(new Color(12, 138, 199));
-        btnBack.setBounds(0, 0, 53, 36);
-        btnBack.add(lblBack);
-        header.add(btnBack);
-
-        txtName = addTextField(135);
-        contentPane.add(txtName);
-
-        txtLastname = addTextField(204);
-        contentPane.add(txtLastname);
-
-        chooserDate = new JDateChooser();
-        chooserDate.setBounds(560, 298, 285, 36);
-        Load.image(chooserDate, "/imagenes/icon-reservas.png");
-        chooserDate.getCalendarButton().setBackground(SystemColor.textHighlight);
-        chooserDate.setDateFormatString("yyyy-MM-dd");
-        contentPane.add(chooserDate);
-
-        comboCountries = new JComboBox<>();
-        comboCountries.setBounds(560, 385, 289, 36);
-        comboCountries.setBackground(SystemColor.text);
-        comboCountries.setFont(new Font("Roboto", Font.PLAIN, 16));
-        loadCountry();
-        contentPane.add(comboCountries);
-
-        JLabel lblName = addLabel("NOMBRE", 119);
-        contentPane.add(lblName);
-
-        JLabel lblLastname = addLabel("APELLIDO", 189);
-        contentPane.add(lblLastname);
-
-        JLabel lblDateBirth = addLabel("FECHA DE NACIMIENTO", 266);
-        contentPane.add(lblDateBirth);
-
-        JLabel lblNationality = addLabel("NACIONALIDAD", 356);
-        contentPane.add(lblNationality);
-
-        JLabel lblPhone = addLabel("TELÉFONO", 441);
-        contentPane.add(lblPhone);
-
-        txtPhone = addTextField(459);
-        contentPane.add(txtPhone);
-
-        JLabel lblTitle = new JLabel("REGISTRO USUARIO");
-        lblTitle.setBounds(606, 55, 234, 42);
-        lblTitle.setForeground(new Color(12, 138, 199));
-        lblTitle.setFont(new Font("Roboto Black", Font.PLAIN, 23));
-        contentPane.add(lblTitle);
-
-        //NAME
-        contentPane.add(addSeparator(170));
-
-        //Lastname
-        contentPane.add(addSeparator(240));
-
-        //Birthdate
-        contentPane.add(addSeparator(334));
-
-        //Nationality
-        contentPane.add(addSeparator(421));
-
-        //Phone
-        contentPane.add(addSeparator(492));
-
-        JPanel btnRegister = new JPanel();
-        btnRegister.setBounds(723, 560, 122, 35);
-        btnRegister.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-                String name = txtName.getText();
-                String lastname = txtLastname.getText();
-                String birthdate = format.format(chooserDate.getDate());
-                String nation = (String) comboCountries.getSelectedItem();
-                String phone = txtPhone.getText();
-
-                VRegistroHueUser.validarCampos(name, lastname, birthdate, phone);
-
-                VRegistroHueUser.isMayorDeEdad(birthdate);
-
-                VRegistroHueUser.esNumero(phone);
-
-                Huesped registerClient = new Huesped(name, lastname, birthdate, nation, phone);
-
-                CrearUsuario createUser = new CrearUsuario(registerClient);
-                createUser.setVisible(true);
+                UserInformationForm registroUsuario = new UserInformationForm();
+                registroUsuario.setVisible(true);
                 dispose();
             }
         });
+        panelCanceled.setBackground(SystemColor.textHighlight);
+        panelCanceled.setBounds(297, 431, 122, 44);
+        panelBottom.add(panelCanceled);
+        panelCanceled.setLayout(null);
+        panelCanceled.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        btnRegister.setLayout(null);
-        btnRegister.setBackground(new Color(12, 138, 199));
-        contentPane.add(btnRegister);
-        btnRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        JLabel lblSave = new JLabel("SIGUIENTE");
-        lblSave.setHorizontalAlignment(SwingConstants.CENTER);
-        lblSave.setForeground(Color.WHITE);
-        lblSave.setFont(new Font("Roboto", Font.PLAIN, 18));
-        lblSave.setBounds(0, 0, 122, 35);
-        btnRegister.add(lblSave);
-
-        JPanel panelBanner = new JPanel();
-        panelBanner.setBounds(0, 0, 489, 634);
-        panelBanner.setBackground(new Color(12, 138, 199));
-        contentPane.add(panelBanner);
-        panelBanner.setLayout(null);
-
-        JLabel lblBackgroundImage = new JLabel("");
-        lblBackgroundImage.setBounds(0, 121, 479, 502);
-        panelBanner.add(lblBackgroundImage);
-        Load.image(lblBackgroundImage, "/imagenes/registro.png");
-
-        JLabel logo = new JLabel();
-        logo.setBounds(194, 39, 104, 107);
-        Load.image(logo, "/imagenes/Ha-100px.png");
-        panelBanner.add(logo);
+        JLabel lblCanceled = new JLabel("CANCELAR");
+        lblCanceled.setBounds(0, 0, 122, 44);
+        lblCanceled.setForeground(SystemColor.controlLtHighlight);
+        lblCanceled.setHorizontalAlignment(SwingConstants.CENTER);
+        lblCanceled.setFont(new Font("Roboto", Font.PLAIN, 18));
+        panelCanceled.add(lblCanceled);
     }
 
-    private JLabel addLabelBack() {
-        JLabel label = new JLabel("<");
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setForeground(Color.WHITE);
-        label.setFont(new Font("Roboto", Font.PLAIN, 23));
-        label.setBounds(0, 0, 53, 36);
+    /**
+     * Crea un nuevo usuario.
+     */
+    private void crearUsuario(Huesped huesped) {
 
-        return label;
+        Usuario user = new Usuario(txtUser.getText(), new String (txtPassword.getPassword()));
+
+        NewUsuarioController nUsuarioC = new NewUsuarioController();
+
+        nUsuarioC.createNewUser(user, huesped);
+
+        JOptionPane.showMessageDialog(null, "Usuario creado con éxito.");
+        Login login = new Login();
+        login.setVisible(true);
+        dispose();
     }
-    private JSeparator addSeparator(int positionY) {
+
+    private JSeparator addSeparator(int x, int y, int width, int height) {
         JSeparator separator = new JSeparator();
-        separator.setBounds(560, positionY, 289, 2);
-        separator.setForeground(new Color(12, 138, 199));
-        separator.setBackground(new Color(12, 138, 199));
+        separator.setBackground(new Color(0, 120, 215));
+        separator.setBounds(x, y, width, height);
 
         return separator;
     }
 
-    private JLabel addLabel(String content, int positionY) {
+    private JLabel addLabel(String content, int x, int y, int width, int height) {
         JLabel label = new JLabel(content);
-        label.setBounds(560, positionY, 255, 14);
         label.setForeground(SystemColor.textInactiveText);
-        label.setFont(new Font("Roboto Black", Font.PLAIN, 18));
-
+        label.setFont(new Font("Roboto Black", Font.PLAIN, 20));
+        label.setBounds(x, y, width, height);
         return label;
     }
-
-    private void loadCountry() {
-        for (CountryEnum country: CountryEnum.values()) comboCountries.addItem(country.getNacion());
-    }
-
-    private JTextField addTextField(int positionY) {
-        JTextField field = new JTextField();
-        field.setFont(new Font("Roboto", Font.PLAIN, 16));
-        field.setBounds(560, positionY, 285, 33);
-        field.setBackground(Color.WHITE);
-        field.setBorder(BorderFactory.createEmptyBorder());
-
-        return field;
-    }
-
     private void headerMousePressed(java.awt.event.MouseEvent evt) {
         xMouse = evt.getX();
         yMouse = evt.getY();
