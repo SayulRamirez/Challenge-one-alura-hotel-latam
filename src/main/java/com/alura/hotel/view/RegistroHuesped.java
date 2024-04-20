@@ -79,8 +79,8 @@ public class RegistroHuesped extends JFrame {
 		btnAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuUsuario menuUsuario = new MenuUsuario();
-				menuUsuario.setVisible(true);
+				MenuUser menuUser = new MenuUser();
+				menuUser.setVisible(true);
 				dispose();
 			}
 			@Override
