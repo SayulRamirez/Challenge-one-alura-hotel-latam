@@ -37,7 +37,7 @@ import java.awt.event.MouseMotionAdapter;
 
 import static javax.swing.BorderFactory.*;
 
-public class Busqueda extends JFrame {
+public class Search extends JFrame {
 
 	private final JTextField txtSearch;
 	private final JTable tbGuests;
@@ -49,8 +49,8 @@ public class Busqueda extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Busqueda() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Busqueda.class.getResource("/imagenes/lupa2.png")));
+	public Search() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Search.class.getResource("/imagenes/lupa2.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 571);
 		setLocationRelativeTo(null);
@@ -98,7 +98,7 @@ public class Busqueda extends JFrame {
 		modelReservations.addColumn("Forma de Pago");
 		modelReservations.addColumn("Número de huesped");
 		JScrollPane scrollReservations = new JScrollPane(tbReservations);
-		tabulator.addTab("Reservas", new ImageIcon(Objects.requireNonNull(Busqueda.class.getResource("/imagenes/reservado.png"))), scrollReservations, null);
+		tabulator.addTab("Reservas", new ImageIcon(Objects.requireNonNull(Search.class.getResource("/imagenes/reservado.png"))), scrollReservations, null);
 		scrollReservations.setVisible(true);
 		
 		tbGuests = new JTable();
@@ -118,7 +118,7 @@ public class Busqueda extends JFrame {
 		modelGuests.addColumn("Nacionalidad");
 		modelGuests.addColumn("Telefono");
 		JScrollPane scrollGuests = new JScrollPane(tbGuests);
-		tabulator.addTab("Huéspedes", new ImageIcon(Objects.requireNonNull(Busqueda.class.getResource("/imagenes/pessoas.png"))), scrollGuests, null);
+		tabulator.addTab("Huéspedes", new ImageIcon(Objects.requireNonNull(Search.class.getResource("/imagenes/pessoas.png"))), scrollGuests, null);
 		scrollGuests.setVisible(true);
 		
 		contentPane.add(Label.addLogo(56, 51, 104, 107));
