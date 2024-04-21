@@ -13,4 +13,32 @@ public class Label {
 
         return label;
     }
+
+    public static JLabel addLogo(int x, int y, int width, int height) {
+        JLabel label = new JLabel();
+        label.setBounds(x, y, width, height);
+        Load.image(label, "/imagenes/Ha-100px.png");
+
+        return label;
+    }
+
+    public static JLabel addLabelToPanel(String content, int width, int height) {
+        JLabel label = new JLabel(content);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setBounds(0, 0, width, height);
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Roboto", Font.PLAIN, 18));
+
+        return label;
+    }
+
+    public static JLabel addLabelExit(int width, int height) {
+        JLabel label = new JLabel("X");
+        label.setBounds(0, 0, width, height);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setForeground(Color.BLACK);
+        label.setFont(new Font("Roboto", Font.PLAIN, 18));
+
+        return label;
+    }
 }
