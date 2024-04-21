@@ -9,6 +9,7 @@ import java.awt.Color;
 
 import com.alura.hotel.controller.HuespedController;
 import com.alura.hotel.modelo.Huesped;
+import com.alura.hotel.utils.Label;
 import com.alura.hotel.utils.Load;
 import com.alura.hotel.utils.Separator;
 import com.alura.hotel.validaciones.VRegistroHueUser;
@@ -207,21 +208,14 @@ public class RegisterGuest extends JFrame {
 		Load.image(backgroundImage, "/imagenes/registro.png");
 		panelBanner.add(backgroundImage);
 
-		JLabel lblLogo = new JLabel();
-		lblLogo.setBounds(194, 39, 104, 107);
-		Load.image(lblLogo, "/imagenes/Ha-100px.png");
-		panelBanner.add(lblLogo);
+		panelBanner.add(Label.addLogo(194, 39, 104, 107));
 
 		JPanel btnExit = new JPanel();
 		btnExit.setBounds(857, 0, 53, 36);
 		btnExit.setLayout(null);
 		btnExit.setBackground(Color.white);
 
-		JLabel labelExit = new JLabel("X");
-		labelExit.setBounds(0, 0, 53, 36);
-		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
-		labelExit.setForeground(SystemColor.black);
-		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
+		JLabel labelExit = Label.addLabelExit(53, 36);
 		btnExit.add(labelExit);
 
 		header.add(btnExit);
