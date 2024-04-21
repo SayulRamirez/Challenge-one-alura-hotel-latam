@@ -1,6 +1,8 @@
 package com.alura.hotel.view;
 
+import com.alura.hotel.utils.Label;
 import com.alura.hotel.utils.Load;
+import com.alura.hotel.utils.Separator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,7 +18,6 @@ import java.awt.event.MouseMotionAdapter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.SystemColor;
-import javax.swing.JSeparator;
 import java.awt.Cursor;
 
 public class MenuUser extends JFrame {
@@ -128,9 +129,7 @@ public class MenuUser extends JFrame {
 		lblSearch.setFont(new Font("Roboto", Font.PLAIN, 18));
 		btnSearch.add(lblSearch);
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(26, 219, 201, 2);
-		panelMenu.add(separator);
+		panelMenu.add(Separator.addSeparator(26, 219, 201, 2));
 		
 		JPanel panelBack = new JPanel();
 		panelBack.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -155,11 +154,8 @@ public class MenuUser extends JFrame {
 		btnExit.setBounds(891, 0, 53, 36);
 		header.add(btnExit);
 		
-		JLabel lblExit = new JLabel("X");
-		lblExit.setBounds(0, 0, 53, 36);
+		JLabel lblExit = Label.addLabelExit(53, 36);
 		btnExit.add(lblExit);
-		lblExit.setHorizontalAlignment(SwingConstants.CENTER);
-		lblExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 
 		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
@@ -195,9 +191,9 @@ public class MenuUser extends JFrame {
 	    lblDate.setForeground(Color.WHITE);
 	    lblDate.setFont(new Font("Roboto", Font.PLAIN, 33));
 
-	    Date fechaActual = new Date(); //fecha y hora actual
-	    String fecha = new SimpleDateFormat("dd/MM/yyyy").format(fechaActual); //formatear la fecha en una cadena
-	    lblDate.setText("Hoy es " + fecha); //setear la representacion en cadena de la fecha
+	    Date localDate = new Date();
+	    String date = new SimpleDateFormat("dd/MM/yyyy").format(localDate);
+	    lblDate.setText("Hoy es " + date);
 	    panelHeadboard.add(lblDate);
 
 	    JLabel lblWelcome = new JLabel("Bienvenido");
@@ -217,20 +213,13 @@ public class MenuUser extends JFrame {
 	    lblDescriptionTwo.setBounds(311, 345, 569, 88);
 	    contentPane.add(lblDescriptionTwo);
 	    
-	    contentPane.add(addLabel("- Registro de Reservas y Huéspedes", 312, 444, 295, 27));
+	    contentPane.add(Label.addLabel("- Registro de Reservas y Huéspedes", 312, 444, 450, 27));
 	    
-	    contentPane.add(addLabel("- Edición de Reservas y Huéspedes existentes", 312, 482, 355, 27));
+	    contentPane.add(Label.addLabel("- Edición de Reservas y Huéspedes existentes", 312, 482, 400, 27));
 	    
-	    contentPane.add(addLabel("- Eliminar todo tipo de registros", 312, 520, 295, 27));
+	    contentPane.add(Label.addLabel("- Eliminar todo tipo de registros", 312, 520, 450, 27));
 	}
 
-	private JLabel addLabel(String content, int x, int y, int widht, int height) {
-		JLabel label = new JLabel(content);
-		label.setFont(new Font("Roboto", Font.PLAIN, 17));
-		label.setBounds(x, y, widht, height);
-		return label;
-	}
-	
 	private void headerMousePressed(java.awt.event.MouseEvent evt) {
         xMouse = evt.getX();
         yMouse = evt.getY();

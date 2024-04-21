@@ -1,5 +1,6 @@
 package com.alura.hotel.view;
 
+import com.alura.hotel.utils.Label;
 import com.alura.hotel.utils.Load;
 
 import javax.swing.JFrame;
@@ -84,15 +85,31 @@ public class MainMenu extends JFrame {
 		header.setBackground(Color.WHITE);
 		panelBottom.add(header);
 
-		JPanel btnClose = createButtonExit();
-		header.add(btnClose);
-		
-		lblClose = new JLabel("X");
-		lblClose.setBounds(0, 0, 53, 36);
+		JPanel btnClose = new JPanel();
+		lblClose = Label.addLabelExit( 53, 36);
 		btnClose.add(lblClose);
-		lblClose.setHorizontalAlignment(SwingConstants.CENTER);
-		lblClose.setFont(new Font("Roboto", Font.PLAIN, 18));
-		
+		btnClose.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.exit(0);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnClose.setBackground(Color.red);
+				lblClose.setForeground(Color.white);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnClose.setBackground(Color.white);
+				lblClose.setForeground(Color.black);
+			}
+		});
+		btnClose.setLayout(null);
+		btnClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnClose.setBackground(Color.WHITE);
+		btnClose.setBounds(857, 0, 53, 36);
+		header.add(btnClose);
+
 		JPanel btnLogin = new JPanel();
 		btnLogin.setBounds(754, 300, 83, 70);
 		btnLogin.addMouseListener(new MouseAdapter() {
@@ -117,11 +134,11 @@ public class MainMenu extends JFrame {
 		JLabel lblTitle = new JLabel("LOGIN");
 		lblTitle.setBounds(754, 265, 83, 24);
 		lblTitle.setBackground(SystemColor.window);
-		panelBottom.add(lblTitle);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setForeground(SystemColor.textHighlight);
 		lblTitle.setFont(new Font("Roboto Light", Font.PLAIN, 20));
-		
+		panelBottom.add(lblTitle);
+
 		JPanel btnExit = new JPanel();
 		btnExit.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnExit.setBounds(836, 444, 55, 50);
@@ -138,31 +155,6 @@ public class MainMenu extends JFrame {
 		lblExit.setBounds(5, 5, 45, 40);
 		Load.image(lblExit, "/imagenes/cerrar-sesion 32-px.png");
 		btnExit.add(lblExit);
-	}
-
-	private JPanel createButtonExit() {
-		JPanel panel = new JPanel();
-		panel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				System.exit(0);
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				panel.setBackground(Color.red);
-				lblClose.setForeground(Color.white);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				 panel.setBackground(Color.white);
-			     lblClose.setForeground(Color.black);
-			}
-		});
-		panel.setLayout(null);
-		panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(857, 0, 53, 36);
-		return panel;
 	}
 
 	private void headerMousePressed(MouseEvent evt) {

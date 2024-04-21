@@ -3,7 +3,10 @@ package com.alura.hotel.view;
 import com.alura.hotel.controller.NewUsuarioController;
 import com.alura.hotel.modelo.Huesped;
 import com.alura.hotel.modelo.Usuario;
+import com.alura.hotel.utils.Label;
 import com.alura.hotel.utils.Load;
+import com.alura.hotel.utils.Panel;
+import com.alura.hotel.utils.Separator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +35,13 @@ public class RegisterUser extends JFrame{
         panelBottom.setLayout(null);
 
         JPanel btnExit = new JPanel();
+
+        labelExit = Label.addLabelExit(53, 36);
+        btnExit.add(labelExit);
+
+        btnExit.setBackground(new Color(240, 240, 240));
+        btnExit.setLayout(null);
+        btnExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnExit.setBounds(431, 0, 53, 36);
         panelBottom.add(btnExit);
         btnExit.addMouseListener(new MouseAdapter() {
@@ -50,16 +60,6 @@ public class RegisterUser extends JFrame{
                 labelExit.setForeground(Color.black);
             }
         });
-        btnExit.setBackground(new Color(240, 240, 240));
-        btnExit.setLayout(null);
-        btnExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        labelExit = new JLabel("X");
-        labelExit.setBounds(0, 0, 53, 36);
-        btnExit.add(labelExit);
-        labelExit.setForeground(SystemColor.black);
-        labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
-        labelExit.setHorizontalAlignment(SwingConstants.CENTER);
 
         txtUser = new JTextField();
         txtUser.addMouseListener(new MouseAdapter() {
@@ -83,7 +83,7 @@ public class RegisterUser extends JFrame{
         panelBottom.add(txtUser);
         txtUser.setColumns(10);
 
-        panelBottom.add(addSeparator(65, 292, 324, 2)); //User
+        panelBottom.add(Separator.addSeparator(65, 292, 324, 2)); //User
 
         JLabel labelTitulo = new JLabel("CREAR USUARIO");
         labelTitulo.setForeground(SystemColor.textHighlight);
@@ -91,7 +91,7 @@ public class RegisterUser extends JFrame{
         labelTitulo.setBounds(65, 149, 222, 26);
         panelBottom.add(labelTitulo);
 
-        panelBottom.add(addSeparator(65, 393, 324, 2)); //Password
+        panelBottom.add(Separator.addSeparator(65, 393, 324, 2)); //Password
 
         txtPassword = new JPasswordField();
         txtPassword.setText("********");
@@ -114,11 +114,12 @@ public class RegisterUser extends JFrame{
         txtPassword.setBounds(65, 353, 324, 32);
         panelBottom.add(txtPassword);
 
-        panelBottom.add(addLabel("USUARIO", 65, 219, 107, 26));
+        panelBottom.add(Label.addLabel("USUARIO", 65, 219, 107, 26));
 
-        panelBottom.add(addLabel("CONTRASEÑA", 65, 316, 140, 26));
+        panelBottom.add(Label.addLabel("CONTRASEÑA", 65, 316, 140, 26));
 
-        JPanel btnRegisterUser = new JPanel();
+        JPanel btnRegisterUser = Panel.addPanel("CREAR",65, 431, 122, 44);
+        panelBottom.add(btnRegisterUser);
         btnRegisterUser.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -134,18 +135,6 @@ public class RegisterUser extends JFrame{
                 crearUsuario(huesped);
             }
         });
-        btnRegisterUser.setBackground(SystemColor.textHighlight);
-        btnRegisterUser.setBounds(65, 431, 122, 44);
-        panelBottom.add(btnRegisterUser);
-        btnRegisterUser.setLayout(null);
-        btnRegisterUser.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        JLabel lblRegisterUser = new JLabel("CREAR");
-        lblRegisterUser.setBounds(0, 0, 122, 44);
-        lblRegisterUser.setForeground(SystemColor.controlLtHighlight);
-        lblRegisterUser.setHorizontalAlignment(SwingConstants.CENTER);
-        lblRegisterUser.setFont(new Font("Roboto", Font.PLAIN, 18));
-        btnRegisterUser.add(lblRegisterUser);
 
         JLabel lblLogo = new JLabel();
         lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -172,10 +161,18 @@ public class RegisterUser extends JFrame{
         panelBottom.add(header);
         header.setLayout(null);
 
-        JPanel panelCanceled = new JPanel();
-        panelBottom.add(panelCanceled);
-        panelCanceled.addMouseListener(new MouseAdapter() {
+        JPanel btnCancelRegister = Panel.addPanel("CANCELAR", 297, 431, 122, 44);
+        panelBottom.add(btnCancelRegister);
+        btnCancelRegister.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                btnCancelRegister.setBackground(new Color(0, 156, 223));
+            }
 
+            @Override
+            public void mouseExited(MouseEvent e) {
+                btnCancelRegister.setBackground(SystemColor.textHighlight);
+            }
             @Override
             public void mouseClicked(MouseEvent e) {
                 UserInformationForm registroUsuario = new UserInformationForm();
@@ -183,18 +180,6 @@ public class RegisterUser extends JFrame{
                 dispose();
             }
         });
-        panelCanceled.setBackground(SystemColor.textHighlight);
-        panelCanceled.setBounds(297, 431, 122, 44);
-        panelBottom.add(panelCanceled);
-        panelCanceled.setLayout(null);
-        panelCanceled.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        JLabel lblCanceled = new JLabel("CANCELAR");
-        lblCanceled.setBounds(0, 0, 122, 44);
-        lblCanceled.setForeground(SystemColor.controlLtHighlight);
-        lblCanceled.setHorizontalAlignment(SwingConstants.CENTER);
-        lblCanceled.setFont(new Font("Roboto", Font.PLAIN, 18));
-        panelCanceled.add(lblCanceled);
     }
 
     /**
@@ -214,21 +199,6 @@ public class RegisterUser extends JFrame{
         dispose();
     }
 
-    private JSeparator addSeparator(int x, int y, int width, int height) {
-        JSeparator separator = new JSeparator();
-        separator.setBackground(new Color(0, 120, 215));
-        separator.setBounds(x, y, width, height);
-
-        return separator;
-    }
-
-    private JLabel addLabel(String content, int x, int y, int width, int height) {
-        JLabel label = new JLabel(content);
-        label.setForeground(SystemColor.textInactiveText);
-        label.setFont(new Font("Roboto Black", Font.PLAIN, 20));
-        label.setBounds(x, y, width, height);
-        return label;
-    }
     private void headerMousePressed(java.awt.event.MouseEvent evt) {
         xMouse = evt.getX();
         yMouse = evt.getY();

@@ -6,13 +6,15 @@ import javax.swing.JPanel;
 
 import com.alura.hotel.controller.UserController;
 import com.alura.hotel.modelo.Usuario;
+import com.alura.hotel.utils.Label;
 import com.alura.hotel.utils.Load;
+import com.alura.hotel.utils.Panel;
+import com.alura.hotel.utils.Separator;
 
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JSeparator;
 import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JPasswordField;
@@ -28,7 +30,7 @@ public class Login extends JFrame {
 
 	private final JPasswordField txtPassword;
 
-	int xMouse, yMouse;
+	private int xMouse, yMouse;
 
 	public static Usuario usuario;
 
@@ -43,19 +45,19 @@ public class Login extends JFrame {
 		JPanel panelBottom = new JPanel();
 		panelBottom.setBounds(0, 0, 788, 527);
 		panelBottom.setBackground(Color.WHITE);
-		setContentPane(panelBottom);
 		panelBottom.setLayout(null);
-		
+		setContentPane(panelBottom);
+
 		JPanel panelImage = new JPanel();
 		panelImage.setBackground(new Color(12, 138, 199));
 		panelImage.setBounds(484, 0, 304, 527);
-		panelBottom.add(panelImage);
 		panelImage.setLayout(null);
-		
+		panelBottom.add(panelImage);
+
 		JLabel lblHotel = new JLabel();
 		lblHotel.setBounds(0, 0, 304, 538);
-		panelImage.add(lblHotel);
 		Load.image(lblHotel, "/imagenes/img-hotel-login-.png");
+		panelImage.add(lblHotel);
 
 		JLabel lblQuestion = new JLabel("¿AUN NO TE HAZ REGISTRADO?");
 		lblQuestion.setForeground(SystemColor.controlLtHighlight);
@@ -63,7 +65,8 @@ public class Login extends JFrame {
 		lblQuestion.setBounds(25, 50, 280, 26);
 		panelImage.add(lblQuestion);
 
-		JPanel panelRegister = new JPanel();
+		JPanel panelRegister = Panel.addPanel("NUEVO USUARIO", 50, 90, 200, 44);
+		panelImage.add(panelRegister);
 		panelRegister.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -79,28 +82,16 @@ public class Login extends JFrame {
 				registerUser();
 			}
 		});
-		panelRegister.setBackground(SystemColor.textHighlight);
-		panelRegister.setBounds(50, 90, 200, 44);
-		panelImage.add(panelRegister);
-		panelRegister.setLayout(null);
-		panelRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-		JLabel lblRegister = new JLabel("NUEVO USUARIO");
-		lblRegister.setBounds(0, 0, 200, 44);
-		panelRegister.add(lblRegister);
-		lblRegister.setForeground(SystemColor.controlLtHighlight);
-		lblRegister.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegister.setFont(new Font("Roboto", Font.PLAIN, 18));
-
-		JLabel labelExit = new JLabel("X");
-		labelExit.setBounds(0, 0, 53, 36);
-		labelExit.setForeground(SystemColor.text);
-		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
-		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
 
 		JPanel btnClose = new JPanel();
-		btnClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btnClose.setLayout(null);
+		btnClose.setBackground(new Color(12, 138, 199));
 		btnClose.setBounds(251, 0, 53, 36);
+		btnClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+		JLabel labelExit = Label.addLabelExit(53, 36);
+		btnClose.add(labelExit);
 		panelImage.add(btnClose);
 		btnClose.addMouseListener(new MouseAdapter() {
 			@Override
@@ -118,9 +109,6 @@ public class Login extends JFrame {
 			     labelExit.setForeground(Color.white);
 			}
 		});
-		btnClose.setBackground(new Color(12, 138, 199));
-		btnClose.setLayout(null);
-		btnClose.add(labelExit);
 
 		txtUser = new JTextField();
 		txtUser.addMouseListener(new MouseAdapter() {
@@ -144,15 +132,15 @@ public class Login extends JFrame {
 		panelBottom.add(txtUser);
 		txtUser.setColumns(10);
 
-		addSeparator(panelBottom, 45, 292);
+		panelBottom.add(Separator.addSeparator(65, 292, 324, 2)); // USER
 
 		JLabel lblTitle = new JLabel("INICIAR SESIÓN");
+		lblTitle.setBounds(65, 149, 202, 26);
 		lblTitle.setForeground(SystemColor.textHighlight);
 		lblTitle.setFont(new Font("Roboto Black", Font.PLAIN, 26));
-		lblTitle.setBounds(65, 149, 202, 26);
 		panelBottom.add(lblTitle);
 
-		addSeparator(panelBottom, 65, 393);
+		panelBottom.add(Separator.addSeparator(65, 393, 324, 2)); // PASSWORD
 
 		txtPassword = new JPasswordField();
 		txtPassword.setText("********");
@@ -176,19 +164,14 @@ public class Login extends JFrame {
 		txtPassword.setBounds(65, 353, 324, 32);
 		panelBottom.add(txtPassword);
 		
-		JLabel lblUser = new JLabel("USUARIO");
-		lblUser.setForeground(SystemColor.textInactiveText);
-		lblUser.setFont(new Font("Roboto Black", Font.PLAIN, 20));
-		lblUser.setBounds(65, 219, 107, 26);
+		JLabel lblUser = Label.addLabel("USUARIO", 65, 219, 107, 26);
 		panelBottom.add(lblUser);
 		
-		JLabel lblPassword = new JLabel("CONTRASEÑA");
-		lblPassword.setForeground(SystemColor.textInactiveText);
-		lblPassword.setFont(new Font("Roboto Black", Font.PLAIN, 20));
-		lblPassword.setBounds(65, 316, 140, 26);
+		JLabel lblPassword = Label.addLabel("CONTRASEÑA",65, 316, 140, 26);
 		panelBottom.add(lblPassword);
 		
-		JPanel btnLogin = new JPanel();
+		JPanel btnLogin = Panel.addPanel("ENTRAR", 65, 431, 122, 44);
+		panelBottom.add(btnLogin);
 		btnLogin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -203,19 +186,7 @@ public class Login extends JFrame {
 				login();
 			}
 		});
-		btnLogin.setBackground(SystemColor.textHighlight);
-		btnLogin.setBounds(65, 431, 122, 44);
-		panelBottom.add(btnLogin);
-		btnLogin.setLayout(null);
-		btnLogin.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		
-		JLabel lblEnter = new JLabel("ENTRAR");
-		lblEnter.setBounds(0, 0, 122, 44);
-		btnLogin.add(lblEnter);
-		lblEnter.setForeground(SystemColor.controlLtHighlight);
-		lblEnter.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEnter.setFont(new Font("Roboto", Font.PLAIN, 18));
-		
+
 		JLabel lblLogo = new JLabel();
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		Load.image(lblLogo, "/imagenes/lOGO-50PX.png");
@@ -259,22 +230,12 @@ public class Login extends JFrame {
 		btnReturnMain.add(lblReturn);
 	}
 
-	private void addSeparator(JPanel panel, int x, int y) {
-		JSeparator separator = new JSeparator();
-		separator.setBackground(SystemColor.textHighlight);
-		separator.setBounds(x, y, 324, 2);
-		panel.add(separator);
-	}
-
 	private void registerUser() {
 		UserInformationForm register = new UserInformationForm();
 		register.setVisible(true);
 		dispose();
 	}
 
-	/**
-	 * Entra al menu principal autenticando al usuario.
-	 */
 	private void login() {
 	        
 	        usuario = new Usuario(txtUser.getText(), new String (txtPassword.getPassword()));

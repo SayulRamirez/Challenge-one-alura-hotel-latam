@@ -4,7 +4,6 @@ package com.alura.hotel.view;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.awt.Cursor;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import java.awt.Color;
@@ -14,6 +13,7 @@ import com.alura.hotel.controller.ReservacionController;
 import com.alura.hotel.modelo.Reservacion;
 import com.alura.hotel.utils.Label;
 import com.alura.hotel.utils.Load;
+import com.alura.hotel.utils.Panel;
 import com.alura.hotel.utils.Separator;
 import com.alura.hotel.validaciones.VFechaReservacion;
 import com.toedter.calendar.JDateChooser;
@@ -55,9 +55,9 @@ public class RegisterReservation extends JFrame {
 		basePanel.setLayout(null);
 		setContentPane(basePanel);
 
-		basePanel.add(Separator.addSeparator(68, 195, 289, 2)); //CHECK IN
+		basePanel.add(Separator.addSeparator(68, 194, 289, 2)); //CHECK IN
 
-		basePanel.add(Separator.addSeparator(68, 453, 289, 2)); //CHECK OUT
+		basePanel.add(Separator.addSeparator(68, 451, 289, 2)); //CHECK OUT
 
 		basePanel.add(Separator.addSeparator(68, 281, 289, 2)); //PAYMENT
 
@@ -71,7 +71,7 @@ public class RegisterReservation extends JFrame {
 
 		basePanel.add(Label.addLabel("FORMA DE PAGO", 68, 382, 187, 24));
 
-		basePanel.add(Label.addLabel("VALOR DE LA RESERVA", 72, 303, 217, 16));
+		basePanel.add(Label.addLabel("VALOR DE LA RESERVA", 72, 303, 242, 16));
 
 		JPanel panelBanner = new JPanel();
 		panelBanner.setBounds(428, 0, 482, 560);
@@ -218,16 +218,8 @@ public class RegisterReservation extends JFrame {
 		comboPaymentMethod.setModel(new DefaultComboBoxModel<>(new String[] {"Tarjeta de Crédito", "Tarjeta de Débito", "Dinero en efectivo"}));
 		basePanel.add(comboPaymentMethod);
 
-		JPanel btnFinish = new JPanel();
-
-		JLabel lblFinish = new JLabel("SIGUIENTE");
-		lblFinish.setBounds(0, 0, 122, 35);
-		lblFinish.setForeground(new Color(250, 250, 250));
-		lblFinish.setHorizontalAlignment(SwingConstants.CENTER);
-		lblFinish.setFont(new Font("Dialog", Font.PLAIN, 18));
-		btnFinish.add(lblFinish);
-
-		btnFinish.setBounds(238, 493, 122, 35);
+		JPanel btnFinish = Panel.addPanel("SIGUIENTE", 238, 493, 122, 35);
+		basePanel.add(btnFinish);
 		btnFinish.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -253,15 +245,11 @@ public class RegisterReservation extends JFrame {
 
 				int idReservacion = reservaController.registrarReservacion(reservacion);
 
-				Exito exito = new Exito(idReservacion);
-				exito.setVisible(true);
+				Success success = new Success(idReservacion);
+				success.setVisible(true);
 				dispose();
 			}
 		});
-		btnFinish.setLayout(null);
-		btnFinish.setBackground(SystemColor.textHighlight);
-		btnFinish.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		basePanel.add(btnFinish);
 	}
 
 	private JDateChooser addDateChooser(int positionY) {

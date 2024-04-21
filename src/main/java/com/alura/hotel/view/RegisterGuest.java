@@ -11,12 +11,12 @@ import com.alura.hotel.controller.HuespedController;
 import com.alura.hotel.modelo.Huesped;
 import com.alura.hotel.utils.Label;
 import com.alura.hotel.utils.Load;
+import com.alura.hotel.utils.Panel;
 import com.alura.hotel.utils.Separator;
 import com.alura.hotel.validaciones.VRegistroHueUser;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
@@ -71,12 +71,12 @@ public class RegisterGuest extends JFrame {
 		
 		JPanel btnBack = new JPanel();
 
-		JLabel labelAtras = new JLabel("<");
-		labelAtras.setHorizontalAlignment(SwingConstants.CENTER);
-		labelAtras.setForeground(Color.WHITE);
-		labelAtras.setFont(new Font("Roboto", Font.PLAIN, 23));
-		labelAtras.setBounds(0, 0, 53, 36);
-		btnBack.add(labelAtras);
+		JLabel lblBack = new JLabel("<");
+		lblBack.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBack.setForeground(Color.WHITE);
+		lblBack.setFont(new Font("Roboto", Font.PLAIN, 23));
+		lblBack.setBounds(0, 0, 53, 36);
+		btnBack.add(lblBack);
 		
 		btnBack.addMouseListener(new MouseAdapter() {
 			@Override
@@ -88,12 +88,12 @@ public class RegisterGuest extends JFrame {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnBack.setBackground(Color.white);
-				labelAtras.setForeground(Color.black);
+				lblBack.setForeground(Color.black);
 			}			
 			@Override
 			public void mouseExited(MouseEvent e) {
 				 btnBack.setBackground(new Color(12, 138, 199));
-			     labelAtras.setForeground(Color.white);
+			     lblBack.setForeground(Color.white);
 			}
 		});
 		btnBack.setLayout(null);
@@ -101,37 +101,37 @@ public class RegisterGuest extends JFrame {
 		btnBack.setBounds(0, 0, 53, 36);
 		header.add(btnBack);
 		
-		txtName = loadTextField(560, 135, 285, 33);
+		txtName = loadTextField(145);
 		contentPane.add(txtName);
 		
-		txtLastname = loadTextField(560, 204, 285, 33);
+		txtLastname = loadTextField(224);
 		contentPane.add(txtLastname);
 		
 		JDateChooser txtBirth = new JDateChooser();
-		txtBirth.setBounds(560, 278, 285, 36);
+		txtBirth.setBounds(560, 308, 285, 36);
 		Load.image(txtBirth, "/imagenes/icon-reservas.png");
 		txtBirth.getCalendarButton().setBackground(SystemColor.textHighlight);
 		txtBirth.setDateFormatString("yyyy-MM-dd");
 		contentPane.add(txtBirth);
 		
 		comboNationality = new JComboBox<>();
-		comboNationality.setBounds(560, 350, 289, 36);
+		comboNationality.setBounds(560, 390, 289, 36);
 		comboNationality.setBackground(SystemColor.text);
 		comboNationality.setFont(new Font("Roboto", Font.PLAIN, 16));
 		Load.countries(comboNationality);
 		contentPane.add(comboNationality);
 		
-		contentPane.add(addLabel("NOMBRE", 562, 119, 253, 14));
+		contentPane.add(Label.addLabel("NOMBRE", 562, 119, 253, 20));
 		
-		contentPane.add(addLabel("APELLIDO", 560, 189, 255, 14));
+		contentPane.add(Label.addLabel("APELLIDO", 560, 199, 255, 20));
 		
-		contentPane.add(addLabel("FECHA DE NACIMIENTO", 560, 256, 255, 14));
+		contentPane.add(Label.addLabel("FECHA DE NACIMIENTO", 560, 276, 255, 20));
 		
-		contentPane.add(addLabel("NACIONALIDAD", 560, 326, 255, 14));
+		contentPane.add(Label.addLabel("NACIONALIDAD", 560, 366, 255, 20));
 		
-		contentPane.add(addLabel("TELÉFONO", 562, 406, 253, 14));
+		contentPane.add(Label.addLabel("TELÉFONO", 562, 441, 253, 20));
 		
-		txtTelefono = loadTextField(560 ,424, 285, 33);
+		txtTelefono = loadTextField(459);
 		contentPane.add(txtTelefono);
 		
 		JLabel lblTitulo = new JLabel("REGISTRO HUÉSPED");
@@ -140,22 +140,22 @@ public class RegisterGuest extends JFrame {
 		lblTitulo.setFont(new Font("Roboto Black", Font.PLAIN, 23));
 		contentPane.add(lblTitulo);
 
-		contentPane.add(Separator.addSeparator(560, 170, 289, 2)); //NAME
+		contentPane.add(Separator.addSeparator(560, 180, 289, 2)); //NAME
 
-		contentPane.add(Separator.addSeparator(560, 240, 289, 2)); //LASTNAME
+		contentPane.add(Separator.addSeparator(560, 260, 289, 2)); //LASTNAME
 
-		contentPane.add(Separator.addSeparator(560, 314, 289, 2)); //BIRHTDATE
+		contentPane.add(Separator.addSeparator(560, 344, 289, 2)); //BIRHTDATE
 
-		contentPane.add(Separator.addSeparator(560, 386, 289, 2)); //NATIONALITY
+		contentPane.add(Separator.addSeparator(560, 426, 289, 2)); //NATIONALITY
 
-		contentPane.add(Separator.addSeparator(560, 457, 289, 2)); //PHONE
+		contentPane.add(Separator.addSeparator(560, 492, 289, 2)); //PHONE
 
-		JPanel btnNext = new JPanel();
-		btnNext.setBounds(723, 560, 122, 35);
+		JPanel btnNext = Panel.addPanel("SIGUIENTE",723, 560, 122, 35);new JPanel();
+		contentPane.add(btnNext);
 		btnNext.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+
 				SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 
 				String nombre = txtName.getText();
@@ -176,7 +176,7 @@ public class RegisterGuest extends JFrame {
 						tel,
 						Login.usuario.getId()
 				);
-					
+
 				HuespedController huespedController = new HuespedController();
 				int idHuesped = huespedController.registrarHuesped(huesped);
 
@@ -185,18 +185,7 @@ public class RegisterGuest extends JFrame {
 				dispose();
 			}
 		});
-		btnNext.setLayout(null);
-		btnNext.setBackground(new Color(12, 138, 199));
-		btnNext.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		contentPane.add(btnNext);
 
-		JLabel lblNext = new JLabel("SIGUIENTE");
-		lblNext.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNext.setForeground(Color.WHITE);
-		lblNext.setFont(new Font("Roboto", Font.PLAIN, 18));
-		lblNext.setBounds(0, 0, 122, 35);
-		btnNext.add(lblNext);
-		
 		JPanel panelBanner = new JPanel();
 		panelBanner.setBounds(0, 0, 489, 634);
 		panelBanner.setBackground(new Color(12, 138, 199));
@@ -239,23 +228,15 @@ public class RegisterGuest extends JFrame {
 		});
 	}
 	
-	private JTextField loadTextField(int x, int y, int width, int height) {
+	private JTextField loadTextField(int y) {
 		JTextField field = new JTextField();
 		field.setFont(new Font("Roboto", Font.PLAIN, 16));
-		field.setBounds(x, y, width, height);
+		field.setBounds(560, y, 285, 33);
 		field.setBackground(Color.WHITE);
 		field.setColumns(10);
 		field.setBorder(BorderFactory.createEmptyBorder());
 		
 		return field;
-	}
-
-	private JLabel addLabel(String content, int x, int y, int width, int height) {
-		JLabel label = new JLabel(content);
-		label.setBounds(x, y, width, height);
-		label.setForeground(SystemColor.textInactiveText);
-		label.setFont(new Font("Roboto Black", Font.PLAIN, 18));
-		return label;
 	}
 
 	private void headerMousePressed(java.awt.event.MouseEvent evt) {

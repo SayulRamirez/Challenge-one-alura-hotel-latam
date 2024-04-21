@@ -1,7 +1,10 @@
 package com.alura.hotel.view;
 
 import com.alura.hotel.modelo.Huesped;
+import com.alura.hotel.utils.Label;
 import com.alura.hotel.utils.Load;
+import com.alura.hotel.utils.Panel;
+import com.alura.hotel.utils.Separator;
 import com.alura.hotel.validaciones.VRegistroHueUser;
 import com.toedter.calendar.JDateChooser;
 
@@ -13,7 +16,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.SimpleDateFormat;
 
-@SuppressWarnings("all")
 public class UserInformationForm extends JFrame{
 
     private final JTextField txtName;
@@ -23,9 +25,6 @@ public class UserInformationForm extends JFrame{
     private final JComboBox<String> comboCountries;
     private int xMouse, yMouse;
 
-    /**
-     * Create the frame.
-     */
     public UserInformationForm() {
 
         setIconImage(Toolkit.getDefaultToolkit().getImage(RegisterGuest.class.getResource("/imagenes/lOGO-50PX.png")));
@@ -108,15 +107,15 @@ public class UserInformationForm extends JFrame{
         Load.countries(comboCountries);
         contentPane.add(comboCountries);
 
-        contentPane.add(addLabel("NOMBRE", 119));
+        contentPane.add(Label.addLabel("NOMBRE", 560, 114, 255, 20));
 
-        contentPane.add(addLabel("APELLIDO", 189));
+        contentPane.add(Label.addLabel("APELLIDO", 560, 184, 255, 20));
 
-        contentPane.add(addLabel("FECHA DE NACIMIENTO", 266));
+        contentPane.add(Label.addLabel("FECHA DE NACIMIENTO", 560, 266, 255, 20));
 
-        contentPane.add(addLabel("NACIONALIDAD", 356));
+        contentPane.add(Label.addLabel("NACIONALIDAD", 560, 356, 255, 20));
 
-        contentPane.add(addLabel("TELÉFONO", 441));
+        contentPane.add(Label.addLabel("TELÉFONO", 560, 441, 255, 20));
 
         txtPhone = addTextField(459);
         contentPane.add(txtPhone);
@@ -127,19 +126,19 @@ public class UserInformationForm extends JFrame{
         lblTitle.setFont(new Font("Roboto Black", Font.PLAIN, 23));
         contentPane.add(lblTitle);
 
-        contentPane.add(addSeparator(170)); //NAME
+        contentPane.add(Separator.addSeparator(560, 170, 289, 2)); //NAME
 
-        contentPane.add(addSeparator(240)); //Lastname
+        contentPane.add(Separator.addSeparator(560, 240, 289, 2)); //Lastname
 
-        contentPane.add(addSeparator(334)); //Birthdate
+        contentPane.add(Separator.addSeparator(560, 334, 289, 2)); //Birthdate
 
-        contentPane.add(addSeparator(421)); //Nationality
+        contentPane.add(Separator.addSeparator(560, 421, 289, 2)); //Nationality
 
-        contentPane.add(addSeparator(492)); //Phone
+        contentPane.add(Separator.addSeparator(560, 492, 289, 2)); //Phone
 
-        JPanel btnRegister = new JPanel();
-        btnRegister.setBounds(723, 560, 122, 35);
-        btnRegister.addMouseListener(new MouseAdapter() {
+        JPanel btnNext = Panel.addPanel("SIGUIENTE", 723, 560, 122, 35);
+        contentPane.add(btnNext);
+        btnNext.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
@@ -165,25 +164,13 @@ public class UserInformationForm extends JFrame{
             }
         });
 
-        btnRegister.setLayout(null);
-        btnRegister.setBackground(new Color(12, 138, 199));
-        contentPane.add(btnRegister);
-        btnRegister.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
-        JLabel lblSave = new JLabel("SIGUIENTE");
-        lblSave.setHorizontalAlignment(SwingConstants.CENTER);
-        lblSave.setForeground(Color.WHITE);
-        lblSave.setFont(new Font("Roboto", Font.PLAIN, 18));
-        lblSave.setBounds(0, 0, 122, 35);
-        btnRegister.add(lblSave);
-
         JPanel panelBanner = new JPanel();
         panelBanner.setBounds(0, 0, 489, 634);
         panelBanner.setBackground(new Color(12, 138, 199));
         contentPane.add(panelBanner);
         panelBanner.setLayout(null);
 
-        JLabel lblBackgroundImage = new JLabel("");
+        JLabel lblBackgroundImage = new JLabel();
         lblBackgroundImage.setBounds(0, 121, 479, 502);
         panelBanner.add(lblBackgroundImage);
         Load.image(lblBackgroundImage, "/imagenes/registro.png");
@@ -200,23 +187,6 @@ public class UserInformationForm extends JFrame{
         label.setForeground(Color.WHITE);
         label.setFont(new Font("Roboto", Font.PLAIN, 23));
         label.setBounds(0, 0, 53, 36);
-
-        return label;
-    }
-    private JSeparator addSeparator(int positionY) {
-        JSeparator separator = new JSeparator();
-        separator.setBounds(560, positionY, 289, 2);
-        separator.setForeground(new Color(12, 138, 199));
-        separator.setBackground(new Color(12, 138, 199));
-
-        return separator;
-    }
-
-    private JLabel addLabel(String content, int positionY) {
-        JLabel label = new JLabel(content);
-        label.setBounds(560, positionY, 255, 14);
-        label.setForeground(SystemColor.textInactiveText);
-        label.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 
         return label;
     }
