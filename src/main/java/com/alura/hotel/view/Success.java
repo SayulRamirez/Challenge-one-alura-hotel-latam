@@ -17,7 +17,6 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 
-@SuppressWarnings("serial")
 public class Exito extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
