@@ -5,10 +5,10 @@ import com.alura.hotel.factory.ConnectionFactory;
 import com.alura.hotel.modelo.Huesped;
 
 public class HuespedController {
-	private HuespedDao huespedDao;
+	private final HuespedDao huespedDao;
 	
 	public HuespedController() {
-		this.huespedDao = new HuespedDao(new ConnectionFactory().conectar());
+		this.huespedDao = new HuespedDao();
 	}
 	
 	public int registrarHuesped(Huesped huesped) {

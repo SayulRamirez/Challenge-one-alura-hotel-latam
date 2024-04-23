@@ -7,10 +7,10 @@ import com.alura.hotel.modelo.Usuario;
 
 public class NewUsuarioController {
 
-    private NewUsuarioDao newUsuarioDao;
+    private final NewUsuarioDao newUsuarioDao;
 
     public NewUsuarioController(){
-        this.newUsuarioDao = new NewUsuarioDao(new ConnectionFactory().conectar());
+        this.newUsuarioDao = new NewUsuarioDao();
     }
 
     public void createNewUser(Usuario usuarioNew, Huesped dataNewHuesped) {

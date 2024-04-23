@@ -1,5 +1,6 @@
 package com.alura.hotel.dao;
 
+import com.alura.hotel.factory.ConnectionFactory;
 import com.alura.hotel.modelo.Huesped;
 import com.alura.hotel.modelo.Usuario;
 
@@ -9,14 +10,10 @@ import java.sql.SQLException;
 
 public class NewUsuarioDao {
 
-    final private Connection con;
+    private final Connection con;
 
-    /**
-     * {@link java.lang.reflect.Constructor} crea la conexión.
-     * @param con {@link Connection}
-     */
-    public NewUsuarioDao(Connection con){
-        this.con = con;
+    public NewUsuarioDao(){
+        this.con = new ConnectionFactory().conectar();
     }
 
     /**

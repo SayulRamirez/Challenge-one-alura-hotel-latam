@@ -6,10 +6,10 @@ import com.alura.hotel.modelo.Usuario;
 
 public class UserController {
 
-	private UsuarioDao usuarioDao;
+	private final UsuarioDao usuarioDao;
 	
 	public UserController() {
-		this.usuarioDao =  new UsuarioDao(new ConnectionFactory().conectar());
+		this.usuarioDao =  new UsuarioDao();
 	}
 	
 	public boolean autenticar(Usuario usuario) {

@@ -5,10 +5,10 @@ import com.alura.hotel.factory.ConnectionFactory;
 import com.alura.hotel.modelo.Reservacion;
 
 public class ReservacionController {
-	private ReservacionDao reservacionDao;
+	private final ReservacionDao reservacionDao;
 	
 	public ReservacionController() {
-		this.reservacionDao = new ReservacionDao(new ConnectionFactory().conectar());
+		this.reservacionDao = new ReservacionDao();
 	}
 	public int registrarReservacion(Reservacion reserva) {
 		return reservacionDao.registrarReservacion(reserva);

@@ -6,17 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.alura.hotel.factory.ConnectionFactory;
 import com.alura.hotel.modelo.Reservacion;
 
 public class ReservacionDao {
-	final private Connection con;
+	private final Connection con;
 
 	/**
 	 * {@link java.lang.reflect.Constructor} crea la conexión.
 	 * @param con {@link Connection}
 	 */
-	public ReservacionDao(Connection con) {
-		this.con = con;
+	public ReservacionDao() {
+		this.con = new ConnectionFactory().conectar();
 	}
 
 	/**

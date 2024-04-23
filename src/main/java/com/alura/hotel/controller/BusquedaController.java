@@ -1,16 +1,15 @@
 package com.alura.hotel.controller;
 
 import com.alura.hotel.dao.BusquedaDao;
-import com.alura.hotel.factory.ConnectionFactory;
 
 import java.util.List;
 
 public class BusquedaController {
 
-    private BusquedaDao busquedaDao;
+    private final BusquedaDao busquedaDao;
 
     public BusquedaController(){
-        this.busquedaDao = new BusquedaDao(new ConnectionFactory().conectar());
+        this.busquedaDao = new BusquedaDao();
     }
 
     public List<Object> cargarDatosPorApellido(String parametro) {

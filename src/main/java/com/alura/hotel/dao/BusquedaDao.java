@@ -1,5 +1,6 @@
 package com.alura.hotel.dao;
 
+import com.alura.hotel.factory.ConnectionFactory;
 import com.alura.hotel.modelo.Huesped;
 import com.alura.hotel.modelo.Reservacion;
 
@@ -12,14 +13,14 @@ import java.util.List;
 
 public class BusquedaDao {
 
-    final private Connection con;
+    private final Connection con;
 
     /**
      * {@link java.lang.reflect.Constructor} Crea la conexion.
      * @param con {@link Connection}
      */
-    public BusquedaDao(Connection con){
-        this.con = con;
+    public BusquedaDao(){
+        this.con = new ConnectionFactory().conectar();
     }
 
     /**

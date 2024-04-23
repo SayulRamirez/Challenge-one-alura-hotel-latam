@@ -12,7 +12,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  */
 public class ConnectionFactory {
 
-	private DataSource dataSource;
+	private final DataSource dataSource;
 
 	/**
 	 * {@link java.lang.reflect.Constructor} asigna los parametros al {@link DataSource}

@@ -5,18 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.alura.hotel.factory.ConnectionFactory;
 import com.alura.hotel.modelo.Usuario;
 
 public class UsuarioDao {
 	
-	final private Connection con;
+	private final Connection con;
 
-	/**
-	 * {@link java.lang.reflect.Constructor} crea una conexión.
-	 * @param con {@link Connection}
-	 */
-	public UsuarioDao(Connection con) {
-		this.con = con;
+	public UsuarioDao() {
+		this.con = new ConnectionFactory().conectar();
 	}
 
 	/**
